@@ -6,8 +6,8 @@ The full set of short code parameters are given in the following table:
 
 |Parameter|Description|
 |---------|-----------|
-|ID|ID of the map type to be displayed:|
-|  | WW - Wildlife wardens map|
+|ID|ID of the map type to be displayed:
+ WW - Wildlife wardens map|
 |width|width of the map panel|
 |||
 |height|height of the map panel|
