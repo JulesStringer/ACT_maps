@@ -1,0 +1,70 @@
+{
+  "WWAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "wardens",
+            "value": 1
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "green",
+            "width": 2
+          },
+          "fill": {
+            "color": "rgba(0,255,0,0.1)"
+          }
+        },
+        "name": "Exactly 1 warden"
+      },
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "wardens",
+            "value": 2
+          }
+       },
+        "style": {
+          "stroke": {
+            "color": "green",
+            "width": 3
+          },
+          "fill": {
+            "color": "rgba(0,255,0,0.3)"
+          }
+        },
+        "name": "More than 1 warden"
+      }
+    ],
+    "url": "../../proxy.php?layer=WW",
+    "layer": null,
+    "name": "Wildlife Warden Area",
+    "summary": [ ".parish" ]
+  },
+  "Rivers": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 1
+      }
+    },
+    "layer": null,
+    "url": "../../proxy.php?layer=Rivers",
+    "name": "Rivers",
+    "summary": [ "River ", ".name" ],
+    "minZoom": 10
+  }
+}

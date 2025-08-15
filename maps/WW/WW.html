@@ -1,0 +1,234 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../../ol/v6.5.0-dist/ol.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../ol/v6.5.0-dist/ol.js"></script>
+    <script src="../../proj4/dist/proj4.js"></script>
+    <script src="../../mapping/tables.js"></script>
+    <script src="../../mapping/geometry.js"></script>
+    <script src="../../mapping/condition.js"></script>
+    <script src="../../mapping/tooltips.js"></script>
+    <script src="../../mapping/help.js"></script>
+    <script src="../../mapping/mapdisplay.js"></script>
+    <!-- 
+    <script src="/mapping/uploadjson.js"></script>
+    <script src="/mapping/add.js"></script>
+    -->
+    <script src="WW.js"></script>
+    <style>
+        .atts table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .atts th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .atts td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .noborder {
+            border: none;
+        }
+
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 280px;
+        }
+
+            .ol-popup:after, .ol-popup:before {
+                top: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .ol-popup:after {
+                border-top-color: white;
+                border-width: 10px;
+                left: 48px;
+                margin-left: -10px;
+            }
+
+            .ol-popup:before {
+                border-top-color: #cccccc;
+                border-width: 11px;
+                left: 48px;
+                margin-left: -11px;
+            }
+
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        }
+
+            .ol-popup-closer:after {
+                content: "✖";
+            }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        }
+
+            /* Tooltip text */
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 120px;
+                top: 20px;
+                background-color: bisque;
+                color: black;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 6px;
+                /* Position the tooltip text - see examples below! */
+                position: absolute;
+                z-index: 1;
+                overflow: visible;
+            }
+
+            /* Show the tooltip text when you mouse over the tooltip container */
+            .tooltip:hover .tooltiptext {
+                visibility: visible;
+            }
+
+        .keyhelp {
+            display: none;
+            background-color: #C0C0C0;
+            height: 100%;
+            overflow: auto;
+            position: fixed;
+        }
+
+        .helpmenu {
+            position: fixed;
+            top: 30px;
+            left: 70%;
+            right: 20px;
+            background-color: #C0C0C0;
+            display: none;
+        }
+
+        .helptext {
+            position: fixed;
+            top: 70px;
+            left: 70%;
+            right: 10px;
+            display: none;
+            background-color: #C0C0C0;
+            height: 85%;
+            overflow: auto;
+        }
+
+        .maphelp {
+            display: none;
+            position: relative;
+            left: 10px;
+            padding-right: 20px;
+        }
+    </style>
+    <title>ACT Wildlife Warden Mapping</title>
+</head>
+<body style="overflow:hidden;width:600px;" onload="onload('','', 'findlayer');">
+    <table style="width:600px;">
+        <tr>
+            <td style="width:70px;">
+                <span class="tooltip">
+                    Zoom to:
+                    <span class="tooltiptext">
+                        This enables you to select a parish, that the map is then centred on and sized to fit the parish boundary.
+                        If you select Outline, the map will zoom to show all of Teignbridge.
+                    </span>
+                </span>
+            </td>
+            <td style="width:150px;">
+                <select id="findlayer" onchange="on_findlayerchange(this.value,'findlayer');"></select>
+            </td>
+            <td style="width:70px;">
+                <span class="tooltip">
+                    <button type="button" onclick="onoutline();">Outline</button>
+                    <span class="tooltiptext">
+                        Shows outline map of Teignbridge
+                    </span>
+                </span>
+            </td>
+            <td style="width:210px;"></td>
+            <td style="width:100px;">
+                <span class="tooltip">
+                    <button type="button" style="right:0px;" onclick="onlegend();">Legend</button>
+                    <span class="tooltiptext" style="right:30px;top:20px;">
+                        Press to show the legend
+                    </span>
+                </span>
+            </td>
+        </tr>
+    </table>
+    <div id="main" style="height:800px;overflow:hidden;">
+        <table class="noborder">
+            <tr>
+                <td>
+                    <div style="height:550px;">
+                        <div id="map" class="map" style="width:600px; height:550px;"></div>
+                        <div style="position:relative;top:-20px;"><span id="coords"></span>  <span id="areacode"></span></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="height:220px;width:590px;overflow:auto;">
+                        <span id="areaname"></span> <span id="wardens"></span><br />
+                        <div id="emailspan" style="display:none;">Email: <a id="email" href="" target="contactus"></a></div>
+                        <a id="planning" href="" target="_blank">Planning Applications</a>
+                        <div id="parish_text" style="width:570px;">
+                        </div>
+                        <span id="actiontext"></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('map');"></a>
+            <div id="popup-content"></div>
+        </div>
+    </div>
+    <div id="control" style="position:fixed;top:50px;right:0px;width:200px;table-layout:fixed;height:150px;visibility:hidden;background-color:white;border:1px solid black;"></div>
+    <div id="helpmenu" class="helpmenu">
+    </div>
+    <div id="helptext"></div>
+    <div style="display:none;" class="tooltips">
+        <ul id="legend_tooltips" style="top: 20px; bottom: unset; left: 30px; right: unset;">
+            <li field="on">Turning on checkboxes in this column causes the corresponding layer to display.</li>
+            <li field="clickable">Turning on checkboxes in this column causes features in corresponding layers to respond to mouse clicks by displaying a list of features under the point clicked.</li>
+            <li field="description">This column contains a description of the current layer or theme</li>
+            <li field="expandgroup">This button expands/collapses the corresponding layer group</li>
+            <li field="expandtheme">This button expands/collapses themeing of the current layer</li>
+            <li field="layerrep">Shows a sample of how the layer is displayed on the map when no theme condition applies.</li>
+            <li field="themerep">Shows a sample of how the theme is displayed on the map when the theme condition applies.</li>
+            <li field="themedesc">Description of the current theme.</li>
+            <li field="expandatts">Expands/collapses the attribute group.</li>
+        </ul>
+    </div>
+    <span id="idletext" style="visibility:hidden;">When the pointer moves over an area its details are shown here.</span>
+    <span id="unlocktext" style="display:none">Press outline to return to the outline and show details as the pointer moves over each area.</span>
+    <span id="locktext" style="display:none;">Click in an area zoom in and anchor the details.</span>
+</body>
+</html>

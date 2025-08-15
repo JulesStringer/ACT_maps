@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ACT maps documentation</title>
+        <meta charset="UTF-8">
+        <style>
+            body{
+                margin: auto; /* Center horizontally */
+                max-width: 700px; /* Set maximum width */
+                width: 90%; /* Optional: Allow some flexibility on smaller screens */
+                flex: 1; /* Allows the main content to expand to fill available space */
+            }
+            table {
+                border-collapse: collapse; /* Collapse borders for single-line effect */
+                border: 1px solid #ccc; /* Add a border to the table itself */
+            }
+
+            th, td {
+                border: 1px solid #ccc; /* Add borders to table cells (th and td) */
+                padding: 8px; /* Add some padding within cells */
+                text-align: left; /* Default text alignment to the left */
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>Loading maps</h1>
+        <p>Most mapping is derived from freely available layers from OS Open data in standard formats including shp.
+            Often the download package covers a larger area than is needed for our purposes.
+            As server space is limited we don't want to load more than is necessary.
+            Ideally we want mapping in geojson format for display, so a conversion is needed.
+            A widely used utility for performing this conversion is ogr2ogr which can perform a filtered conversion between formats including
+            shp to geojson.
+        </p>
+        <p>Siteground allows SSH access, but not root access so It is not possible to install ogr2ogr on siteground.</p>
+        <p>This means that map processing needs to be done on another machine prior to uploading the processed maps to 
+            siteground. This is probably as well because map processing tends to be resource intensive.
+        </p>
+        <h2>Maploader utility</h2>
+        <p>Preliminary map loading is performed by map loader, which can be downloaded from:
+            <a href="https://github.com/JulesStringer/maploaders/" >map loader</a> script</p>
+    </body>
+    

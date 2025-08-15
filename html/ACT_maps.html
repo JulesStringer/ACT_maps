@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ACT maps documentation</title>
+        <meta charset="UTF-8">
+        <style>
+            body{
+                margin: auto; /* Center horizontally */
+                max-width: 700px; /* Set maximum width */
+                width: 90%; /* Optional: Allow some flexibility on smaller screens */
+                flex: 1; /* Allows the main content to expand to fill available space */
+            }
+            table {
+                border-collapse: collapse; /* Collapse borders for single-line effect */
+                border: 1px solid #ccc; /* Add a border to the table itself */
+            }
+
+            th, td {
+                border: 1px solid #ccc; /* Add borders to table cells (th and td) */
+                padding: 8px; /* Add some padding within cells */
+                text-align: left; /* Default text alignment to the left */
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>ACT maps</h1>
+        <p>This plugin provides a shortcode which can be configured to display preconfigured maps:</p>
+        <ul>
+            <li>WW Wildlife wardens map</li>
+        </ul>
+        <h2>Full set of short code parameters</h2>
+        <p>The full set of short code parameters are given in the following table:</p>
+        <table>
+            <tr><th>Parameter</th><th>Description</th></tr>
+            <tr><td>ID</td>
+                <td>
+                    <p>ID of the map type to be displayed:</p>
+                    <ul>
+                        <li>WW - Wildlife wardens map</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr><td>width</td><td>width of the map panel</td></tr>
+            <tr><td>height</td><td>height of the map panel</td></tr>
+            <tr><td>title</td><td>title for the map</td></tr>
+            <tr><td>forceshift</td>
+                <td>If set the shift key needs to be held to zoom the map,
+                this defaults to true so only needs to be set to false to turn this functionality off
+                </td>
+            </tr>
+        </table>
+        <h1>Loading maps</h1>
+        <p>Most mapping is derived from freely available layers from OS Open data in standard formats including shp.
+            Often the download package covers a larger area than is needed for our purposes.
+            As server space is limited we don't want to load more than is necessary.
+            Ideally we want mapping in geojson format for display, so a conversion is needed.
+            A widely used utility for performing this conversion is ogr2ogr which can perform a filtered conversion between formats including
+            shp to geojson.
+        </p>
+        <p>It is not practical to install ogr2ogr on siteground (or other web hosting) as root access is not generally
+            available, this is needed to perform the installation.  
+        </p>
+        <p>This means that map processing needs to be done on another machine prior to uploading the processed maps to 
+            siteground.
+        </p>
+        <p>See 
+            <a href="loading_maps.html" target="_blank">loading maps</a> 
+            for further information on loading maps.
+        </p>
+    </body>
+</html>
