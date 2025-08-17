@@ -50,6 +50,65 @@
                 </td>
             </tr>
         </table>
+        <h1>How map layers are defined</h1>
+        <p>In the plugin package is a maps directory, which contains sub-folders for each map ID which contain:
+            <ul>
+                <li>groups.json file defining the layers used</li>
+                <li>{ID}.html an html page to render the frame of the map</li>
+                <li>{ID}.js JavaScript to implement the behaviour of the map</li>
+            </ul>
+        </p>
+        <h2>proxy.php</h2>
+        <p>The groups.json config file references a url which points to geojson data for the map.</p>
+        <p>In most cases the url uses the proxy.php script to turn a layer id into map data</p>
+        <p>This has a number of advantages:</p> 
+        <ul>
+            <li>It enables the code within the plugin to be unchanged to use maps stored outside the plugin directory.
+                Storing maps in the plugin directory is undesirable as it make maintaining the map data harder, 
+                and would make merging with data maintained by ACT_admin impossible.
+            </li>
+            <li>Map files can only be referenced without generating CORS errors if they are in the same domain as the calling page.</li>
+        </ul>
+        <p>The following example shows the use of proxy.php for the WW map layer in the WW map type:
+            <pre>
+                <code>
+    "url": "../../proxy.php?layer=WW"
+                </code>
+            </pre>
+        </p>
+        <p>
+            proxy.php looks up the details of the layer WW in MAPDATA/layers.json which has entries as follows:
+            <pre>
+                <code>
+                    {
+                        "WW":{
+                            "location": "local",
+                            "path": "WW/WildlifeWardenArea.json"
+                        },
+                        "Rivers":{
+                            "location": "remote",
+                            "url": "https://sites.stringerhj.co.uk/mapdata/natural_environment/rivers.json"
+                        }
+                    }
+                </code>
+            </pre>
+            <ul>
+                <li>location can be local or remote.
+                    <ul>
+                        <li>local is a path within the directory defined by MAPDATA</li>
+                        <li>remote is a url</li>
+                    </ul>
+                </li>
+                <li>MAPDATA is a directory containing mapping data which is defined as within wp-config.php,e.g
+                    <pre><code>
+        define( 'MAPDATA' , '/var/www/stringerhj.co.uk/ACT/public_html/mapdata/');                
+                    </code></pre>
+                </li>
+            </ul>
+        </p>
+        <p>
+
+        </p>
         <h1>Loading maps</h1>
         <p>Most mapping is derived from freely available layers from OS Open data in standard formats including shp.
             Often the download package covers a larger area than is needed for our purposes.
@@ -68,5 +127,7 @@
             <a href="loading_maps.html" target="_blank">loading maps</a> 
             for further information on loading maps.
         </p>
+        <h1>Source code repository</h1>
+        <p>The code for this plugin is stored in <a href="https://github.com/JulesStringer/ACT_maps" target="_blank" >https://github.com/JulesStringer/ACT_maps</a></p>
     </body>
 </html>
