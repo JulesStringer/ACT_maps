@@ -37,6 +37,17 @@ Currently the following layers are updated via ACT_maps admin form:
 + Impact map type needs setting up.
 + Impact upload should use ward as well as parish data to pick up newton abbot wards so that WW boundaries can be used.
 
+load impact data for should run several steps:
+1. Load parish data from parish-all-consumption-per-household.csv
+   - then form parishcarbon object
+2. Load ward data from ward-all-consumption-per-household.csv
+   - then form wardcarbon object
+3. Update
+   - Should merge in NA wards to parishcarbon object to form attributes object
+   - make ParishCarbon geoJSON from combined attributes and WW boundaries.
+
++ Need load forms for CC spreadsheet, Parish progress spreadsheet.
+
 # New in this release
 ## 20/8/2025
 + Load impact data form added, driven by js/load-impact-page.js
