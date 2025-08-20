@@ -127,6 +127,35 @@
             <a href="loading_maps.html" target="_blank">loading maps</a> 
             for further information on loading maps.
         </p>
+        <h1>Synchronising maps with a remote server</h1>
+        <p>As is discussed above mapping is generated on a separate server. The proxy mechanism hides this location 
+            from the rest of the map display software described here. It may still be desirable to localise maps that are sourced
+            locally. This can be configured by scheduling syncmaps.php in the mapdata directory to run periodically. 
+            This checks the versions file in monitored directories and takes a local copy of any maps that are changed.
+            This uses the url and path fields in MAPDATA/layers.json to determine which maps are downloaded.
+        </p>
+        <p>If a layer's entry in MAPDATA/layers.json has both url and path fields, then the versions.json file at both
+            locations is checked for the version of the file and if these differ the version from url is copied to path and the version updated.
+            example:
+        </p>
+        <pre>
+            <code>
+    {
+        "WW":{
+            "location": "local",
+            "path": "WW/WildlifeWardenArea.json"
+        },
+        "Rivers":{
+            "location": "local",
+            "url": "https://sites.stringerhj.co.uk/mapdata/natural_environment/rivers.json",
+            "path": "natural_environment/rivers.json"
+        }
+    }
+            </code>
+        </pre>
+        <p>Here the Rivers layer is maintained on a remote site, but also has a local path, 
+            this means that it will be maintained in sync with the remote version.</p>
+        <p>In order for synchronisation to occur syncmaps.php must be installed as a cron job</p>
         <h1>Source code repository</h1>
         <p>The code for this plugin is stored in <a href="https://github.com/JulesStringer/ACT_maps" target="_blank" >https://github.com/JulesStringer/ACT_maps</a></p>
     </body>
