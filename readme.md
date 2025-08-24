@@ -19,7 +19,7 @@ Often the download package covers a larger area than is needed for our purposes.
 As server space is limited we don't want to load more than is necessary.
 
 We want mapping in geojson format for display, so a conversion is needed.
-It is not practical to install the necessary conversiyer is on program on a hosting environment, and the amount of working storage for downloads is prohibitive. 
+It is not practical to install the necessary conversion program on a hosting environment, and the amount of working storage for downloads is prohibitive. 
 Instead I have written a utility [OpenOSLoader](https://github.com/JulesStringer/OpenOSloader) for use on a desktop or laptop, which can keep a mapbase up to date.
 
 # Merging other data with base maps
