@@ -30,21 +30,13 @@ Other data is merged with base map layers either:
 
 ## Layers updated by ACT_maps data upload
 Currently the following layers are updated via ACT_maps admin form:
-+ ParishCarbon - which combines parish boundaries with data downloaded from https://impact-tool.org.uk/download,
++ AreaCarbon - which combines area boundaries with data downloaded from https://impact-tool.org.uk/download,
   the form describes how to generate a suitable download.
 
 # Outstanding Issues
 + Impact map type needs setting up.
-+ Impact upload should use ward as well as parish data to pick up newton abbot wards so that WW boundaries can be used.
 
 load impact data for should run several steps:
-1. Load parish data from parish-all-consumption-per-household.csv
-   - then form parishcarbon object
-2. Load ward data from ward-all-consumption-per-household.csv
-   - then form wardcarbon object
-3. Update
-   - Should merge in NA wards to parishcarbon object to form attributes object
-   - make ParishCarbon geoJSON from combined attributes and WW boundaries.
 
 + Need load forms for CC spreadsheet, Parish progress spreadsheet.
 
@@ -55,3 +47,5 @@ load impact data for should run several steps:
 + make_merged_layer produced a combined layer from a source layer and an attributes object with matching keys and saves it to MAPDATA in a new versioned layer.
 + merge_attributes_into_geoJSON takes a source layer, code attribute name and attributes object and produces an output attributes object
 containing only keys that are in the source layer.
+22/8/2025
++ Impact load Loads data from parish-all-consumption-per-household.csv and ward-all-consumption-per-household.csv to form AreaCarbon on TeignbridgeArea layer created from parishes and NA wards.

@@ -127,6 +127,7 @@ function handle_make_merged_layer() {
     $destinationlayer = isset($_POST['destinationlayer']) ? sanitize_text_field($_POST['destinationlayer']) : '';
     $attributes       = isset($_POST['attributes']) ? json_decode(stripslashes($_POST['attributes']), true) : [];
     $path             = isset($_POST['path']) ? sanitize_text_field($_POST['path']) : '';
+    $reserves         = isset($_POST['reserves']) ? json_decode(stripslashes($_POST['reserves']), true) : [];
     $version          = isset($_POST['version']) ? sanitize_text_field($_POST['version']) : null;
 
     try {
@@ -136,6 +137,7 @@ function handle_make_merged_layer() {
             $destinationlayer,
             $attributes,
             $path,
+            $reserves,
             $version
         );
 
@@ -146,26 +148,49 @@ function handle_make_merged_layer() {
 }
 add_action('wp_ajax_make_merged_layer', 'handle_make_merged_layer');
 
-function make_merged_layer($sourcelayer, $sourcekey, $destinationlayer, $attributes, $path, $version = null) {
+function make_merged_layer($sourcelayer, $sourcekey, $destinationlayer, $attributes, $path, $reserves, $version = null) {
     $proxy_url = plugin_dir_url(__FILE__) . 'proxy.php?layer=' . urlencode($sourcelayer);
     $source_json = file_get_contents($proxy_url);
     if ($source_json === false) {
         throw new Exception("could not fetch source layer: $sourcelayer");
     }
-
+error_log('$reserves: ' .var_export($reserves, true));
     $source_geojson = json_decode($source_json, true);
     if (!$source_geojson || empty($source_geojson['features'])) {
         throw new Exception("invalid geojson returned from source layer: $sourcelayer");
     }
-
+    $target_geojson = [
+        "type" => "FeatureCollection",
+        "name" => $destinationlayer,
+        "crs" => [
+            "type" => "name",
+            "properties" => [
+                "name" => "urn:ogc:def:crs:EPSG::27700"
+            ]
+        ],
+        "features" => []
+    ];
     foreach ($source_geojson['features'] as &$feature) {
-        $key = $feature['properties'][$sourcekey] ?? null;
-        if ($key && isset($attributes[$key])) {
-            $feature['properties'] = $attributes[$key];
+        $code = $feature['properties'][$sourcekey] ?? null;
+        error_log('Code: ' . $code);
+        if ($code && isset($attributes[$code])) {
+            $feature['properties'] = $attributes[$code];
+            $target_geojson["features"][] = $feature;
+        } else if ( $reserves[$code] ){
+            error_log('Trying reserve for ' . $code);
+            foreach($reserves[$code] as $key){
+                error_log('Trying '.$key);
+                if ( $attributes[$key]){
+                    error_log('Found attributes for '.$key);
+                    $feature['properties'] = $attributes[$key];
+                    $target_geojson["features"][] = $feature;
+                    break;
+                }
+            }
         }
     }
 
-    act_save_geojson_layer($destinationlayer, $path, $source_geojson, $version);
+    act_save_geojson_layer($destinationlayer, $path, $target_geojson, $version);
 
     return ['message' => 'merged layer saved'];
 }

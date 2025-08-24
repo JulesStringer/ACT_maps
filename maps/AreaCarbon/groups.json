@@ -1,0 +1,18 @@
+{
+  "area": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "url": "../../proxy.php?layer=AreaCarbon",
+    "layer": null,
+    "name": "Area",
+    "summary": [ ".NAME" ]
+  }
+}

@@ -1,0 +1,174 @@
+<h2>Mapping Help</h2>
+<p>The mapping screen has the following components, click on the + button by each component to see what it does.</p>
+<button type="button" id="help_toolbar_btn" onclick="showhelpdiv('help_toolbar');">+</button>Toolbar
+<br />
+<div id="help_toolbar" class="maphelp" style="position:relative;left:10px;">
+    <p>The toolbar is a row of controls at the top of the page, consisting of:</p>
+    <button type="button" id="help_toolbar_topic_btn" onclick="showhelpdiv('help_toolbar_topic');">+</button>Topic
+    <br/>
+    <div id="help_toolbar_topic" class="maphelp">
+        <p>The topic allow you to control what layers are available for display on the map</p>
+    </div>
+    <button type="button" id="help_toolbar_zoom_btn" onclick="showhelpdiv('help_toolbar_zoom');">+</button>Zoom to
+    <br/>
+    <div id="help_toolbar_zoom" class="maphelp">
+        <p>The Zoom selection allows you to select a area, and zoom the map to display that area in a single action.</p>
+    </div>
+    <button type="button" id="help_toolbar_summaryonhover_btn" onclick="showhelpdiv('help_toolbar_summaryonhover');">+</button>Summary on Hover
+    <br/>
+    <div id="help_toolbar_summaryonhover" class="maphelp">
+        <p>
+            This checkbox controls what happens when the cursor hovers over a clickable feature on the map.
+            If it is checked then a summary description of the current feature is displayed, otherwise the normal
+            behaviour is to display a summary list of features at the cursor position when a click occurs on the map.
+        </p>
+    </div>
+    <button type="button" id="help_toolbar_help_btn" onclick="showhelpdiv('help_toolbar_help');">+</button>Help
+    <br/>
+    <div id="help_toolbar_help" class="maphelp">
+        <p>
+            This button displays the help menu, which consists of:
+            <ul>
+                <li>About - information about the current mapping software release</li>
+                <li>Mapping Help - This help information</li>
+            </ul>
+        </p>
+    </div>
+</div>
+<button type="button" id="help_map_btn" onclick="showhelpdiv('help_map');">+</button>Map
+<br/>
+<div id="help_map" class="maphelp" style="position: relative;left: 10px;">
+    <p>Help about the map</p>
+    <p>The map display consists of a background map with layers on top.</p>
+    <button type="button" id="help_map_layers_btn" onclick="showhelpdiv('help_map_layers');">+</button>Layers displayed
+    <br/>
+    <div id="help_map_layers" class="maphelp" style="position: relative;left: 10px;">
+        <p>Layers can be turned on and off by checking the box in the <strong>On</strong> column of the layer control to the right of the map.</p>
+    </div>
+    <button type="button" id="help_map_navigating_btn" onclick="showhelpdiv('help_map_navigating');">+</button>Area displayed
+    <br/>
+    <div id="help_map_navigating" class="maphelp" style="position: relative;left: 10px;">
+        <p>The centre point of the map is changed by dragging the map (with your finger or by holding the left mouse button down, drag and release).</p>
+        <p>The map can be zoomed either with the +- buttons at the top left, of by using the scrollwheel on a mouse.</p>
+    </div>
+    <button type="button" id="help_map_attributes_btn" onclick="showhelpdiv('help_map_attributes');">+</button>Feature Summary
+    <br/>
+    <div id="help_map_attributes" class="maphelp">
+        <p>When you select one or more feature on the map by clicking/tapping on them, a summary list of features is displayed, with a link for each feature.</p>
+        <p>If you then select the link, the feature's attributes will be displayed to the right (see attributes for more details).</p>
+        <p>The ability to select features is controlled by the checkbox in the <strong>clickable</strong> column of the layer control.</p>
+    </div>
+    <button type="button" id="help_map_coordinates_btn" onclick="showhelpdiv('help_map_coordinates');">+</button>Coordinates
+    <br/>
+    <div id="help_map_coordinates" class="maphelp">
+        <p>At the bottom left corner of the map the grid reference of the cursor position is displayed.</p>
+    </div>
+</div>
+<button type="button" id="help_layers_btn" onclick="showhelpdiv('help_layers');">+</button>Layers
+<br/>
+<div id="help_layers" class="maphelp" style="position: relative;left: 10px;">
+    <p>The layers control to the right of the map controls which layers are displayed on the map and has the following elements (from left to right)</p>
+    <table>
+        <tr><th>Element</th><th>Description</th></tr>
+        <tr><td>Expand Group</td><td>Where layers have been grouped buttons with a + or - sign expand/collapse the list of layers in the group.</td></tr>
+        <tr><td>On</td><td>Checkbox which when checked causes a layer to be displayed.</td></tr>
+        <tr><td>Clickable</td><td>Checkbox which when checked enables details of features in this layer to be accessible by a click on the map</td></tr>
+        <tr><td>Representation</td><td>A sample of how the layer/theme is displayed on the map</td></tr>
+        <tr><td>Expand themes</td><td>Where a layer is themed using a condition on its attributes, this button with a + or - sign expands/collapses the list of themes for the layer.</td></tr>
+        <tr><td>Description</td><td>Description of the layer / theme</td></tr>
+    </table>
+</div>
+<button type="button" id="help_attributes_btn" onclick="showhelpdiv('help_attributes');">+</button>Feature Details
+<br/>
+<div id="help_attributes" class="maphelp">
+    <p>When feature details are selected from the map these are displayed in the same area as the layer control</p>
+    <button type="button" id="help_attributes_title_btn" onclick="showhelpdiv('help_attributes_title');">+</button>Title
+    <br/>
+    <div id="help_attributes_title" class="maphelp" style="position: relative;left: 10px;">
+        <p>At the top of the feature details display is a summary title, which corresponds with the feature summary displayed on the point clicked on the map.</p>
+    </div>
+    <button type="button" id="help_attributes_buttons_btn" onclick="showhelpdiv('help_attributes_buttons');">+</button>Buttons
+    <br/>
+    <div id="help_attributes_buttons" class="maphelp" style="position: relative;left: 10px;">
+        <p>Below the title is a row of buttons top, print, close.</p>
+        <table>
+            <tr><th>Button</th><th>Description</th></tr>
+            <tr><td>Top</td><td>Puts the first row of the attribute display at the top of the attributes area (just below the buttons)</td></tr>
+            <tr><td>Print</td><td>Prints the current map together with an expanded view of the attributes of the current feature</td></tr>
+            <tr><td>Close</td><td>Closes the feature attributes window</td></tr>
+        </table>
+    </div>
+    <button type="button" id="help_attributes_atts_btn" onclick="showhelpdiv('help_attributes_atts');">+</button>Attributes
+    <br/>
+    <div id="help_attributes_atts" class="maphelp" style="position: relative;left: 10px;">
+        <p>The remainder of the attributes window displays grouped attributes, the first of these groups (always called attributes) is displayed expanded, the rest are collapsed.</p>
+        <p>Where there is further information (metadata) about a named attribute, it has a tooltip, and a link to further information</p>
+        <button type="button" id="help_attributes_atts_atts_btn" onclick="showhelpdiv('help_attributes_atts_atts');">+</button>Attributes
+        <br />
+        <div id="help_attributes_atts_atts" class="maphelp" style="position: relative;left: 10px;">
+            <p>
+                A table of names and attribute values, with where appropriate units to the right.
+            </p>
+        </div>
+        <button type="button" id="help_attributes_atts_groups_btn" onclick="showhelpdiv('help_attributes_atts_groups');">+</button>Other Attribute Groups
+        <br />
+        <div id="help_attributes_atts_groups" class="maphelp" style="position: relative;left: 10px;">
+            <p>
+                Other attributes are grouped. The expand (+/-) button expands collapses the group.
+                The layout for each group defaults to the same name value format as ungrouped attributes, 
+                but some groups have a custom layout, which presents the data more accurately.
+                Examples of a more compact display are Population, Meters, EPCs and EPC derived on most 
+                A table of names and attribute values, with where appropriate units to the right.
+            </p>
+        </div>
+        <button type="button" id="help_attributes_atts_measurements_btn" onclick="showhelpdiv('help_attributes_atts_measurements');">+</button>Measurements
+        <br />
+        <div id="help_attributes_atts_measurements" class="maphelp" style="position: relative;left: 10px;">
+            <p>
+                A table of measurements for the current feature.
+                The contents of this section depend on the geometry type of the feature (point, linestring or area).
+            </p>
+            <table>
+                <tr><th>Geometry Type</th><th>Measurements</th></tr>
+                <tr><td>Point</td>
+                    <td>
+                        <table>
+                            <tr><td>Ngr</td><td>National grid reference of point</td></tr>
+                            <tr><td>Lonlat</td><td>Longitude and latitude of point</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td>Linestring</td>
+                    <td>
+                        <table>
+                            <tr><td>Length</td><td>Length of linestring in the most appropriate units</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td>Area</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Area</td>
+                                <td>Area in the most appropriate metric units.</td>
+                            </tr>
+                            <tr>
+                                <td>Interiorpointngr</td>
+                                <td>The national grid reference of some point on the surface of the area</td>
+                            </tr>
+                            <tr>
+                                <td>Interiorlonlat</td>
+                                <td>The Longitude and Latitude of some point on the surface of the area</td>
+                            </tr>
+                            <tr>
+                                <td>Holes</td>
+                                <td>The number of holes in the surface of the area</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            </p>
+        </div>
+    </div>
+</div>

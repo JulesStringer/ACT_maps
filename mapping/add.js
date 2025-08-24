@@ -320,7 +320,7 @@ function onload(dataurlbasein, templatebasein, findcomboid) {
     topic = params.get('topic');
     var findlayer = params.get('findlayer');
     if (!findlayer || findlayer.length == 0) {
-        findlayer = 'TeignbridgeParishes';
+        findlayer = 'AreaCarbon';
     }
     mapdisplay.setSelectHover(false);
     if (topic && topic.length > 0) {

@@ -11,11 +11,7 @@
     <script src="../../mapping/tooltips.js"></script>
     <script src="../../mapping/help.js"></script>
     <script src="../../mapping/mapdisplay.js"></script>
-    <!-- 
-    <script src="/mapping/uploadjson.js"></script>
-    <script src="/mapping/add.js"></script>
-    -->
-    <script src="WW.js"></script>
+    <script src="../../maps/AreaCarbon/AreaCarbon.js"></script>
     <style>
         .atts table {
             border: 1px solid black;
@@ -146,16 +142,17 @@
             padding-right: 20px;
         }
     </style>
-    <title>ACT Wildlife Warden Mapping</title>
+    <title>Teignbridge Area Carbon Footprints</title>
 </head>
-<body style="overflow:hidden;width:600px;" onload="onload('','', 'findlayer');">
-    <table style="width:600px;">
+<body style="overflow:hidden;width:600px;" 
+      onload="onload('../../maps/AreaCarbon/','../../maps/AreaCarbon/', 'findlayer');">
+    <table>
         <tr>
-            <td style="width:70px;">
+            <td style="width:50px;"
                 <span class="tooltip">
-                    Zoom to:
+                    Zoom:
                     <span class="tooltiptext">
-                        This enables you to select a parish, that the map is then centred on and sized to fit the parish boundary.
+                        This enables you to select an area, that the map is then centred on and sized to fit the area boundary.
                         If you select Outline, the map will zoom to show all of Teignbridge.
                     </span>
                 </span>
@@ -163,7 +160,7 @@
             <td style="width:150px;">
                 <select id="findlayer" onchange="on_findlayerchange(this.value,'findlayer');"></select>
             </td>
-            <td style="width:70px;">
+            <td id="outlinecol" style="width:60px;">
                 <span class="tooltip">
                     <button type="button" onclick="onoutline();">Outline</button>
                     <span class="tooltiptext">
@@ -171,14 +168,21 @@
                     </span>
                 </span>
             </td>
-            <td style="width:210px;"></td>
-            <td style="width:100px;">
+            <td>
                 <span class="tooltip">
-                    <button type="button" style="right:0px;" onclick="onlegend();">Legend</button>
-                    <span class="tooltiptext" style="right:30px;top:20px;">
-                        Press to show the legend
+                    Cat:
+                    <span class="tooltiptext">
+                        Select a consumption category to theme the map
                     </span>
                 </span>
+                <select id="category" onchange="oncategory(this.value);"></select>
+                <span class="tooltip">
+                    Sub:
+                    <span class="tooltiptext">
+                        Select a subcategory to theme the map
+                    </span>
+                </span>
+                <select id="subcategory" onchange="onsubcategory(this.value);"></select>
             </td>
         </tr>
     </table>
@@ -188,30 +192,20 @@
                 <td>
                     <div style="height:550px;">
                         <div id="map" class="map" style="width:600px; height:550px;"></div>
-                        <div style="position:relative;top:-20px;"><span id="coords"></span>  
-                            <span id="areacode"></span></div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="height:220px;width:590px;overflow:auto;">
-                        <span id="areaname"></span> <span id="wardens"></span><br />
-                        <div id="emailspan" style="display:none;">Email: <a id="email" href="" target="contactus"></a></div>
-                        <a id="planning" href="" target="_blank">Planning Applications</a>
-                        <div id="parish_text" style="width:570px;">
-                        </div>
-                        <span id="actiontext"></span>
+                        <div style="position:relative;top:-20px;"><span id="coords"></span>  <span id="areacode"></span></div>
                     </div>
                 </td>
             </tr>
         </table>
+        <div id="areatooltip" style="background-color:white;display:none;position:fixed;">
+            <span id="areaname"></span>
+        </div>
         <div id="popup" class="ol-popup">
             <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('map');"></a>
             <div id="popup-content"></div>
         </div>
+        <div id="control" style="visibility:hidden;"></div>
     </div>
-    <div id="control" style="position:fixed;top:50px;right:0px;width:200px;table-layout:fixed;height:150px;visibility:hidden;background-color:white;border:1px solid black;"></div>
     <div id="helpmenu" class="helpmenu">
     </div>
     <div id="helptext"></div>
@@ -229,7 +223,5 @@
         </ul>
     </div>
     <span id="idletext" style="visibility:hidden;">When the pointer moves over an area its details are shown here.</span>
-    <span id="unlocktext" style="display:none">Press outline to return to the outline and show details as the pointer moves over each area.</span>
-    <span id="locktext" style="display:none;">Click in an area zoom in and anchor the details.</span>
 </body>
 </html>
