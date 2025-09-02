@@ -1,0 +1,53 @@
+{
+  "CCAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "carbon_cutters",
+            "value": 1
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 2
+          },
+          "fill": {
+            "color": "rgba(255,0,0,0.1)"
+          }
+        },
+        "name": "Exactly 1 carbon cutter"
+      },
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "carbon_cutters",
+            "value": 2
+          }
+       },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 3
+          },
+          "fill": {
+            "color": "rgba(255,0,0,0.3)"
+          }
+        },
+        "name": "More than 1 carbon cutter"
+      }
+    ],
+    "url": "../../proxy.php?layer=CC"
+  }
+}

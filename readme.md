@@ -8,6 +8,8 @@ The full set of short code parameters are given in the following table:
 |---------|-----------|
 |ID|ID of the map type to be displayed:|
 || WW - Wildlife wardens map|
+|| CC - Carbon cutters map|
+|| AreaCarbon - Impact data |
 |width|width of the map panel|
 |height|height of the map panel|
 |title|title for the map|
@@ -110,6 +112,27 @@ Provides general purpose editing function as follows:
 2. A list of code values is formed from values already in the layer, and a lookup index to eacch feature in the layer is formed.
 3. When an entry in the code list is picked its values are presented for editing
 4. When the save layer button is pressed a properties object is created from current feature properties, any calculated fields are calculated and the properties object is submitted to be merged with the map geography.
+
+## Wildlife Wardens Map
+This list is driven by a predefined list of areas. To change details of an area:
+1. Select the area from the list
+2. The details of the area are shown with only the fields you can change editable
+3. Make your changes
+4. Press the submit button to write your changes back to the server.
+
+### No. Wardens
+This field should be set to the number of wardens
+### Parish Text
+This should be short descriptive text, typically provided by wardens for an area.
+
+## Where do area boundaries come from?
+Wildlife Warden Areas have been assigned based on a combination of parish boundaries and Newton Abbot ward boundaries.
+A boundary map has been derived from data in 
+[OS Boundary Line](https://www.ordnancesurvey.co.uk/products/boundary-line)
+The codes that you will see are standard ONS codes, which are used to join the boundaries with other datasets.
+
+## Carbon Cutters map
+This is modelled on the Wildlife Wardens Map.
 
 # Outstanding Issues
 + Load impact data needs an indicator that its finished successfully.
