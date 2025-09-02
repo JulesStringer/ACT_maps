@@ -44,7 +44,10 @@ console.log('Files: ' + JSON.stringify(files));
         console.log('Read ' + Object.keys(areadata).length + ' codes matched');
         // At this point you could display something in #act-maps-load-impact-results
         // or send AreaData back to the server via AJAX.
-        let resp = await make_merged_layer('TeignbridgeArea', 'CODE', 'AreaCarbon', areadata, 'impact/areacarbon',reserves);
+        let layer_options = {
+            path: 'impact/areacarbon'
+        };
+        let resp = await make_merged_layer('TeignbridgeArea', 'CODE', 'AreaCarbon', areadata, layer_options ,reserves);
         console.log('Resp: ' + JSON.stringify(resp));
     });
     // helper to wrap Papa.parse in a Promise

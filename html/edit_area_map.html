@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{List Title}</title>
+    <meta charset="UTF-8">
+    <link rel="{list_manager.css}">
+</head>
+<body onload="edit_area_load();">
+    <div id="act-map-list-container" list-id="{list-id}" > 
+        <table>
+            <tr><td>Select Area:</td>
+                <td><select id="areas" onchange="on_area();"></select></td>
+                <th id="list_title">{List Title}</th>
+            </tr>
+        </table>
+        <table id="datatable"> </table> 
+        <table>
+            <tr>
+                <td style="width:500px;color:red;" id="warning"></td>
+                <td><button type="button" id="submit" onclick="on_submit();" >Save layer</button></td>
+            </tr>
+        </table>
+    </div>
+    <div>{Help Text}</div>
+</body>
+</html>

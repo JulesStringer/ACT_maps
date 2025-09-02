@@ -1,10 +1,10 @@
-async function saveGeoJSON(layerId, path, geojson, version = null) {
+async function saveGeoJSON(layerId, geojson, path = null, version = null) {
     const formData = new FormData();
 
     // Add action and metadata
     formData.append("action", "act_save_geojson");
     formData.append("layerid", layerId);
-    formData.append("path", path);
+    if (path) formData.append("path", path);
     if (version) formData.append("version", version);
 
     // Add GeoJSON as a file
@@ -29,15 +29,15 @@ async function saveGeoJSON(layerId, path, geojson, version = null) {
         return null;
     }
 }
-async function make_merged_layer(sourcelayer, sourcekey, destinationlayer, attributes, path, reserves, version = null) {
+async function make_merged_layer(sourcelayer, sourcekey, destinationlayer, attributes, layer_options = null, reserves = null, version = null) {
     const formData = new FormData();
     formData.append('action', 'make_merged_layer');
     formData.append('sourcelayer', sourcelayer);
     formData.append('sourcekey', sourcekey);
     formData.append('destinationlayer', destinationlayer);
     formData.append('attributes', JSON.stringify(attributes));
-    formData.append('path', path);
-    formData.append('reserves', JSON.stringify(reserves));
+    if ( layer_options ) formData.append('layer_options', JSON.stringify(layer_options));
+    if ( reserves )formData.append('reserves', JSON.stringify(reserves));
     if (version) formData.append('version', version);
 
     const resp = await fetch(ajaxurl, {
@@ -65,6 +65,26 @@ async function get_codes_from_geojson(layerid, codeid) {
         return codes;
     } catch (err) {
         console.error("Error merging area data:", err);
+        // Reject the promise
+        throw err;
+    }
+}
+async function get_layer( layerid ){
+    try {
+        const response = await fetch(act_maps_params.proxy_url + "?layer=" + layerid);
+        if (!response.ok) {
+            console.log("Response status:", response.status, response.statusText);
+            //throw new Error("Failed to fetch GeoJSON");
+            if ( response.status == 404 ){
+                return null;
+            }
+            throw new Error("Failed to fetch GeoJSON " + response.status + ' ' + response.statusText);
+        }
+        let geojson = await response.json();
+
+        return geojson;
+    } catch ( err ){
+        console.error("Error getting " + layerid + " area data:", err);
         // Reject the promise
         throw err;
     }

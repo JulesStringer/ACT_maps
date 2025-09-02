@@ -16,6 +16,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+require_once plugin_dir_path( __FILE__ ) . 'layer-utils.php';
+require_once plugin_dir_path( __FILE__ ) . 'map-editor-lists.php';
 
 /**
  * Shortcode to display a map based on a provided ID.
@@ -88,12 +90,26 @@ add_action( 'admin_menu', 'act_maps_menu' );
 function act_maps_menu() {
     add_menu_page( 'ACT maps', 'ACT maps', 'read', 'act-maps', 'act_maps_admin_page', 'dashicons-list-view' ); // Top-level menu
     add_submenu_page('act-maps', 'Load impact data', 'Load impact date', 'administrator', 'act-maps-load-impact','act_maps_load_impact_page');
+    $lists = get_act_map_lists(); // Get the filtered list based on user roles
+    foreach ($lists as $list_id => $list_data) {
+        add_submenu_page( 
+            'act-maps', 
+            $list_data['title'], 
+            $list_data['title'], 
+            $list_data['role'], 
+            'act-maps-edit-' . $list_id, 
+            'act_maps_edit_page' ); // Use the role for capability check on submenu    }
+    }
 }
 function act_maps_admin_page() {
     // Top-level page content (can be empty or a welcome message)
     echo '<h2>ACT Maps Admin</h2>';
     echo '<ul>';
-        echo '<li><a href="' . admin_url( 'admin.php?page=act-maps-load-impact') .'">Load impact data</a></li>';
+    echo '<li><a href="' . admin_url( 'admin.php?page=act-maps-load-impact') .'">Load impact data</a></li>';
+    $lists = get_act_map_lists(); // Get the filtered list based on user roles
+    foreach ($lists as $list_id => $list_data) {
+        echo '<li><a href="' . admin_url( 'admin.php?page=act-maps-edit-' . $list_id ) . '">' . $list_data['title'] . '</a></li>';
+    }
     echo '</ul>';
 }
 function act_maps_load_impact_page() { // Callback for the single JSON page
@@ -115,216 +131,62 @@ function act_maps_enqueue_scripts( $hook_suffix ) {
         '5.4.1',
         true
     );
-    wp_enqueue_script('act-maps-layer-utils', plugins_url('js/layer-utils.js', __FILE__), array(),'1.0', true);
+    wp_enqueue_script('act-maps-layer-utils', plugins_url('js/layer-utils.js', __FILE__), array(),'1.2', true);
+    wp_enqueue_script( 'act-maps-tooltips',    plugins_url( 'table_editor/tooltips.js', __FILE__),     array('jquery'), 1.0, true);
+    wp_enqueue_script( 'act-maps-tableeditor', plugins_url( 'table_editor/tableeditor.js', __FILE__ ), array('jquery','act-maps-tooltips'), '1.0', true );
+    wp_enqueue_script( 'act-maps-namevalueeditor', plugins_url( 'table_editor/namevalue.js', __FILE__), array('jquery', 'act-maps-tooltips'), '1.0', true);
+    wp_enqueue_script( 'act-maps-edit-area-map', plugins_url('js/edit_area_map.js' , __FILE__), array('jquery', 'act-maps-namevalueeditor'), '1.3', true);
+    wp_enqueue_script( 'act_maps-edit-CC', plugins_url('editors/CC.js', __FILE__),array('jquery', 'act-maps-namevalueeditor'), '1.1', true);
+    wp_enqueue_script( 'act_maps-edit-WW', plugins_url('editors/WW.js', __FILE__),array('jquery', 'act-maps-namevalueeditor'), '1.1', true);
 }
-function handle_make_merged_layer() {
-    if ( ! current_user_can('edit_posts') ) {
-        wp_send_json_error(['message' => 'Permission denied']);
+function act_maps_edit_page() {
+    $current_screen = get_current_screen();
+    $screen_id = $current_screen->id;   
+    //echo '<p>'.$screen_id,'</p>';
+    if ( strpos($screen_id,'act-maps_page_act-maps-edit-' ) !== 0){
+        return;
+    } 
+    $list_id = str_replace('act-maps_page_act-maps-edit-', '', $screen_id);
+    $list_data = get_act_map_list_by_id($list_id);
+    if (!$list_data) {
+        echo '<h2>Screen id{'. $screen_id, '}</h2>';
+        echo '<h2>List not found{'. $list_id.'}</h2>';
+        return;
     }
 
-    $sourcelayer      = isset($_POST['sourcelayer']) ? sanitize_text_field($_POST['sourcelayer']) : '';
-    $sourcekey        = isset($_POST['sourcekey']) ? sanitize_text_field($_POST['sourcekey']) : '';
-    $destinationlayer = isset($_POST['destinationlayer']) ? sanitize_text_field($_POST['destinationlayer']) : '';
-    $attributes       = isset($_POST['attributes']) ? json_decode(stripslashes($_POST['attributes']), true) : [];
-    $path             = isset($_POST['path']) ? sanitize_text_field($_POST['path']) : '';
-    $reserves         = isset($_POST['reserves']) ? json_decode(stripslashes($_POST['reserves']), true) : [];
-    $version          = isset($_POST['version']) ? sanitize_text_field($_POST['version']) : null;
-
-    try {
-        $result = make_merged_layer(
-            $sourcelayer,
-            $sourcekey,
-            $destinationlayer,
-            $attributes,
-            $path,
-            $reserves,
-            $version
-        );
-
-        wp_send_json_success($result);
-    } catch (Exception $e) {
-        wp_send_json_error(['message' => $e->getMessage()]);
-    }
-}
-add_action('wp_ajax_make_merged_layer', 'handle_make_merged_layer');
-
-function make_merged_layer($sourcelayer, $sourcekey, $destinationlayer, $attributes, $path, $reserves, $version = null) {
-    $proxy_url = plugin_dir_url(__FILE__) . 'proxy.php?layer=' . urlencode($sourcelayer);
-    $source_json = file_get_contents($proxy_url);
-    if ($source_json === false) {
-        throw new Exception("could not fetch source layer: $sourcelayer");
-    }
-error_log('$reserves: ' .var_export($reserves, true));
-    $source_geojson = json_decode($source_json, true);
-    if (!$source_geojson || empty($source_geojson['features'])) {
-        throw new Exception("invalid geojson returned from source layer: $sourcelayer");
-    }
-    $target_geojson = [
-        "type" => "FeatureCollection",
-        "name" => $destinationlayer,
-        "crs" => [
-            "type" => "name",
-            "properties" => [
-                "name" => "urn:ogc:def:crs:EPSG::27700"
-            ]
-        ],
-        "features" => []
-    ];
-    foreach ($source_geojson['features'] as &$feature) {
-        $code = $feature['properties'][$sourcekey] ?? null;
-        error_log('Code: ' . $code);
-        if ($code && isset($attributes[$code])) {
-            $feature['properties'] = $attributes[$code];
-            $target_geojson["features"][] = $feature;
-        } else if ( $reserves[$code] ){
-            error_log('Trying reserve for ' . $code);
-            foreach($reserves[$code] as $key){
-                error_log('Trying '.$key);
-                if ( $attributes[$key]){
-                    error_log('Found attributes for '.$key);
-                    $feature['properties'] = $attributes[$key];
-                    $target_geojson["features"][] = $feature;
-                    break;
-                }
-            }
-        }
+    if (!current_user_can($list_data['role'])) {
+        echo '<h2>You do not have permission to access this page.</h2>';
+        return;
     }
 
-    act_save_geojson_layer($destinationlayer, $path, $target_geojson, $version);
+    // Include the HTML file.  Use include or require for security reasons.
+    $file_path = null; // Use a single template
+    $file_path = plugin_dir_path( __FILE__ ) .'html/edit_area_map.html';
+    if ( file_exists($file_path) ) {
+        $css_url = plugins_url( 'css/list_manager.css', __FILE__ );
+        $js_tableeditor_url = plugins_url( 'table_editor/tableeditor.js', __FILE__ );
+        $js_dynamic_url = plugins_url( 'editors/' . str_replace('act-admin-', '', $_GET['page']) . '_admin.js', __FILE__ ); // Dynamic JS
 
-    return ['message' => 'merged layer saved'];
-}
-/**
- * Save or update a GeoJSON layer in MAPDATA.
- *
- * @param string $layerid   Unique identifier for the layer.
- * @param string $path      Path under MAPDATA (e.g. "boundaries/parishes.json").
- * @param array|string $geojson The GeoJSON content (array or JSON string).
- * @param string|null $version Optional. Version string to use. If null, an ISO timestamp is generated.
- *
- * @return bool True on success, false on failure.
- */
-function act_save_geojson_layer($layerid, $path, $geojson, $version = null) {
-    // Load MAPDATA location from wp-config
-    if (!defined('MAPDATA')) {
-        error_log("MAPDATA not defined in wp-config.php");
-        return false;
-    }
-    $mapdata_root = rtrim(MAPDATA, '/');
+        ob_start();
+        include $file_path;
+        $html_content = ob_get_clean();
 
-    // Ensure $geojson is JSON string
-    if (is_array($geojson)) {
-        $geojson = json_encode($geojson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    }
-    // Check path ends with .json
-    if (!str_ends_with($path, '.json')) {
-        $path .= '.json';
-    }
-    // Ensure directory exists
-    $fullpath = $mapdata_root . '/' . $path;
-    $dir = dirname($fullpath);
-    if (!file_exists($dir)) {
-        if (!mkdir($dir, 0775, true)) {
-            error_log("Failed to create directory: $dir");
-            return false;
-        }
-    }
+        $html_content = str_replace('{list_manager.css}', $css_url , $html_content);
 
-    // Determine version
-    if ($version === null) {
-        $version_iso = gmdate("c");  // ISO8601 UTC (e.g. 2025-08-19T19:10:25+00:00)
-        $version_iso = preg_replace('/\+00:00$/', 'Z', $version_iso); // Cleaner UTC Z suffix
+        // Replace placeholders (Title, Format, Help Text)
+        $html_content = str_replace('{List Title}', esc_html($list_data['title']), $html_content);
+
+        $html_content = str_replace('{list-id}', $list_id, $html_content);
+        // Help Text (Example - adapt as needed)
+        $help_text = isset($list_data['help_text']) ? $list_data['help_text'] : ''; // Get help text, or default to empty
+        $html_content = str_replace('{Help Text}', $help_text, $html_content);
+
+        echo $html_content;
+
     } else {
-        $version_iso = $version;
-    }
-
-    // Sanitized version string for filenames (no colons, safe everywhere)
-    $version_safe = preg_replace('/[^0-9A-Za-z]/', '', $version_iso); // e.g. 20250819T191025Z
-
-    // Handle existing file (rename with version)
-    if (file_exists($fullpath)) {
-        $base = basename($path, ".json");
-        $backup = $dir . "/" . $base . "_" . $version_safe . ".json";
-        if (!rename($fullpath, $backup)) {
-            error_log("Failed to backup existing file: $fullpath");
-            return false;
-        }
-    }
-
-    // Write new GeoJSON
-    if (file_put_contents($fullpath, $geojson) === false) {
-        error_log("Failed to write GeoJSON to: $fullpath");
-        return false;
-    }
-
-    // Update versions.json
-    $versions_file = $dir . "/versions.json";
-    $versions = [];
-    if (file_exists($versions_file)) {
-        $versions = json_decode(file_get_contents($versions_file), true);
-        if (!is_array($versions)) {
-            $versions = [];
-        }
-    }
-    $versions[basename($path)] = [
-        "version" => $version_iso,
-        "loaded"  => gmdate("c")
-    ];
-    file_put_contents($versions_file, json_encode($versions, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-
-    // Update layers.json in MAPDATA root
-    $layers_file = $mapdata_root . "/layers.json";
-    $layers = [];
-    if (file_exists($layers_file)) {
-        $layers = json_decode(file_get_contents($layers_file), true);
-        if (!is_array($layers)) {
-            $layers = [];
-        }
-    }
-    $layers[$layerid] = [
-        "location" => "local",
-        "path"     => $path
-    ];
-    file_put_contents($layers_file, json_encode($layers, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-
-    return true;
-}
-add_action('wp_ajax_act_save_geojson', 'act_save_geojson_handler');
-
-function act_save_geojson_handler() {
-    // Required args
-    $layerid = sanitize_text_field($_POST['layerid'] ?? '');
-    $path    = sanitize_text_field($_POST['path'] ?? '');
-    $version = sanitize_text_field($_POST['version'] ?? '');
-
-    if (empty($layerid) || empty($path)) {
-        wp_send_json_error(['message' => 'Missing required parameters']);
-    }
-
-    // Ensure file uploaded
-    if (empty($_FILES['geojson_file']) || $_FILES['geojson_file']['error'] !== UPLOAD_ERR_OK) {
-        wp_send_json_error(['message' => 'GeoJSON file upload failed']);
-    }
-
-    // Read file contents
-    $geojson = file_get_contents($_FILES['geojson_file']['tmp_name']);
-    if (!$geojson) {
-        wp_send_json_error(['message' => 'Failed to read uploaded file']);
-    }
-
-    // Use your act_save_geojson_layer function
-    $result = act_save_geojson_layer($layerid, $path, $geojson, $version);
-
-    if ($result['success']) {
-        wp_send_json_success([
-            'message' => 'Layer saved successfully',
-            'layerid' => $layerid,
-            'path'    => $result['path'],
-            'version' => $result['version']
-        ]);
-    } else {
-        wp_send_json_error(['message' => $result['error'] ?? 'Unknown error']);
+        echo '<h2>HTML file not found'. $template_file_path.'</h2>';
+        error_log("HTML file not found: " . $template_file_path); // Log the error!
+        return;
     }
 }
-
 ?>
