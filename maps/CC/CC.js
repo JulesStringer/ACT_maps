@@ -3,8 +3,8 @@ var mapdisplay = null;
 var dataurlbase = null;
 function loadBaseLayers(layers, callback) {
     var url = dataurlbase + 'groups.json'; // Changed from layers.json
-    var urlTemplates = dataurlbase + 'templates.json';
-    var urlDictionary = dataurlbase + 'dictionary.json';
+    //var urlTemplates = dataurlbase + 'templates.json';
+    //var urlDictionary = dataurlbase + 'dictionary.json';
     var urlTemplates = dataurlbase + 'TEMPLATES';
     var urlDictionary = dataurlbase + 'DICTIONARY';
     console.log('url: ' + url + ' urlTemplates: ' + urlTemplates + ' urlDictionary: ' + urlDictionary);

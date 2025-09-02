@@ -1,0 +1,124 @@
+{
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": null,
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "less": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL",
+            "value": 0.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,0,0,0)"
+          }
+        },
+        "name": "Under 0.5 tonnes CO<sub>2</sub> per person year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL",
+            "min": 0.5,
+            "max": 1
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.5)"
+          }
+        },
+        "name": "0.5 to 1 tonnes CO<sub>2</sub> per person year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL",
+            "min": 1,
+            "max": 1.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,255,0,0.5)"
+          }
+        },
+        "name": "1 to 1.5 tonnes CO<sub>2</sub> per person year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL",
+            "min": 1.5,
+            "max": 2
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,192,0,0.5)"
+          }
+        },
+        "name": "1.5 to 2 tonnes CO<sub>2</sub> per person year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL",
+            "min": 2,
+            "max": 2.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,192,0,0.5)"
+          }
+        },
+        "name": "2 to 2.5 tonnes CO<sub>2</sub> per person year"
+      },
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL",
+            "value": 2.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.5)"
+          }
+        },
+        "name": "2.5 tonnes CO<sub>2</sub> and over per person year"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", ".EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL", " tonnes CO<sub>2</sub> person year ", "+layername" ],
+    "on": true,
+    "clickable": true,
+    "minZoom": 5,
+    "url":"../../proxy.php?layer=oa21_EPC"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,0,0.5)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", ".EPC_DERIVED.DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL", "+layername" ],
+    "on": true,
+    "clickable": false,
+    "url":"../../proxy.php?layer=parish_EPC"
+  }
+}

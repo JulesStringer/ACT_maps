@@ -124,7 +124,7 @@
         <p>It is not practical to install ogr2ogr on siteground (or other web hosting) as root access is not generally
             available, this is needed to perform the installation.  
         </p>
-        <p>This means that map processing needs to be done on another machine prior to uploading the processed maps to 
+            <p>This means that map processing needs to be done on another machine prior to uploading the processed maps to 
             siteground.
         </p>
         <p>See 
@@ -157,10 +157,31 @@
     }
             </code>
         </pre>
+        
+
         <p>Here the Rivers layer is maintained on a remote site, but also has a local path, 
             this means that it will be maintained in sync with the remote version.</p>
         <p>In order for synchronisation to occur syncmaps.php must be installed as a cron job</p>
         <h1>Source code repository</h1>
         <p>The code for this plugin is stored in <a href="https://github.com/JulesStringer/ACT_maps" target="_blank" >https://github.com/JulesStringer/ACT_maps</a></p>
+    <h2>Wildlife Warden Areas</h2>
+        <p>This list is driven by a predefined list of areas. 
+            To change details of an area:</p>
+        <ol>
+            <li>Select the area from the list</li>
+            <li>The details of the area are shown with only the fields you can change editable</li>
+            <li>Make your changes</li>
+            <li>Press the submit button to write your changes back to the server.</li>
+        </ol>
+        <h3>No. Wardens</h3>
+        <p>This field should be set to the number of wardens</p>
+        <h3>Parish Text</h3>
+        <p>This should be short descriptive text, typically provided by wardens for an area.</p>
+        <h2>Where do area boundaries come from?</h2>
+        <p>Wildlife Warden Areas have been assigned based on a combination of parish boundaries and Newton Abbot ward boundaries.
+            A boundary map has been derived from data in 
+            <a href="https://www.ordnancesurvey.co.uk/products/boundary-line" target="boundaryline" >OS Boundary Line</a>. 
+        </p>
+        <p>The codes that you will are standard ONS codes, which are used to join the boundaries with other datasets.</p>
     </body>
 </html>

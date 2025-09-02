@@ -10,10 +10,38 @@ The full set of short code parameters are given in the following table:
 || WW - Wildlife wardens map|
 || CC - Carbon cutters map|
 || AreaCarbon - Impact data |
+|| twomaps - Two map panels for comparative data|
+|| twomapsvertical - Tow map panels for comparative data stacked vertically|
 |width|width of the map panel|
 |height|height of the map panel|
 |title|title for the map|
 |forceshift|If set the shift key needs to be held to zoom the map, This defaults to true so only needs to be set to false to turn this functionality off|
+|config|EPC - configure twomaps for EPC|
+|      |EPC_Capita - EPC mean divided by household population mean for area|
+
+## twomaps
+This requires a configuration file in the same directory as twomaps.html
+This contains:
+```json
+{
+    "title":"Dwelling CO<sub>2</sub> Emissions per EPCs",
+    "left_panel":{
+        "topic":"EPC/Domestic_CO2Emissions_EPC_Current",
+        "title":"Current CO<sub>e</sub> Emissions"
+    },
+    "right_panel":{
+        "topic":"EPC/Domestic_CO2Emissions_EPC_Potential",
+        "title":"Potential CO<sub>e</sub> Emissions"
+    }
+}
+
+```
+### title - the title for the page in the iframe
+
+### left_panel and right_panel 
+These contain definitions for the left and right panel, which are currently:
++ topic - a definition of the map display in the panel.
++ title - title used for the map panel.
 
 # Loading base maps
 Most base mapping is derived from freely available layers from OS Open data in standard formats including shp.

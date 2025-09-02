@@ -33,7 +33,8 @@ function act_maps_shortcode( $atts ) {
             'width' => '600', // Default width.
             'height' => '830', // Default height.
             'forceshift' => 'true', // Default forceshift to true
-            'title' => ''
+            'title' => '',
+            'config' => ''
         ),
         $atts,
         'act_maps'
@@ -56,16 +57,31 @@ function act_maps_shortcode( $atts ) {
     }
     // Determine the URL parameter for forceshift.
     // The attribute is a string, so we need to check its value.
-    $forceshift_param = '';
+    $map_params = '';
+    $params_array = array();
     if ( 'true' === strtolower( $atts['forceshift'] ) ) {
-        $forceshift_param = '?forceshift=true';
+        $params_array[] = 'forceshift=true';
     }
-
-
+    if ( strlen($atts['config']) > 0 ){
+        $params_array[] = 'config='.$atts['config'];
+    }
+    $params_array[] = 'v=2025-09-02T18:26';
+    if ( count($params_array) > 0 ){
+        $map_params = '';
+        foreach($params_array as $param){
+            if ( strlen($map_params) === 0 ){
+                $map_params = '?';
+            } else {
+                $map_params .= '&';
+            }
+            $map_params .= $param;
+        }
+    }
+  
     // Build the URL to the map's HTML file.
     // We use plugins_url() to get the correct, full URL to our plugin directory.
     // This is much safer and more reliable than hardcoding paths.
-    $map_url = plugins_url( "maps/{$map_id}/{$map_id}.html", __FILE__ ) . $forceshift_param;
+    $map_url = plugins_url( "maps/{$map_id}/{$map_id}.html", __FILE__ ) . $map_params;
     // Check if the HTML file actually exists on the server.
     // This adds a layer of robustness to prevent broken links.
     $map_file_path = plugin_dir_path( __FILE__ ) . "maps/{$map_id}/{$map_id}.html";
@@ -76,7 +92,7 @@ function act_maps_shortcode( $atts ) {
     // Generate the iframe HTML.
     $iframe_html = sprintf(
         '<p><iframe src="%s" title="%s Map" width="%s" height="%s" style="overflow:hidden;width:%spx;"></iframe></p>',
-        esc_url( $map_url .'v=2025-09-02T11:22'),
+        esc_url( $map_url ),
         esc_attr( $title ), // Use a title based on the ID.
         esc_attr( $width ),
         esc_attr( $height ),

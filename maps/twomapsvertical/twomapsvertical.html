@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/mapping/ol/v6.5.0-dist/ol.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../ol/v6.5.0-dist/ol.js"></script>
+    <script src="../../proj4/dist/proj4.js"></script>
+    <script src="../../mapping/tables.js"></script>
+    <script src="../../mapping/geometry.js"></script>
+    <script src="../../mapping/condition.js"></script>
+    <script src="../../mapping/tooltips.js"></script>
+    <script src="../../mapping/mapdisplay.js"></script>
+    <script src="../twomaps/twomaps.js"></script>
+    <style>
+        .atts table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+        }
+
+        .atts th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+        }
+
+        .atts td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+        }
+
+        .noborder {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 280px;
+        }
+
+            .ol-popup:after, .ol-popup:before {
+                top: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .ol-popup:after {
+                border-top-color: white;
+                border-width: 10px;
+                left: 48px;
+                margin-left: -10px;
+            }
+
+            .ol-popup:before {
+                border-top-color: #cccccc;
+                border-width: 11px;
+                left: 48px;
+                margin-left: -11px;
+            }
+
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        }
+
+            .ol-popup-closer:after {
+                content: "✖";
+            }
+    </style>
+    <title id="title">Current and Potential CO2 Emissions Derived from EPCs</title>
+</head>
+<body onload="onloadvertical(false);">
+    <table class="noborder" style="table-layout:fixed;">
+        <tr>
+            <td class="noborder" style="position: relative;">
+                <span id="title1">Current CO<sub>2</sub> Emissions</span>
+                <div id="mapCurrent" class="map" style="width:400px; height:400px;"></div>
+                <span id="coordsCurrent" style="position:absolute; top: 390px;left:20px;"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="noborder" style="position: relative;">
+                <span id="title2">Potential CO<sub>2</sub> Emissions</span>
+                <div id="mapPotential" class="map" style="width:400px; height:400px;"></div>
+                <span id="coordsPotential" style="position:absolute; top: 390px; left: 20px;"></span>
+            </td>
+        </tr>
+        <tr>
+            <td style="border:solid" class="noborder" class="control">
+                <div class="control" id="controldiv" style="height:300px;overflow:auto;">
+                    <table id="control" style="table-layout:fixed;"></table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="popupCurrent" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('mapCurrent');"></a>
+        <div id="popup-content"></div>
+    </div>
+    <div id="popupPotential" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('mapPotential');"></a>
+        <div id="popup-content"></div>
+    </div>
+    <div class="atts" id="detail"
+         style="position:fixed; top:0px;right:0px;width:600px;height:600px;background-color: white;">
+        <!--<a href="#" id="detail-closer" class="ol-popup-closer" onclick="closedetail();"></a>-->
+        <h1 id="detail-title"></h1>
+        <div style="height:30px;">
+            <button type="button" onclick="on_top('detail-content');" style="float:left;">Top</button>
+            <!--
+    <button type="button" onclick="on_print();" style="float:left;">Print</button>
+        -->
+            <button type="button" id="detail-closer" style="float:right;" onclick="closedetail();">Close</button>
+        </div>
+        <div id="detail-content" style="overflow:auto;height:500px;"></div>
+    </div>
+</body>
+</html>

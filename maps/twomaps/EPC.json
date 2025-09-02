@@ -1,0 +1,11 @@
+{
+    "title":"Dwelling CO<sub>2</sub> Emissions per EPCs",
+    "left_panel":{
+        "topic":"EPC/Domestic_CO2Emissions_EPC_Current",
+        "title":"Current CO<sub>e</sub> Emissions"
+    },
+    "right_panel":{
+        "topic":"EPC/Domestic_CO2Emissions_EPC_Potential",
+        "title":"Potential CO<sub>e</sub> Emissions"
+    }
+}
