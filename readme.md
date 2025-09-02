@@ -43,7 +43,8 @@ Currently the following layers are updated via ACT_maps admin form:
 Base editing functionality described in [table_editor](https://github.com/JulesStringer/table_editor).
 
 ### editors - create_edit_props
-Creates edit_props object containing editor customisation as follows:
+Creates edit_props object containing editor customisation. A create function (e.g. create_CC_Editor) returns
+an object containing custom specific parameterisation of an editor. 
 ```js
 function create_CC_Editor(){
     let editor = {
@@ -73,60 +74,42 @@ function create_CC_Editor(){
         //
         path:'CC/CarbonCutterArea.json',
         //
-        // Column specifications for calculated and edited columns
+        // Column specifications to be pass to createNameValueEditor 
+        // for edited columns covered in table_editors
         //
-        columnspecs:{
-            name: {
-                header: 'Name',
-                type: 'literal',
-                width: '100px',
-                size: 30,
-
-            },
-            carbon_cutters: {
-                header: 'No. Carbon Cutters',
-                type: 'text',
-                checkNumber:true,
-                width: '50px',
-                size: 10
-            },
-            area_text: {
-                header: 'Parish Text',
-                type:'textarea',
-                width: '800px',
-                preventKey: function(key){
-                    return key === '"';
-                },
-                cols: 80,
-                rows: 10
-            }
-        },
-        options: {
-            norowid: true
-        },
+        columnspecs:{ ... }
+        //
+        //  General options specification to pass to createNameValueEditor
+        //
+        options: { ... }
         //
         //  Columns calculated just before the layer is saved
+        //  Each member of the calculated object is keyed by field name
+        //  and is a function which returns the value of the field.
+        //  These functions are applied to all rows edited or not.
         //
         calculated: {
             email: function(properties){
-                let code = properties['code'];
-                let name = properties['name'];
-                return "/contact-us/?recipients=Carbon%Cutters&your-subject=" + code + "%20" + name;
-            },
-            planning: function(properties){
-                return "https://publicaccess.teignbridge.gov.uk/online-applications/search.do?action=monthlyList";
+                return calculated email address
             }
         }
     }
-    return editor;
 }
-
 ```
+examples in [editor](https://github.com/JulesStringer/ACT_maps/tree/main/editors) directory.
 
-examples 
+If the layer to edited doesn't yet exist, its geography is copied from the default_layer and some properties are
+copied directly as specified in the copy_fields array.
+
+If the layer has already been defined in the MAPDATA/layers.json file then the path is ignored, 
+it is used if layers.json does not define a path.
 
 ### edit_area_maps.js
-Provides general purpose editing function as follows
+Provides general purpose editing function as follows:
+1. When the form is loaded the layer is read and if necessary copied from the default layer.
+2. A list of code values is formed from values already in the layer, and a lookup index to eacch feature in the layer is formed.
+3. When an entry in the code list is picked its values are presented for editing
+4. When the save layer button is pressed a properties object is created from current feature properties, any calculated fields are calculated and the properties object is submitted to be merged with the map geography.
 
 # Outstanding Issues
 + Load impact data needs an indicator that its finished successfully.
