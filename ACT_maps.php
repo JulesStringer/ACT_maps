@@ -76,7 +76,7 @@ function act_maps_shortcode( $atts ) {
     // Generate the iframe HTML.
     $iframe_html = sprintf(
         '<p><iframe src="%s" title="%s Map" width="%s" height="%s" style="overflow:hidden;width:%spx;"></iframe></p>',
-        esc_url( $map_url ),
+        esc_url( $map_url .'v=2025-09-02T11:22'),
         esc_attr( $title ), // Use a title based on the ID.
         esc_attr( $width ),
         esc_attr( $height ),
