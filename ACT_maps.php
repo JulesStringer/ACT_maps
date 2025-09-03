@@ -48,9 +48,15 @@ function act_maps_shortcode( $atts ) {
         return '<p>Error: Please provide a map ID for the shortcode. Example: [act_maps id="WW"]</p>';
     }
 
-    // Sanitize width and height to ensure they are numeric.
-    $width = absint( $atts['width'] );
-    $height = absint( $atts['height'] );
+    if ( $atts['width'] == 'full'){
+        $width = '100%';
+    } else {
+        $width = esc_attr($atts['width']);
+    }
+    if ( $atts['height'] == 'full'){
+    } else {
+        $height = esc_attr($atts['height']);        
+    }
     $title = sanitize_text_field( $atts['title']);
     if ( empty( $title )){
         $title = strtoupper($map_id);
@@ -65,19 +71,8 @@ function act_maps_shortcode( $atts ) {
     if ( strlen($atts['config']) > 0 ){
         $params_array[] = 'config='.$atts['config'];
     }
-    $params_array[] = 'v=2025-09-02T18:26';
-    if ( count($params_array) > 0 ){
-        $map_params = '';
-        foreach($params_array as $param){
-            if ( strlen($map_params) === 0 ){
-                $map_params = '?';
-            } else {
-                $map_params .= '&';
-            }
-            $map_params .= $param;
-        }
-    }
-  
+    $params_array[] = 'v=2025-09-03T14:40';
+    $map_params = (count($params_array) > 0) ? ('?' . implode('&', $params_array)) : '';
     // Build the URL to the map's HTML file.
     // We use plugins_url() to get the correct, full URL to our plugin directory.
     // This is much safer and more reliable than hardcoding paths.
@@ -88,7 +83,14 @@ function act_maps_shortcode( $atts ) {
     if ( ! file_exists( $map_file_path ) ) {
         return "<p>Error: The map file for ID '{$map_id}' does not exist at '{$map_file_path}'.</p>";
     }
-
+    if ( $map_id === 'twomaps' ) {
+        $config_file_path = plugin_dir_path(__FILE__)."maps/{$map_id}/{$atts['config']}.json";
+        if ( strlen($atts['config']) == 0 ){
+            return "<p>Error: If ID is twomaps then config needs to be specified.</p>";
+        } else if ( !file_exists( $config_file_path)){
+            return "<p>Error: The map file for ID '{$atts['config']}' does not exist at '{$config_file_path}'.</p>";
+        }
+    }
     // Generate the iframe HTML.
     $iframe_html = sprintf(
         '<p><iframe src="%s" title="%s Map" width="%s" height="%s" style="overflow:hidden;width:%spx;"></iframe></p>',
@@ -98,7 +100,44 @@ function act_maps_shortcode( $atts ) {
         esc_attr( $height ),
         esc_attr( $width ) // The style width is also needed for the old code.
     );
-    return $iframe_html;
+    $output = $iframe_html;
+    if ( $atts['height'] == 'full'){
+        error_log('$map_url '.$map_url);
+        error_log('$map_url escaped '. esc_url($map_url));
+        error_log('$title '.$title);
+        error_log('$width '.$width);
+        $container_id = 'act_maps_'.uniqid();
+        $output = '<div id="' . esc_attr($container_id) . '" style="width:' . esc_attr($width) . '"></div>';
+        $output .= sprintf(
+            '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const mapContainer = document.getElementById("%s");
+                const footer = document.querySelector("footer");
+                if (!mapContainer || !footer) {
+                    console.error("Map container or footer not found.");
+                    return;
+                }
+                const containerTop = mapContainer.getBoundingClientRect().top;
+                const footerHeight = footer.offsetHeight;
+                const availableHeight = window.innerHeight - containerTop - footerHeight - 50;
+                const iframe = document.createElement("iframe");
+                iframe.src = "%s";
+                iframe.title = "%s Map";
+                iframe.style.width = "%s";
+                iframe.style.height = availableHeight + "px";
+                iframe.style.border = "none";
+                iframe.style.overflow = "hidden";
+                mapContainer.appendChild(iframe);
+            });
+            </script>',
+            esc_attr($container_id),
+            $map_url,
+            esc_attr($title),
+            esc_attr($width)
+        );
+        error_log('This is the code using sprintf version');
+    }
+    return $output;
 }
 add_shortcode( 'act_maps', 'act_maps_shortcode' );
 
