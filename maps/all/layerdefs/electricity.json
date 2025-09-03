@@ -1,0 +1,294 @@
+{
+  "hvnet_ohl": {
+    "type": "geoJSON",
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "11kV"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(0,32,255,1)",
+            "width": 1
+          }
+        },
+        "name": "11kV"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "33kV"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(0,0,255,1)",
+            "width": 3
+          }
+        },
+        "name": "33kV"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "132kV"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(32,0,255,1)",
+            "width": 5
+          }
+        },
+        "name": "132kV"
+      }
+    ],
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,128,1)",
+        "width": 1
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_ohl.json",
+    "layer": null,
+    "name": "Overhead lines",
+    "summary": [ "Overhead", ".voltage", ".desc" ],
+    "tooltip": "High voltage electricity distribution overhead lines managed by WPD, styled by voltage."
+  },
+  "hvnet_ug": {
+    "type": "geoJSON",
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "11kV"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(64,32,255,0.8)",
+            "width": 1
+          }
+        },
+        "name": "11kV"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "33kV"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(64,0,255,0.8)",
+            "width": 3
+          }
+        },
+        "name": "33kV"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "132kV"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(64,0,255,0.8)",
+            "width": 5
+          }
+        },
+        "name": "132kV"
+      }
+    ],
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 2
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_ug.json",
+    "layer": null,
+    "name": "Underground lines",
+    "summary": [ "Underground", ".voltage", ".desc" ],
+    "tooltip": "High voltage electricity distribution underground lines managed by WPD, styled by voltage."
+  },
+  "hvnet_gm_subs": {
+    "type": "geoJSON",
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "11kV"
+          }
+        },
+        "style": {
+          "image": {
+            "type": "shape",
+            "points": 4,
+            "radius1": 3,
+            "fill": { "color": "rgba(0,128,255,1)" },
+            "stroke": {
+              "color": "rgba(0,128,255,1)",
+              "width": 1
+            }
+          }
+        },
+        "name": "11kV"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "33kV"
+          }
+        },
+        "style": {
+          "image": {
+            "type": "shape",
+            "points": 4,
+            "radius1": 7,
+            "fill": { "color": "rgba(0,0,255,1)" },
+            "stroke": {
+              "color": "rgba(0,0,0,1)",
+              "width": 1
+            }
+          }
+        },
+        "name": "33kV"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "132kV"
+          }
+        },
+        "style": {
+          "image": {
+            "type": "shape",
+            "points": 4,
+            "radius1": 10,
+            "fill": { "color": "rgba(32,0,255,1)" },
+            "stroke": {
+              "color": "rgba(0,0,0,1)",
+              "width": 1
+            }
+          }
+        },
+        "name": "132kV"
+      }
+    ],
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 3
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_gm_subs.json",
+    "minZoom": 12,
+    "layer": null,
+    "name": "Substation",
+    "summary": [ "Substation", ".voltage", ".desc" ],
+    "tooltip": "High voltage electricity distribution ground level substations managed by WPD, styled by voltage."
+  },
+  "hvnet_pm_subs": {
+    "type": "geoJSON",
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "voltage",
+            "value": "11kV"
+          }
+        },
+        "style": {
+          "image": {
+            "type": "shape",
+            "points": 4,
+            "radius1": 3,
+            "fill": { "color": "rgba(0,32,255,1)" },
+            "stroke": {
+              "color": "rgba(0,32,255,1)",
+              "width": 1
+            }
+          }
+        },
+        "name": "11kV"
+      }
+    ],
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 1
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_pm_subs.json",
+    "minZoom": 12,
+    "layer": null,
+    "name": "Pole Mounted Substation",
+    "summary": [ "Pole Substation", ".voltage", ".desc" ],
+    "tooltip": "High voltage electricity distribution pole mounted substations managed by WPD, styled by voltage."
+  },
+  "hvnet_poles": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 3
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_poles.json",
+    "minZoom": 15,
+    "layer": null,
+    "name": "Electricity Pole",
+    "summary": [ "Electricity Pole", ".desc" ],
+    "tooltip": "High voltage electricity distribution pole managed by WPD."
+  },
+  "hvnet_towers": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 3
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_towers.json",
+    "minZoom": 15,
+    "layer": null,
+    "name": "Tower",
+    "summary": [ "Tower", ".desc" ],
+    "tooltip": "High voltage electricity distribution tower managed by WPD."
+  }
+}

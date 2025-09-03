@@ -1,0 +1,213 @@
+{
+  "groups": [
+    {
+      "name": "Boundaries",
+      "layers": "/mapping/layerdefs/boundaries.json",
+      "loadimmediate": false,
+      "tooltip": "Press to expand/contract boundary layers"
+    },
+    {
+      "name": "Contours",
+      "layers": "/mapping/layerdefs/contourlayers.json",
+      "loadimmediate": false,
+      "tooltip": "Press to expand/contract contour layers"
+    },
+    {
+      "name": "Planning",
+      "layers": "/mapping/layerdefs/planninglayers.json",
+      "loadimmediate": true,
+      "tooltip": "Press to expand/contract planning layers - the main dataset relating to the planning consultation"
+    },
+    {
+      "name": "Electricity supply areas",
+      "layers": "/mapping/layerdefs/electricitysupplypolygons.json",
+      "loadimmediate": false,
+      "tooltip": "Press to expand/contract the electricity supply areas"
+    },
+    {
+      "name": "Electricity 132kV",
+      "layers": "/mapping/layerdefs/electricity_132kV.json",
+      "loadimmediate": false,
+      "tooltip": "Press to expand/contract the 132kV electricity distribution network"
+    },
+    {
+      "name": "Electricity 33kV",
+      "layers": "/mapping/layerdefs/electricity_33kV.json",
+      "loadimmediate": false,
+      "tooltip": "Press to expand/contract the 33kV electricity distribution network"
+    },
+    {
+      "name": "Electricity Transmission",
+      "layers": "/mapping/layerdefs/transmission.json",
+      "loadimmediate": false,
+      "tooltip": "Press to expand/contract the national electricity transmission network"
+    },
+    {
+      "name": "Natural Environment",
+      "layers": "/mapping/layerdefs/naturalenvironment.json",
+      "loadimmediate": false,
+      "tooltip": "Press to expand/contract natural environment data"
+    }
+  ],
+  "LR_POLYS": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/buildings/LR_POLYS.json",
+    "name": "Land Registry Polygons",
+    "summary": [ "+layername" ],
+    "minZoom": 15,
+    "tooltip": "Land Registry Index Polygons downloaded from Land Registry."
+  },
+  "importantBuilding": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,255,0.75)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/buildings/importantBuilding.json",
+    "name": "Important Buildings",
+    "summary": [ ".BUILDING_NAME", "+layername" ]
+  },
+  "Buildings": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.75)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/buildings/Buildings.json",
+    "name": "Buildings",
+    "summary": [ "+layername" ],
+    "minZoom": 13
+  },
+  "UPRN": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 1,
+        "radius2": 3,
+        "fill": { "color": "rgba(255,0,0,0.8)" },
+        "stroke": {
+          "color": "red",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/UPRN.json",
+    "name": "Address",
+    "summary": [ "+layername" ],
+    "minZoom": 13
+  },
+  "teignbridgeroads": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "Motorway"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 6
+          }
+        },
+        "name": "Motorway"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "A Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 4
+          }
+        },
+        "name": "A Roads"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "B Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "orange",
+            "width": 3
+          }
+        },
+        "name": "B Roads"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "road_function",
+            "value": "Minor Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "RGBA(255,0,255,1)",
+            "width": 1
+          }
+        },
+        "name": "Minor Roads"
+      },
+      {
+        "condition": {
+          "isnull": {
+            "name": "count_point_id"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 6
+          }
+        },
+        "name": "No count_point_id"
+      }
+    ],
+    "layer": null,
+    "name": "Roads",
+    "url": "/mapdata/roads/teignbridgeroads.json",
+    "summary": [ ".roadnumber", ".name1", " : ", "+layername" ]
+  }
+}

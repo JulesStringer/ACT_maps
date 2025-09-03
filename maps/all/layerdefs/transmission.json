@@ -1,0 +1,32 @@
+{
+  "transnet_substations": {
+    "type": "geoJSON",
+    "style": {
+      "fill": { "color": "rgba(255,0,255,1)" },
+      "stroke": {
+        "color": "rgba(0,0,0,1)",
+        "width": 1
+      }
+    },
+    "url": "/mapdata/electricity/transnet_substations.json",
+    "layer": null,
+    "name": "Transmission Substation",
+    "summary": [ "Transmission Substation", ".substati_1", ".operating_" ],
+    "tooltip": "National Grid transmission substation - supply point to distribution network"
+  },
+  "transnet_ohl": {
+    "type": "geoJSON",
+    "style": {
+      "fill": { "color": "rgba(255,0,255,1)" },
+      "stroke": {
+        "color": "rgba(255,0,255,1)",
+        "width": 7
+      }
+    },
+    "url": "/mapdata/electricity/transnet_ohl.json",
+    "layer": null,
+    "name": "Transmission Line",
+    "summary": [ "Transmission", ".operating_" ],
+    "tooltip": "National grid transmission line"
+  }
+}

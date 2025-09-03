@@ -1,0 +1,1357 @@
+{
+  "sources": {
+    "OSBoundaryLine": {
+      "name": "OS Boundary-line",
+      "url": "https://www.ordnancesurvey.co.uk/business-government/products/boundaryline",
+      "datadate": "2019-10-01",
+      "downloaddate": "2019-11-24",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Twice a year May and October",
+      "priority": 1
+    },
+    "POSTCODE": {
+      "name": "OS Code Point",
+      "url": "https://www.ordnancesurvey.co.uk/business-government/products/code-point-open",
+      "datadate": "2019-11-01",
+      "downloaddate": "2019-12-01",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Quarterly February, May, August, November",
+      "priority": 2
+    },
+    "OSOpenMapLocal": {
+      "name": "OS Open Map Local",
+      "url": "https://www.ordnancesurvey.co.uk/business-government/products/open-map-local",
+      "datadate": "2019-10-01",
+      "downloaddate": "2019-12-23",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Six monthly April and October",
+      "priority": 3
+    },
+    "OA": {
+      "name": "Census 2011 output areas",
+      "url": "https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Output_Area_December_2011_Boundaries/MapServer/0/query?",
+      "datadate": "2011-12-31",
+      "downloaddate": "2020-01-05",
+      "licence": "",
+      "updatefrequency": "Annually date not known",
+      "priority": 4,
+      "notes": [
+        "<p>A query is formed by script based on the url. This query fetches the output area geometry for each OA in the OA_PARISH table.</p>"
+      ]
+    },
+    "OA_PARISH": {
+      "name": "Census 2011 output area to Parish lookup table",
+      "url": "https://data.gov.uk/dataset/6bf1e40a-9132-417a-abc2-9443a1e0b25c/output-area-to-parish-to-local-authority-district-december-2011-lookup-in-england-and-wales",
+      "datadate": "2011-12-31",
+      "downloaddate": "2019-11-30",
+      "licence": "",
+      "updatefrequency": "Once only",
+      "priority": 5,
+      "notes": [
+        "<p>The lookup table in the url is used to fetch output areas.",
+        " The geometry of this feature is then calculated by intersecting output areas with parishes.</p>"
+      ]
+    },
+    "OA_WARD": {
+      "name": "Census 2011 output area to 2019 Electoral Ward lookup table",
+      "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/OA11_WD19_LAD19_EW_LU/FeatureServer/0/query?where=LAD19CD%3D%27E07000045%27&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=standard&f=pjson&token=",
+      "datadate": "2019-05-01",
+      "downloaddate": "2020-01-10",
+      "licence": "",
+      "updatefrequency": "According to electoral cycle",
+      "priority": 5,
+      "notes": [
+        "<p>The lookup table in the url is used to build wards from Census 2011 output areas.</p>",
+        "<p>A Script loads the lookup table into the database.</p>"
+      ]
+    },
+    "WARD_DEVON_WARD": {
+      "name": "Ward to Devon Ward lookup",
+      "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/WD19_LAD19_CTY19_CED19_EN_LU/FeatureServer/0/query?where=LAD19CD%3D%27E07000045%27&objectIds=&time=&resultType=standard&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=standard&f=pjson&token=",
+      "datadate": "2019-05-01",
+      "downloaddate": "2020-01-10",
+      "licence": "",
+      "updatefrequency": "According to electoral cycle",
+      "priority": 5,
+      "notes": [
+        "<p>This lookup table is used to derive CED19CD for a Devon Electoral Ward by matching CED19NM with name from Boundary Line.</p>",
+        "<p>It is downloaded and imported to the database using a script</p>"
+      ]
+    },
+    "OA_LSOA_MSOA_LAD": {
+      "name": "Census 2011 to LSOA, MSOA, LAD lookup",
+      "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/OA11_LSOA11_MSOA11_LAD11_EW_LUv2/FeatureServer/0/query?outFields=*&where=lad11cd=%27E07000045%27&f=geojson",
+      "datadate": "2011-12-31",
+      "downloaddate": "2020-01-05",
+      "licence": "",
+      "updatefrequency": "Once only",
+      "priority": 6,
+      "notes": [
+        "<p>A script uses the url above to fetch this lookup table, which is then used to build geometries for LSAOs and MSOAs from output areas</p>"
+      ]
+    },
+    "ParishPrecepts": {
+      "name": "Parish Precepts",
+      "url": "https://www.gov.uk/government/statistical-data-sets/live-tables-on-council-tax#council-tax-statistics-for-town-and-parish-councils-in-england",
+      "datadate": "",
+      "downloaddate": "",
+      "licence": "",
+      "updatefrequency": ""
+    },
+    "DistrictGHG": {
+      "name": "UK Local and Regional CO2 Emissions Tables - Full dataset",
+      "url": "https://www.gov.uk/government/statistics/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics-2005-to-2017",
+      "datadate": "2017-12-31",
+      "downloaddate": "2019-09-20",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Annual - date not known",
+      "geography": "District Authority",
+      "priority": 7
+    },
+    "LRPOLYS": {
+      "name": "Land Registry Polygons",
+      "url": "https://www.gov.uk/government/publications/teignbridge-inspire-index-polygon-data",
+      "datadate": "2019-11-03",
+      "downloaddate": "2019-11-03",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Monthly within 5 days of previous month end",
+      "priority": 8
+    },
+    "BUILDINGS": {
+      "name": "Individual Buildings",
+      "url": "See LRPOLYS and OS Open Map Local",
+      "datadate": "2019-10-01",
+      "updatefrequency": "Should be updated when LRPOLYS or OS Open Map Local are downloaded",
+      "notes": [
+        "<p>Individual building outlines are created from Land Registry polygons and OS Open Map Local using the following process:",
+        "<ul><li>Land Registry polygons and the buildings layer of OS Open Map Local are intersected</li>",
+        "<li>intersection geometries that are points of linestrings are eliminated</li>",
+        "<li>MultiPolygons are replaced with a building for each polygon</li>",
+        "<li>Polygons less than 10M<sup>2</sup> are eliminated</li>",
+        "<li>Duplicate polygons are eliminated as far as possible</li>",
+        "<li>The largest polygon in a land registry polygon has its dwelling count set to 1, others are set to 0</li>",
+        "<li>Polygons that contain the seed of an important building got the OS data are marked as important buildings and not dwellings</li>",
+        "<li>Previously recorded manual data is merged where dwelling counts have been set manually, so that</li>",
+        "<li>corrections applied manually are maintained even when the data is regenerated.</li>",
+        "</ul>"
+      ],
+      "priority": 9
+    },
+    "EPCS": {
+      "name": "Energy Performance Certificates",
+      "url": "http://epc.opendatacommunities.org/domestic/search",
+      "datadate": "2019-08-31",
+      "downloaddate": "2019-12-14",
+      "licence": "https://epc.opendatacommunities.org/docs/copyright",
+      "updatefrequency": "",
+      "geography": "Derived from postcode",
+      "notes": [
+        "<p>The url can be used to get a dataset with 2 files certificates and recommendations in csv format.",
+        "These are loaded into the database using scripts 9_loadEPC_CERTS.js and 10_loadEPC_RECOMMENDS.js.</p>",
+        "<p>There may be more than one certificate for an address, for our purposes we are only interested in the latest EPC for an address,",
+        "so a table containing only the latest EPC for each address is produced.</p>",
+        "<p>Each EPC has a postcode. A summary table at postcode level is produced from the EPCs for that postcode.</p>",
+        "<p>Postcode summaries lying within each area are then accumulated.</p>"
+      ],
+      "priority": 10
+    },
+    "COMPANIES": {
+      "name": "Company Registrations",
+      "url": "http://download.companieshouse.gov.uk/en_output.html",
+      "datadate": "2019-10-01",
+      "downloaddate": "2019-10-15",
+      "licence": "",
+      "updatefrequency": "Monthly within 5 days of previous month end",
+      "geography": "Derived from postcode",
+      "priority": 11
+    },
+    "POPULATION": {
+      "name": "ONS Population Forecast",
+      "url": "https://www.nomisweb.co.uk/query/construct/components/stdListComponent.asp?menuopt=12&subcomp=100",
+      "datadate": "2018-06-30",
+      "downloaddate": "2020-01-15",
+      "licence": "https://www.nomisweb.co.uk/home/terms.asp",
+      "updatefrequency": "Annually date not known",
+      "notes": [
+        "<p>On following the url a dataset needs to be selected, as follows:</p>",
+        "Dataset: Population estimates - small area based by single year of age - England and Wales</br>",
+        "Geography: 2011 Output Areas - Some</br>",
+        "           Select Teignbridge and then select Tick All</br>",
+        "Date:      2018 (or whatever latest year available is)</br>",
+        "Age:       Under Individual ages and 5 year age bands tick</br>",
+        "           All Ages and individual years quick select boxes</br>",
+        "Sex:       Tick all options</br>",
+        "Format:    csv</br>",
+        "Layout:    columns - Age(93 cols)</br>",
+        "           rows - geography (419 rows)</br>",
+        "           Tick include area codes</br>",
+        "This data is saved as a csv file and processed by script 5_importPopulation2018_OA.js</br>",
+        "There is an api available which should be investigated see</br>",
+        "https://www.nomisweb.co.uk/api/v01/help"
+      ],
+      "geography": "Census 2011 output area",
+      "priority": 12
+    },
+    "GAS_METERS_POSTCODE": {
+      "name": "Domestic Gas Meter Readings by postcode 2017",
+      "url": "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/853778/Experimental_postcode_domestic_gas_statistics_2017.csv/preview",
+      "datadate": "2017-12-31",
+      "downloaddate": "2019-12-26",
+      "licence": "https://www.gov.uk/government/statistics/postcode-level-gas-statistics-2017-experimental",
+      "updatefrequency": "Annually date not known",
+      "geography": "Postcode",
+      "priority": 13,
+      "notes": [
+        "<p>The geography of a postcode level meter reading is looked up using the postcodes dataset,",
+        "then meter readings are accumulated to each area where the postcode lies within the area</p>"
+      ]
+    },
+    "GAS_METERS_LSOA": {
+      "name": "Domestic Gas Meter Readings by LSOA 2015-2018",
+      "url": "https://www.gov.uk/government/statistics/lower-and-middle-super-output-areas-gas-consumption",
+      "datadate": "2017-12-31",
+      "downloaddate": "2020-01-20",
+      "licence": "",
+      "updatefrequency": "Annually date not known",
+      "geography": "LSOA",
+      "priority": 13,
+      "notes": [
+        "<p>Data at LSOA level is taken from the 2017r tab using script importGas.js</p>"
+      ]
+    },
+    "ELECTICITY_METERS_LSOA": {
+      "name": "Domestic Electricity Meter Readings by LSOA 2015-2018",
+      "url": "https://www.gov.uk/government/statistics/lower-and-middle-super-output-areas-electricity-consumption",
+      "datadate": "2017-12-31",
+      "downloaddate": "2019-12-26",
+      "licence": "",
+      "updatefrequency": "Annually date not known",
+      "geography": "LSOA",
+      "priority": 13,
+      "notes": [
+        "<p>Data at LSOA level is taken from the 2017r tab using script importElectricity.js</p>"
+      ]
+    },
+    "PLANNING_APPLICATIONS": {
+      "name": "Teignbridge planning applications",
+      "url": "https://actionclimateteignbridge.org/index.php/planning-applications-tool/",
+      "datadate": "daily update",
+      "downloaddate": "daily update",
+      "licence": "",
+      "updatefrequency": "daily",
+      "geography": "Derived from application easting and northing or postcode",
+      "priority": 13,
+      "notes": [
+        "<p>Derived from a daily download from TDC website by a web page scraping application.</p>"
+      ]
+    },
+    "LOCAL_PLAN_2020_2040": {
+      "name": "Teignbridge draft local plan 2020-2040",
+      "url": "https://www.teignbridge.gov.uk/planning/local-plans-and-policy/local-plan-review-2020-2040/local-plan-overview/",
+      "datadate": "2021-11-15",
+      "downloaddate": "2021-12-03",
+      "licence": "",
+      "updatefrequency": "unknown",
+      "geography": "manually digitised from relevant local plan documents",
+      "priority": 13,
+      "notes": [
+        "<p>A local application planningSites.html has been written to enable applications to be digitised.</p>"
+      ]
+    },
+    "ENERCON": {
+      "name": "Enercon turbine technical datasheets",
+      "url": "https://www.enercon.de/fileadmin/Redakteur/Medien-Portal/broschueren/EC_WEA_EN.pdf",
+      "datadate": "2021-09-01",
+      "downloaddate": "2021-11-30",
+      "licence": "",
+      "updatefrequency": "unknown",
+      "geography": "none",
+      "priority": 13,
+      "notes": [
+        "<p>Turbine data used for turbine characteristics in planningSites.html</p>"
+      ]
+    },
+    "TURBINES": {
+      "name": "Possible placement of wind turbines",
+      "url": "https://www.enercon.de/fileadmin/Redakteur/Medien-Portal/broschueren/EC_WEA_EN.pdf",
+      "datadate": "2021-12-07",
+      "downloaddate": "2021-12-07",
+      "licence": "",
+      "updatefrequency": "",
+      "geography": "manual fitting of turbines to site",
+      "priority": 13,
+      "notes": [
+        "<p>Turbines are manually placed with buffers determined from turbine parameters as guidelines</p>",
+        "<p>Buffers are calculated as follows:</p>",
+        "<ul>",
+        "<li>Turbine spacing of 7 times rotor diameter</li>",
+        "<li>Sound power buffers for 35, 40 and 45dB a circle where sound from turbine has dropped to that sound level.</li>",
+        "<li>Road buffer height to tip of turbine plus 10% to ensure turbine can't fall on a road or building</li>",
+        "<ul>"
+      ]
+    },
+    "OSMAPHUB": {
+      "name": "OS Map Hub",
+      "url": "https://osdatahub.os.uk/",
+      "datadate": "",
+      "downloaddate": "",
+      "licence": "http://os.uk/opendata/licence.",
+      "updatefrequency": "",
+      "geography": "UK",
+      "priority": 13,
+      "notes": [
+        "<p>Ordnance Survey website with ability to download open data, and access webservices to serve data directly</p>",
+        "<p>Products include:</p>",
+        "<ul>",
+        "<li>Downloads of OS OpenData including:",
+        "<ul>",
+        "<li>Contours</li>",
+        "<li>DTM</li>",
+        "<li>Boundary Line</li>",
+        "<li>Code Point (postcodes)</li>",
+        "<li>OS Open Rivers</li>",
+        "<li>OS Open Roads</li>",
+        "<li>OS Open UPRN (address points)</li>",
+        "</ul>",
+        "</li>",
+        "<li>OS Maps API</li>"
+      ]
+    },
+    "NOABL": {
+      "name": "",
+      "url": "https://webarchive.nationalarchives.gov.uk/ukgwa/20090609065721/http://www.berr.gov.uk/whatwedo/energy/sources/renewables/explained/wind/windspeed-database/page27708.html",
+      "datadate": "1996",
+      "downloaddate": "2021-06-01",
+      "licence": "BERR's wind speed data is provided free of charge and is not warranted as suitable for any particular purpose or use. The user shall assume full responsibility for their use of the data.",
+      "updatefrequency": "Not updated",
+      "geography": "UK",
+      "priority": 13,
+      "notes": [
+        "<p>Computer generated wind speed data based on topography.</p>",
+        "<p>1km squares with wind speeds in metres/second at 10m, 25m, 45m</p>"
+      ]
+    },
+    "OSTerrain50": {
+      "name": "OS Terrain 50",
+      "url": "https://www.ordnancesurvey.co.uk/business-government/products/terrain-50",
+      "datadate": "",
+      "downloaddate": "2021-04-17",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Once a year in July",
+      "geography": "GB",
+      "priority": 13,
+      "notes": [
+        "<p>DTM Tiles 10km X 10km points at 50m spacing ARC GRID file</p>",
+        "<p>Shapefiles also in 10km X 10km tiles with contours at 10m height spacing, also spot heights.</p>"
+      ]
+    },
+    "OSOpenUPRN": {
+      "name": "OS Open UPRN",
+      "url": "",
+      "datadate": "",
+      "downloaddate": "2021-12-09",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Six weekly",
+      "geography": "GB",
+      "priority": 13,
+      "notes": [
+        "<p>One csv file for GB containing UPRN,X_COORDINATE,Y_COORDINATE,LAT,LONG for every address point</p>"
+      ]
+    },
+    "IMPACTRISKZONES": {
+      "name": "SSSI Impact isk Zones",
+      "url": "https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::sssi-impact-risk-zones-england/about",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Complete coverage of polygons, with each polygon indicating what consulatation is required for planning applications</p>"
+      ]
+    },
+    "AncientWoodland": {
+      "name": "Ancient Woodland",
+      "url": "",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Download of shapefile</p>"
+      ]
+    },
+    "SAC": {
+      "name": "Special Areas of Conservation (SAC)",
+      "url": "https://data.gov.uk/dataset/a85e64d9-d0f1-4500-9080-b0e29b81fbc8/special-areas-of-conservation-england",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Download of shapefile</p>"
+      ]
+    },
+    "SSSI": {
+      "name": "Sites of special scientific interest (SSSI)",
+      "url": "https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::sites-of-special-scientific-interest-england/about",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Download of shapefile</p>"
+      ]
+    },
+    "SPA": {
+      "name": "Special protection area (SPA)",
+      "url": "https://naturalengland-defra.opendata.arcgis.com/datasets/special-protection-areas-england/about",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Download of shapefile</p>"
+      ]
+    },
+    "RAMSAR": {
+      "name": "Wetland site of international importance under the ramsar conventin",
+      "url": "https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::ramsar-england/about",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Download of shapefile</p>"
+      ]
+    },
+    "NatureReserve": {
+      "name": "National Nature Reserves",
+      "url": "https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::national-nature-reserves-england/about",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Download of shapefile</p>"
+      ]
+    },
+    "LocalNatureReserve": {
+      "name": "Local Nature Reserves",
+      "url": "https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::local-nature-reserves-england/about",
+      "geography": "GB",
+      "licence": "https://www.nationalarchives.gov.uk/doc/open-government-licence",
+      "notes": [
+        "<p>Download of shapefile</p>"
+      ]
+    },
+    "WPDDataPortal2": {
+      "name": "WPD Data Portal 2",
+      "url": "https://www.westernpower.co.uk/our-network/network-plans-and-information",
+      "geography": "WPD",
+      "licence": "Provided to third parties for planning purposes, needs authorisation",
+      "notes": [
+        "<p>Shape files for the whole WPD area split by voltage and asset type:</p>",
+        "<p>Voltages: 132kV, 33kV, 11kV</p>",
+        "<p>Asset types: Overhead line, Underground line, Ground mounted substation, Pole mounted substation, Pole, Tower.</p>"
+      ]
+    },
+    "NationalGrid": {
+      "name": "National Grid Transmission network",
+      "url": "https://www.nationalgrid.com/uk/electricity-transmission/network-and-infrastructure/network-route-maps",
+      "datadate": "2021-10-11",
+      "downloaddate": "2021-12-01",
+      "geography": "GB",
+      "licence": "",
+      "notes": [
+        "<p>Shape files containing national network including cables, overhead lines, substations, towers.</p>"
+      ]
+    },
+    "OSOpenRivers": {
+      "name": "OS Open Rivers",
+      "url": "https://www.ordnancesurvey.co.uk/business-government/products/open-map-rivers",
+      "datadate": "2020-10-01",
+      "downloaddate": "2021-02-22",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Twice a year April and October",
+      "priority": 14,
+      "notes": [
+        "<p>This river network is distributed as a single UK shape file.</p>"
+      ]
+    },
+    "OSOpenRoads": {
+      "name": "Teignbridge road network",
+      "url": "https://www.ordnancesurvey.co.uk/business-government/products/open-map-roads",
+      "datadate": "2019-10-01",
+      "downloaddate": "2019-10-06",
+      "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "updatefrequency": "Twice a year April and November",
+      "priority": 14,
+      "notes": [
+        "<p>This road network is distributes in 100km tiles in shape file format.",
+        " This has been loaded into our database and postprocessed to show only roads relevant to Teignbridge,",
+        " Defined as all roads within the Teignbridge boundary plus trunk roads (defined by the trunkroads flag) and",
+        " the following roads: A377, A379, A380, A381, A382, A384, A385, A3015, A3022, B3357, B3212, B3213.</p>",
+        "<p>The network also contains road nodes, which are needed to navigate the network.",
+        " Road nodes have been processed to generate a table OA_ROADNODE which relates nodes to output areas.",
+        " The distance between each roadnode and the centroid of its output area is calculated."
+      ]
+    },
+    "TrafficCounts": {
+      "name": "Dft Traffic Counts",
+      "url": "https://roadtraffic.dft.gov.uk/local-authorities/71",
+      "datadate": "2018-12-31",
+      "downloaddate": "2019-12-29",
+      "licence": "",
+      "updatefrequency": "Annual - publication date not known",
+      "priority": 15,
+      "notes": [
+        "<p>Traffic counts are available from Dft for motorways, A roads and some minor roads.",
+        " These have been downloaded from Dft using a script, and are imported to",
+        " the database using a script.</p>",
+        "<p>This dataset gives traffic flows from 2000 to 2018 at each count point,",
+        " it should be possible to use this to derive a model of flows in the major road network,",
+        " but it is questionable how useful this is to us in creating a baseline for areas such as parishes.</p>",
+        "<p>Perhaps we could at least assign transport emissions to areas, but this may not be fair because many trips",
+        " are through journeys which have nothing to do with the area.</p>",
+        "<p>To date no processing or presentation of this data has been done. A preliminary look suggests that",
+        " there are some areas that have seen significant traffic growth."
+      ]
+    }
+  },
+	"layers": {
+		"Teignbridge": {
+			"sources": [
+				"OSBoundaryLine"
+			]
+		},
+		"TeignbridgeParishes": {
+			"sources": [
+				"OSBoundaryLine"
+			]
+		},
+		"TeignbridgeWards": {
+			"sources": [
+        "OA_WARD",
+        "OA"
+			]
+		},
+		"Devon": {
+			"sources": [
+				"OSBoundaryLine"
+			]
+		},
+		"DevonWards": {
+			"sources": [
+        "OSBoundaryLine",
+        "WARD_DEVON_WARD"
+			]
+		},
+    "DevonConstituencies": {
+      "sources": [
+        "OSBoundaryLine"
+      ]
+    },
+    "TeignbridgePlanningArea": {
+      "sources": [
+        "OSBoundaryLine"
+      ],
+      "description": [
+        "<p>Area of Teignbridge where TDC is responsible for planning, which is the Teignbridge area less Dartmoor National Park</p>"
+      ]
+    },
+		"TeignbridgeOutputAreas": {
+			"sources": [
+				"OA"
+			]
+		},
+    "Teignbridge_LSOA": {
+      "sources": [
+        "OA",
+        "OA_LSOA_MSOA_LAD"
+      ],
+      "description": [
+        "<p>Lower Super Output Areas are formed by aggregating Census 2011 Output areas.",
+        " The lookup table OA_LSOA_MSOA_LAD is used to determine which OAs comprise an LSOA.</p>"
+      ]
+		},
+		"LR_POLYS": {
+			"sources": [
+				"LRPOLYS"
+			]
+		},
+		"Buildings": {
+			"sources": [
+				"OSOpenMapLocal"
+			]
+		},
+		"WOODLAND": {
+			"sources": [
+				"OSOpenMapLocal"
+			]
+		},
+		"Postcodes": {
+			"sources": [
+				"POSTCODE"
+			]
+		},
+		"COMPANIES": {
+			"sources": [
+				"COMPANIES",
+				"POSTCODE"
+			]
+		},
+		"importantBuilding": {
+			"sources": [
+				"OSOpenMapLocal"
+			]
+		},
+    "BUILDINGS_WITH_POLY": {
+      "sources": [
+        "BUILDINGS"
+      ]
+    },
+    "teignbridgeroads": {
+      "sources": [
+        "OSOpenRoads"
+      ]
+    },
+    "TrafficCounters": {
+      "sources": [
+        "TrafficCounts"
+      ]
+    },
+    "ZONES": {
+      "description": [
+        "<p>Zones are formed by intersecting Census 2011 Output areas with buffered Road Links.</p>",
+        "<p>The intention was to produce a lower level area geography initially for classifying buildings,",
+        "however this has not proved that successful. Values calculated from postcodes at this level are demonstrably inaccurate.</p>"
+      ],
+      "sources": [
+        "OA",
+        "OSOpenRoads"
+      ]
+    }
+	},
+  "columns": {
+    "time_generated": {
+      "isdate": true,
+      "includehours": true,
+      "metadata": {
+        "description": "The time that data was extracted from our database, this will always be later than the data date of any data source, please see the datasources section for data dates."
+      }
+    },
+    "BUILDINGS": {
+      "metadata": {
+        "sources": [ { "source": "BUILDINGS" } ],
+        "description": "Count of the number of seeds on individual buildings that intersect the area"
+      }
+    },
+    "DWELLINGS": {
+      "metadata": {
+        "sources": [ { "source": "BUILDINGS" } ],
+        "description": [
+          "<p>For the individual buildings layer the DWELLINGS attribute is set as described in the geometry source description.</p>",
+          "<p>For other layers this is the sum of the DWELLINGS attribute on Individual Buildings whose seed lies within the area.</p>"
+        ]
+      }
+    },
+    "TRANSPORT_EMISSIONS": {
+      "units": "ktCO<sub>2</sub>",
+      "metadata": {
+        "sources": [
+          {
+            "source": "DistrictGHG",
+            "layer": "Transport Emissions"
+          }
+        ]
+      }
+    },
+    "ROAD_TRANSPORT_EMISSIONS": {
+      "units": "ktCO<sub>2</sub>",
+      "metadata": {
+        "sources": [
+          {
+            "source": "DistrictGHG",
+            "layer": "Transport Emissions"
+          },
+          {
+            "source": "TrafficCounts"
+          }
+        ],
+        "description": [
+          "<p>Road transport emissions calculated from traffic flows in area.</p>",
+          "<p>For Major roads flows are taken from DfT traffic counts, for minor roads these are estimated based on residual emissions and consumption rates.</p>"
+        ]
+      }
+    },
+    "DOMESTIC_EMISSIONS": {
+      "units": "ktCO<sub>2</sub>",
+      "metadata": {
+        "sources": [
+          {
+            "source": "DistrictGHG"
+          },
+          {
+            "source": "EPCS"
+          },
+          {
+            "source": "BUILDINGS"
+          }
+        ],
+        "description": [
+          "<p>Domestic emissions for Teignbridge come directly from UK Local and Regional Emissions tables.</p>",
+          "<p>Emissions for other layers are apportioned using CO2 emissions data from EPC certificates and dwelling counts",
+          "derived from the Individual Buildings layer.</p>",
+          "<p>Full details of this processing can be found in the description of the EPCS and Individual Buildings datasets</p>"
+        ]
+      }
+    },
+    "INDUSTRIAL_EMISSIONS": {
+      "units": "ktCO<sub>2</sub>",
+      "metadata": {
+        "sources": [
+          {
+            "source": "DistrictGHG",
+            "layer": "Industrial Emissions"
+          }
+        ]
+      }
+    },
+    "district_length": {
+      "units": "m",
+      "metadata": {
+        "description": "Length of road that lies within Teignbridge"
+      }
+    },
+    "EMISSIONS_TOTAL": {
+      "units": "ktCO2",
+      "metadata": {
+        "description": "Annual GHG emissions for road length"
+      }
+    },
+    "EMISSIONS_KM": {
+      "units": "ktCO2/km",
+      "metadata": {
+        "description": "Annual GHG emissions per kilometres for road length"
+      }
+    },
+    "LINE_THICKNESS": {
+        "metadata": {
+          "description": "Line thickness for rendering roads based on Emissions_km in bands of 0.5kt/km based on 0.25kt/km "
+        }
+    },
+    "formofway": {
+        "metadata": {
+          "description": "Form of road (single, dual carriageway, roundabout, etc) includes derived geographies such as collapsed dual carriageway"
+        }
+    },
+    "road_function": {
+        "metadata": {
+          "description": "For major roads class, for minor roads a further subdivision, which is useful in estimating traffic."
+        }
+    },
+    "isprimary": {
+        "metadata": {
+          "description": "Primary road indicator"
+        }
+    },
+    "count_point_id": {
+        "metadata": {
+          "description": [
+            "Count Point identifier, reference to count point assigned to road,",
+            "0 is for roads such as slip roads that are not assigned a flow to avoid double counting",
+            "1 to 6 are for minor roads by roadfunction",
+            "10 to 30 are for B roads where counts have been individually estimated",
+            "DfT count numbers start at 6000"
+          ]
+        }
+    },
+    "Area_Hectares": {
+        "units": "ha"
+      },
+      "WOODLAND": {
+        "units": "ha",
+        "multiplier": 0.0001,
+        "metadata": {
+          "sources": [
+            {
+              "source": "OSOpenMapLocal",
+              "layer": "Woodland"
+            }
+          ],
+          "description": "The area of intersection of woodland polygons from OS Open Map Local with the area"
+        }
+      },
+      "COMPANIES": {
+        "metadata": {
+          "sources": [
+            {
+              "source": "COMPANIES",
+              "layer": "COMPANIES"
+            },
+            {
+              "source": "POSTCODE",
+              "layer": "Postcode"
+            }
+          ],
+          "description": "Count of the number of company registrations whose postcode is within area"
+        }
+      },
+      "class": {
+        "metadata": {
+          "description": "Class of road e.g. M Motorway, A, B or unknown"
+        }
+      },
+      "roadnumber": {
+        "metadata": {
+          "description": "Road number"
+        }
+      },
+      "startnode": {
+        "metadata": {
+          "description": "reference to node at start of link, which will be used to navigate the network"
+        }
+      },
+      "endnode": {
+        "metadata": {
+          "description": "reference to node at end of link, which will be used to navigate the network"
+        }
+      },
+      "trunkroad": {
+        "metadata": {
+          "description": "Flag to indicate if road link is a trunk road, so the responsibility of the Highways Agency."
+        }
+      },
+      "TrafficCounts": {
+        "metadata": {
+          "description": [
+            "<p>Traffic counts show average annual daily flow (AADF) ",
+            " for both directions on the length of road that the counter is situated on for each vehicle type and year.</p>",
+            "<p>These are referenced to a very cut down network used by Dft, this only shows A roads and motorways as straight lines",
+            " a trace through the detailed road network is performed between the ends of these links to assign counters to the detailed network.</p>"
+          ]
+        }
+      },
+      "OA11CD": {
+        "metadata": {
+          "description": "Census 2011 Output area code"
+        }
+      },
+      "LSOA11CD": {
+        "metadata": {
+          "description": "Census 2011 Lower Super output area"
+        }
+      },
+      "LSOA11NM": {
+        "metadata": {
+          "description": "Census 2011 Lower Super output name"
+        }
+      },
+      "MSOA11CD": {
+        "metadata": {
+          "description": "Census 2011 Middle Super output area"
+        }
+      },
+      "MSOA11NM": {
+        "metadata": {
+          "description": "Census 2011 Middle Super output name"
+        }
+      },
+      "CED19CD": {
+        "metadata": {
+          "description": "County Electoral District 2019, added to devon wards from Boundary-line by matching CED19NM with the name from Boundary-line",
+          "sources": [
+            "WARD_DEVON_WARD"
+          ]
+        }
+      },
+      "CED19NM": {
+        "metadata": {
+          "description": "County Electoral District 2019 name",
+          "sources": [
+            "WARD_DEVON_WARD"
+          ]
+        }
+      },
+      "WD19NM": {
+        "metadata": {
+          "description": "District Ward 2019 name"
+        }
+      },
+      "WD19CD": {
+        "metadata": {
+          "description": "District Ward 2019 code"
+        }
+      },
+      "NAME": {
+        "metadata": {
+          "description": "Name of area"
+        }
+      },
+      "name": {
+        "metadata": {
+          "description": "Name of area"
+        }
+      },
+      "COMPANY_RATIO": {
+        "metadata": {
+          "description": "Ratio of companies in area to buildings"
+        }
+      },
+    "climate_emergency_declaration": {
+      "metadata": {
+        "description": [
+          "<p>Climate emergency declaration information is gathered from parish and town council websites,",
+          "supplemented by any other information notified to us.</p>"
+        ]
+      },
+      "columns": {
+        "declaration_date": {
+          "isdate": true,
+          "metadata": {
+            "description": "The date that council passed a motion declaring a climate emergency, this is taken from minutes published on the council's web site"
+          }
+        },
+        "declaration_link": {
+          "metadata": {
+            "description": "Link to the minutes of meeting (or other document) that declared a climate emergency"
+          }
+        },
+        "declaration_summary": {
+          "metadata": {
+            "description": "Summary of the climate emergency declaration"
+          }
+        },
+        "declaration_detail": {
+          "metadata": {
+            "description": "More detailed text of declaration or a link to it."
+          }
+        },
+        "declaration_status": {
+          "metadata": {
+            "description": [
+              "<p>Status indicator, which may take the following values:</p><ul>",
+              "<li>declared - a climate emergency motion has been passed</li>",
+              "<li>dicussing - a motion hasn't been declared yet, but climate has been discussed in minutes</li>",
+              "<li>no info - we haven't found any mention of climate in minutes</li>",
+              "</ul>"
+            ]
+          }
+        },
+        "declaration_signed_DCC": {
+          "isdate": true,
+          "metadata": {
+            "description": "The date that council signed the Devon County Council declaration",
+            "sources": [
+              {
+                "source": "<a href=\"https://www.devonclimateemergency.org.uk/devon-climate-declaration/signatories/\" target=\"blank\" >https://www.devonclimateemergency.org.uk/devon-climate-declaration/signatories/</a>"
+              }
+            ]
+          }
+        }
+      }
+    },
+      "population": {
+        "metadata": {
+          "sources": [
+            {
+              "source": "POPULATION"
+            }
+          ],
+          "description": [
+            "<p>ONS Population data from 2018. This is a value for each age in years up to 89, then 90+",
+            "This has been processed into the following age groups:<p><ul>",
+            "<li>Under 18</li>",
+            "<li>18 to 65</li>",
+            "<li>66 and over</li>",
+            "</ul>",
+            "<p>Data is then presented as a table with columns for Males, Females and Total ",
+            "Rows represent each age band.</p>",
+            "<p>Data is published at Census 2011 output area level,",
+            " in most cases parishes and wards are made up of a number of whole output areas.",
+            " In a few cases a parish is too small to make an output area,",
+            " in these cases population is apportioned according to the number of dwellings.</p>"
+          ]
+        }
+      },
+      "meters": {
+        "metadata": {
+          "sources": [
+            { "source": "GAS_METERS_POSTCODE" },
+            { "source": "GAS_METERS_LSOA" },
+            { "source": "ELECTICITY_METERS_LSOA" },
+            { "source": "EPCS" },
+            { "source": "POSTCODE" },
+            { "source": "OA" },
+            { "source": "OA_LSOA_MSOA_LAD" },
+            { "source": "OA_PARISH" }
+          ],
+          "description": [
+            "<p>Gas and electricity meter readings are summarised at census 2011 Lower Super Output Area level (LSOA). </p>",
+            "<p>Gas meters are also available at postcode level,",
+            " gas meter readings whose postcode lies within the area are summed for the area to give energy.",
+            " Some meters have been excluded from the postcode level data to avoid identifying individuals,",
+            " when calculating emissions a correction is applied to ensure that postcode level readings within an LSOA add up to the LSOA total.</p>",
+            "<p>For areas that don't correspond with output area intersections are formed: OA_PARISH, OA_WARD, OA_DEVON_WARD.",
+            " On each of these intersection tables LSOA_PROPORTION is calculated as the ratio of dwellings in the area to dwellings in the LSOA.</p>",
+            "<p>Electricity meter readings are calculated for OA, PARISH, WARD and DEVON ward are calculated using LSOA_PROPORTION.",
+            " Then these are summed for higher level geographies.</p>",
+            "<p>Emissions are calculated by applying the ratio of district emissions to energy consumption for the district for each fuel group</p>",
+            "<p>Other Fuel energy and emissions are apportion using the ratio of EPCs with other heating sources in area to that in district.</p>"
+          ]
+        }
+      },
+      "road_stats": {
+        "metadata": {
+          "sources": [
+            { "source": "TrafficCounts" },
+            {
+              "source": "DistrictGHG",
+              "layer": "Transport Emissions"
+            },
+            { "source": "OSOpenRoads" }
+          ],
+          "description": [
+            "<p>Statistics for a length of road<p>",
+            "<p>AADF - Average Annual Daily Flow.</p>",
+            "<p>Veh. Km - Vehicle Kilometers (length of road * AADF</p>",
+            "<p>Emissions from length of road in tonnes of CO<sub>2<sub>.</p>",
+            "<p>See <a href=\"https://actionclimateteignbridge.org/wp-content/uploads/2020/03/ACT-Calculating-Transport-Emissions-v0.1.pdf\" target=\"blank\" >https://actionclimateteignbridge.org/wp-content/uploads/2020/03/ACT-Calculating-Transport-Emissions-v0.1.pdf</a>",
+            "for details of calculation methodology</p>"
+          ]
+        }
+      },
+    "road_emissions": {
+      "metadata": {
+        "sources": [
+          { "source": "TrafficCounts" },
+          {
+            "source": "DistrictGHG",
+            "layer": "Transport Emissions"
+          },
+          { "source": "OSOpenRoads" }
+        ],
+        "description": [
+          "<p>Road Transport Statistics for an area<p>",
+          "<p>Veh. Km - Vehicle Kilometers for all roads in area (sum of(length of road * AADF))</p>",
+          "<p>Road Transport Emissions from area in tonnes of CO<sub>2</sub></p>",
+          "<p>See <a href=\"https://actionclimateteignbridge.org/wp-content/uploads/2020/03/ACT-Calculating-Transport-Emissions-v0.1.pdf\" target=\"blank\" >https://actionclimateteignbridge.org/wp-content/uploads/2020/03/ACT-Calculating-Transport-Emissions-v0.1.pdf</a>",
+          "for details of calculation methodology</p>"
+        ]
+      }
+    },
+    "EMISSIONS_BY_ROAD": {
+      "metadata": {
+        "sources": [
+          { "source": "TrafficCounts" },
+          {
+            "source": "DistrictGHG",
+            "layer": "Transport Emissions"
+          },
+          { "source": "OSOpenRoads" }
+        ],
+        "columns": {
+          "road": {
+            "metadata": {
+              "description": "Road number"
+            }
+          },
+          "emissions": {
+            "metadata": {
+              "description": "Tonnes of CO<sub>2</sub> emitted by traffic using portion of road that lies within parish"
+            }
+          },
+          "road_length": {
+            "metadata": {
+              "description": "Length of road in metres within the parish"
+            }
+          }
+        },
+        "description": [
+          "<p>Table of named roads intersecting a parish, showing emissions and length of road within parish</p>",
+          "<p>See <a href=\"https://actionclimateteignbridge.org/wp-content/uploads/2020/03/ACT-Calculating-Transport-Emissions-v0.1.pdf\" target=\"blank\" >https://actionclimateteignbridge.org/wp-content/uploads/2020/03/ACT-Calculating-Transport-Emissions-v0.1.pdf</a>",
+          "for details of calculation methodology</p>"
+        ]
+      }
+    },
+    "councillors": {
+      "metadata": {
+        "description": [
+          "<p>List of councillors derived from details on Teignbridge DC's website</p>"
+        ]
+      }
+    },
+      "EPC": {
+        "metadata": {
+          "sources": [
+            { "source": "EPCS" },
+            { "source": "POSTCODE" },
+            { "source": "OA" },
+            { "source": "OA_LSOA_MSOA_LAD" },
+            { "source": "OA_PARISH" }
+          ]
+        },
+        "columns": {
+          "CO2_EMISSIONS_CURRENT": {
+            "metadata": {
+              "description": "Annual CO2 emissions for the current building."
+            }
+          },
+          "CO2_EMISSIONS_POTENTIAL": {
+            "metadata": {
+              "description": "Annual CO<sub>2</sub> emissios for the building if the recommendations are carried out."
+            }
+          },
+          "ENERGY_CONSUMPTION_CURRENT": {
+            "metadata": {
+              "description": "Annual energy consumption for the current building."
+            }
+          },
+          "ENERGY_CONSUMPTION_POTENTIAL": {
+            "metadata": {
+              "description": "Annual energy consumption for if the recommendations are carried out."
+            }
+          },
+          "LIGHTING_COST_CURRENT": {
+            "metadata": {
+              "description": "Annual lighting cost for the current building."
+            }
+          },
+          "LIGHTING_COST_POTENTIAL": {
+            "metadata": {
+              "description": "Annual lighting cost for the building if the recommendations are carried out."
+            }
+          },
+          "HEATING_COST_CURRENT": {
+            "metadata": {
+              "description": "Annual heating cost for the current building."
+            }
+          },
+          "HEATING_COST_POTENTIAL": {
+            "metadata": {
+              "description": "Annual heating cost for the if the recommendations are carried out."
+            }
+          },
+          "HOT_WATER_COST_CURRENT": {
+            "metadata": {
+              "description": "Annual hot water cost for the current building."
+            }
+          },
+          "HOT_WATER_COST_POTENTIAL": {
+            "metadata": {
+              "description": "Annual hot water cost for the if the recommendations are carried out."
+            }
+          },
+          "TOTAL_FLOOR_AREA": {
+            "metadata": {
+              "description": "Total floor area of the current building."
+            }
+          },
+          "NUMBER_CERTS": {
+            "metadata": {
+              "description": "Number of certificates issued."
+            }
+          },
+          "ENERGY_RATED_A": {
+            "metadata": {
+              "description": "Number of certificates that are currently A rated."
+            }
+          },
+          "ENERGY_RATED_B": {
+            "metadata": {
+              "description": "Number of certificates that are currently B rated."
+            }
+          },
+          "ENERGY_RATED_C": {
+            "metadata": {
+              "description": "Number of certificates that are currently C rated."
+            }
+          },
+          "ENERGY_RATED_D": {
+            "metadata": {
+              "description": "Number of certificates that are currently D rated."
+            }
+          },
+          "ENERGY_RATED_E": {
+            "metadata": {
+              "description": "Number of certificates that are currently E rated."
+            }
+          },
+          "ENERGY_RATED_F": {
+            "metadata": {
+              "description": "Number of certificates that are currently F rated."
+            }
+          },
+          "ENERGY_RATED_G": {
+            "metadata": {
+              "description": "Number of certificates that are currently G rated."
+            }
+          },
+          "POTENTIAL_ENERGY_RATED_A": {
+            "metadata": {
+              "description": "Number of certificates that are potentially A rated if the recommendations are carried out."
+            }
+          },
+          "POTENTIAL_ENERGY_RATED_B": {
+            "metadata": {
+              "description": "Number of certificates that are potentially B rated if the recommendations are carried out."
+            }
+          },
+          "POTENTIAL_ENERGY_RATED_C": {
+            "metadata": {
+              "description": "Number of certificates that are potentially C rated if the recommendations are carried out."
+            }
+          },
+          "POTENTIAL_ENERGY_RATED_D": {
+            "metadata": {
+              "description": "Number of certificates that are potentially D rated if the recommendations are carried out."
+            }
+          },
+          "POTENTIAL_ENERGY_RATED_E": {
+            "metadata": {
+              "description": "Number of certificates that are potentially E rated if the recommendations are carried out."
+            }
+          },
+          "POTENTIAL_ENERGY_RATED_F": {
+            "metadata": {
+              "description": "Number of certificates that are potentially F rated if the recommendations are carried out."
+            }
+          },
+          "POTENTIAL_ENERGY_RATED_G": {
+            "metadata": {
+              "description": "Number of certificates that are potentially G rated if the recommendations are carried out."
+            }
+          },
+          "HEATED_GAS": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by gas."
+            }
+          },
+          "HEATED_ELECTRICITY": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by electricity."
+            }
+          },
+          "HEATED_PETROLEUM": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by oil or LPG."
+            }
+          },
+          "HEATED_COAL": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by coal."
+            }
+          },
+          "HEATED_WOOD": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by wood."
+            }
+          },
+          "HEATED_MANUFACTURED": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by anthracite or smokeless fuel."
+            }
+          },
+          "HEATED_COMMUNITY": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by a community heating scheme."
+            }
+          },
+          "HEATED_OTHER": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by sources that aren't classified."
+            }
+          },
+          "HEATED_GROUP_GAS": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by gas."
+            }
+          },
+          "HEATED_GROUP_ELECTRICITY": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are heated by electricity."
+            }
+          },
+          "HEATED_GROUP_OTHER": {
+            "metadata": {
+              "description": "Number of certificates for buildings that are not heated by gas or electricity."
+            }
+          },
+          "DOMESTIC_EMISSIONS_IMPROVEMENT": {
+            "metadata": {
+              "description": [
+                "<p>Percentage improvement in emissions derived from CO2_EMISSIONS_CURRENT and CO2_EMISSIONS_POTENTIAL.",
+                "using the formula:</p>",
+                "100 X (1 - CO2_EMISSIONS_POTENTIAL/CO2_EMISSIONS_CURRENT)"
+              ]
+            }
+          }
+        }
+      },
+      "EPC_DERIVED": {
+        "metadata": {
+          "sources": [
+            { "source": "EPCS" },
+            { "source": "BUILDINGS" },
+            { "source": "POPULATION" }
+          ]
+        },
+        "columns": {
+          "DOMESTIC_EMISSIONS": {
+            "metadata": {
+              "description": "CO<sub>2</sub> from building EPCs adjusted to match the district domestic emissions total from BEIS."
+            }
+          },
+          "DOMESTIC_EMISSIONS_POTENTIAL": {
+            "metadata": {
+              "description": "Potential CO<sub>2</sub> from building EPCs adjusted to match the district domestic emissions total from BEIS."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_CAPITA_CURRENT": {
+            "metadata": {
+              "description": "Current Domestic Emissions divided by area population."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_CAPITA_POTENTIAL": {
+            "metadata": {
+              "description": "Potential Domestic Emissions divided by area population."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT": {
+            "metadata": {
+              "description": "Current Domestic Emissions divided by estimated number of dwellings from Individual Buildings."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_DWELLING_POTENTIAL": {
+            "metadata": {
+              "description": "Potential Domestic Emissions divided by estimated number of dwellings from Individual Buildings."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_EPC_CURRENT": {
+            "metadata": {
+              "description": "Current Domestic Emissions divided by number of EPCs in area - this measure involves the least estimating."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_EPC_POTENTIAL": {
+            "metadata": {
+              "description": "Potential Domestic Emissions divided by number of EPCs in area - this measure involces the least estimating."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_HECTARE_CURRENT": {
+            "metadata": {
+              "description": "Current Domestic Emissions divided by area in hectares of area."
+            }
+          },
+          "DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL": {
+            "metadata": {
+              "description": "Potential Domestic Emissions divided by area in hectares of area."
+            }
+          },
+          "CO2_EMISSIONS_CURRENT_FACTORED": {
+            "metadata": {
+              "description": [
+                "Current Domestic Emissions multiplied by number of dwellings and divided by number of certificates. This is a raw estimate of area emissions,",
+                " and is usually significantly higher than the estimate adjusted to match the district total.",
+                " this estimate does not take into account the type of certificate, so is lower than if only old dwellings are used for scaling."
+              ]
+            }
+          },
+          "CO2_EMISSIONS_POTENTIAL_FACTORED": {
+            "metadata": {
+              "description": [
+                "Potential Domestic Emissions multiplied by number of dwellings and divided by number of certificates. This is a raw estimate of area emissions,",
+                " and is usually significantly higher than the estimate adjusted to match the district total.",
+                " this estimate does not take into account the type of certificate, so is lower than if only old dwellings are used for scaling."
+              ]
+            }
+          }
+        }
+      }
+    }
+}

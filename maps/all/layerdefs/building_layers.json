@@ -1,0 +1,188 @@
+{
+  "BUILDINGS_WITH_POLY": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "less": {
+            "name": "AREA",
+            "value": 20
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,0,255,0.6)"
+          }
+        },
+        "name": "Dwelling"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "DWELLINGS",
+            "value": 1
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.6)"
+          }
+        },
+        "name": "Dwelling"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "DWELLINGS",
+            "value": 1
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,255,0.6)"
+          }
+        },
+        "name": "Multiple Dwellings"
+      },
+      {
+        "condition": {
+          "notnull": {
+            "name": "BUILDING_NAME"
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.6)"
+          }
+        },
+        "name": "Named Building"
+      }
+    ],
+    "layer": null,
+    "name": "Individual Buildings",
+    "summary": [ ".BUILDING_NAME", "+layername" ],
+    "url":"/mapdata/buildings/BUILDINGS_WITH_POLY.json"
+  },
+  "importantBuilding": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,255,0.75)"
+      }
+    },
+    "layer": null,
+    "name": "Important Buildings",
+    "summary": [ ".BUILDING_NAME", "+layername" ],
+    "url":"/mapdata/buildings/importantBuilding.json"
+  },
+  "Buildings": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.75)"
+      }
+    },
+    "layer": null,
+    "name": "Buildings",
+    "summary": [ "+layername" ],
+    "minZoom": 15,
+    "url":"/mapdata/buildings/Buildings.json"
+  },
+  "LR_POLYS": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Land Registry Polygons",
+    "summary": [ "+layername" ],
+    "minZoom": 15,
+    "url":"/mapdata/buildings/LR_POLYS.json"
+  },
+  "ZONES": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "COMPANY_RATIO",
+            "value": 0.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.6)"
+          }
+        },
+        "name": "> 0.5 or more companies/building"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "COMPANY_RATIO",
+            "min": 0.2,
+            "max": 0.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.6)"
+          }
+        },
+        "name": "0.2-0.5 companies/building"
+      }
+    ],
+    "layer": null,
+    "name": "Zones",
+    "summary": [ "buildings:", ".BUILDINGS", "companies:", ".COMPANIES", "+layername" ],
+    "url":"/mapdata/buildings/ZONES.json"
+  },
+  "UPDATE_HEADER":{
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Update Header",
+    "summary": [ "Update Header:", ".VALUE", "+layername" ],
+    "url":"/mapdata/buildings/UPDATE_HEADER.json"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "hvnet_132kV_ohl": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(32,0,255,1)",
+        "width": 5
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_132kV_ohl.json",
+    "layer": null,
+    "name": "132kV Overhead lines",
+    "summary": [ "132kV Overhead", ".desc" ],
+    "tooltip": "132kV Overhead electricity line managed by WPD"
+  },
+  "hvnet_132kV_ug": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(64,0,255,0.8)",
+        "width": 5
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_132kV_ug.json",
+    "layer": null,
+    "name": "132kV Underground lines",
+    "summary": [ "132kV Underground", ".desc" ],
+    "tooltip": "132kV Underground electricity line managed by WPD"
+  },
+  "hvnet_132kV_gm_subs": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 10,
+        "fill": { "color": "rgba(32,0,255,1)" },
+        "stroke": {
+          "color": "rgba(0,0,0,1)",
+          "width": 1
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_132kV_gm_subs.json",
+    "layer": null,
+    "name": "132 kV Substation",
+    "summary": [ "132 kV Substation", ".desc" ],
+    "tooltip": "132kV Substation managed by WPD"
+  }
+}

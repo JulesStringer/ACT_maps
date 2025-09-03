@@ -1,0 +1,231 @@
+{
+    "Turbines": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/Turbines.json",
+        "name": " Wind Turbine",
+        "summary": [
+            "+layername",
+            ".turbine",
+            ".annual_GWH",
+            "GWh"
+        ]
+    },
+    "TurbineBuffer": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/TurbineBuffer.json",
+        "name": " Wind Turbine",
+        "summary": [
+            "+layername",
+            ".turbine",
+            ".annual_MWh",
+            "MWh"
+        ]
+    },
+    "WindSquares": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindSquares.json",
+        "name": " Wind speed",
+        "summary": [
+            ".speed10m",
+            " m/s"
+        ]
+    },
+    "WindConstraint_QR6_7kW": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindConstraint_QR6_7kW.json",
+        "name": "[object Object] Wind speed at 10m above ground",
+        "summary": [
+            {
+                "name": "QR6 7kW",
+                "speedheight": 10,
+                "minspeed": 5
+            },
+            ".speed10m",
+            " m/s"
+        ]
+    },
+    "WindConstraint_Norvento_nED_100kW": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindConstraint_Norvento_nED_100kW.json",
+        "name": "[object Object] Wind speed at 25m above ground",
+        "summary": [
+            {
+                "name": "Norvento nED 100kW",
+                "speedheight": 25,
+                "minspeed": 5
+            },
+            ".speed25m",
+            " m/s"
+        ]
+    },
+    "WindConstraint_Enercon_E53_500kW": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindConstraint_Enercon_E53_500kW.json",
+        "name": "[object Object] Wind speed at 45m above ground",
+        "summary": [
+            {
+                "name": "Enercon E53 500kW",
+                "speedheight": 45,
+                "minspeed": 5
+            },
+            ".speed45m",
+            " m/s"
+        ]
+    },
+    "WindConstraint_Enercon_E44_900kW": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindConstraint_Enercon_E44_900kW.json",
+        "name": "[object Object] Wind speed at 45m above ground",
+        "summary": [
+            {
+                "name": "Enercon E44 900kW",
+                "speedheight": 45,
+                "minspeed": 5
+            },
+            ".speed45m",
+            " m/s"
+        ]
+    },
+    "WindConstraint_Enercon_E82_E2_2_3MW": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindConstraint_Enercon_E82_E2_2_3MW.json",
+        "name": "[object Object] Wind speed at 45m above ground",
+        "summary": [
+            {
+                "name": "Enercon E82 E2 2_3MW",
+                "speedheight": 45,
+                "minspeed": 5
+            },
+            ".speed45m",
+            " m/s"
+        ]
+    },
+    "WindConstraint_Enercon_E70_E4_2_3MW": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindConstraint_Enercon_E70_E4_2_3MW.json",
+        "name": "[object Object] Wind speed at 45m above ground",
+        "summary": [
+            {
+                "name": "Enercon E70 E4 2_3MW",
+                "speedheight": 45,
+                "minspeed": 5
+            },
+            ".speed45m",
+            " m/s"
+        ]
+    },
+    "WindConstraint_EWT_DW61_1MW": {
+        "type": "geoJSON",
+        "style": {
+            "stroke": {
+                "color": "rgba(0,0,0,0)",
+                "width": 1
+            },
+            "fill": {
+                "color": "rgba(0,0,0,0)"
+            }
+        },
+        "layer": null,
+        "url": "/mapping/wind/WindConstraint_EWT_DW61_1MW.json",
+        "name": "[object Object] Wind speed at 45m above ground",
+        "summary": [
+            {
+                "name": "EWT DW61 1MW",
+                "speedheight": 45,
+                "minspeed": 5
+            },
+            ".speed45m",
+            " m/s"
+        ]
+    }
+}

@@ -1,0 +1,245 @@
+{
+  "Teignbridge": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+          "condition": {
+            "notnull": {"name": "declared"}
+          },
+          "style": {
+            "fill": {
+              "color": "rgba(0,255,0,0.08)"
+            },
+            "name": "Climate Emergency Declared"
+          }
+        }
+    ],
+    "layer": null,
+    "name": "Teignbridge District",
+    "summary": [".code", ".name"],
+    "url":"/mapdata/boundaries/Teignbridge.json"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "themes": [
+      {
+        "condition": {
+          "notnull": { "name": "declared" }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.12)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  },
+  "TeignbridgeWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Wards",
+    "summary": [ ".code", ".name", " : ","+layername" ],
+    "url":"/mapdata/boundaries/TeignbridgeWards.json"
+  },
+  "Devon": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 5
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "notnull": { "name": "declared" }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.05)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      }
+    ],
+    "layer": null,
+    "name": "Devon County",
+    "summary": [ ".code", ".name" ],
+    "url":"/mapdata/boundaries/Devon.json"
+  },
+  "DevonWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 3
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon County Wards",
+    "summary": [ ".name", " : ","+layername" ],
+    "url":"/mapdata/boundaries/DevonWards.json"
+  },
+  "DevonConstituencies": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 6
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon Constituencies",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/DevonConstituencies.json"
+  },
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", ".parish", " : ", "+layername" ],
+    "minZoom": 12,
+    "url":"/mapdata/census/TeignbridgeOutputAreas.json"
+  },
+  "Teignbridge_LSOA": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Census Super Output Areas",
+    "summary": [ ".LSOA11CD", ".LSOA11NM", " : ", "+layername" ],
+    "url":"/mapdata/census/Teignbridge_LSOA.json"
+  },
+  "LR_POLYS": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "between": {
+            "name": "area",
+            "min": 0,
+            "max": 500
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.75)"
+          }
+        },
+        "name": "Under 500 M2"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "area",
+            "min": 500,
+            "max": 1000
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.50)"
+          }
+        },
+        "name": "500 - 1000 M2"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "area",
+            "min": 1000,
+            "max": 1500
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.25)"
+          }
+        },
+        "name": "1000 - 1500 M2"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "area",
+            "min": 1500,
+            "max": 2000
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.25)"
+          }
+        },
+        "name": "1500 - 2000 M2"
+      }
+    ],
+    "layer": null,
+    "name": "Land Registry Polygons",
+    "summary": [ "+layername" ],
+    "minZoom": 15
+  },
+  "url":"/mapdata/buildings/LR_POLYS.json"
+}

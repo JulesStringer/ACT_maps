@@ -1,0 +1,417 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../../ol/v6.5.0-dist/ol.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../ol/v6.5.0-dist/ol.js"></script>
+    <script src="../../proj4/dist/proj4.js"></script>
+    <script src="../../mapping/tables.js?v=2023-09-19T18:30"></script>
+    <script src="../../mapping/geometry.js?v=2023-09-19T18:30"></script>
+    <script src="../../mapping/condition.js?v=2023-09-19T18:30"></script>
+    <script src="../../mapping/tooltips.js?v=2023-09-19T18:30"></script>
+    <script src="../../mapping/help.js?v=2023-09-19T18:30"></script>
+    <script src="../../mapping/mapdisplay.js?v=2023-09-19T122:22"></script>
+    <script src="../../mapping/topics.js?v=2023-09-19T18:30"></script>
+    <script src="../../mapping/uploadjson.js?v=2023-09-19T18:30"></script>
+    <script src="../../mapping/add.js?v=2023-09-19T18:30"></script>
+    <style>
+        .atts table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .atts th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .atts td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .noborder {
+            border: none;
+        }
+
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 280px;
+        }
+
+            .ol-popup:after, .ol-popup:before {
+                top: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .ol-popup:after {
+                border-top-color: white;
+                border-width: 10px;
+                left: 48px;
+                margin-left: -10px;
+            }
+
+            .ol-popup:before {
+                border-top-color: #cccccc;
+                border-width: 11px;
+                left: 48px;
+                margin-left: -11px;
+            }
+
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        }
+
+            .ol-popup-closer:after {
+                content: "✖";
+            }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        }
+
+            /* Tooltip text */
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 120px;
+                top: 20px;
+                background-color: bisque;
+                color: black;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 6px;
+                /* Position the tooltip text - see examples below! */
+                position: absolute;
+                z-index: 1;
+                overflow: visible;
+            }
+
+            /* Show the tooltip text when you mouse over the tooltip container */
+            .tooltip:hover .tooltiptext {
+                visibility: visible;
+            }
+
+        .keyhelp {
+            display: none;
+            background-color: #C0C0C0;
+            height: 100%;
+            overflow: auto;
+            position: fixed;
+        }
+
+        .helpmenu {
+            position: fixed;
+            top: 30px;
+            left: 70%;
+            right: 20px;
+            background-color: #C0C0C0;
+            display: none;
+        }
+
+        .helptext {
+            position: fixed;
+            top: 70px;
+            left: 70%;
+            right: 10px;
+            display: none;
+            background-color: #C0C0C0;
+            height: 85%;
+            overflow: auto;
+        }
+
+        .maphelp {
+            display: none;
+            position: relative;
+            left: 10px;
+            padding-right: 20px;
+        }
+    </style>
+    <title>ACT Mapping</title>
+</head>
+<body onload="onload('layerdefs/','Templates/', 'findlayer');">
+    <table>
+        <tr>
+            <td>
+                <span class="tooltip">
+                    Topic:
+                    <span class="tooltiptext">
+                        Topic enables you to select a set of layers and themeing in one action.
+                        The base topic includes all available data.
+                    </span>
+                </span>
+            </td>
+            <td>
+                <select id="topic" onchange="ontopic(this.value);">
+                    <option value="base" selected>Base Data</option>
+                    <option value="declarations">Climate Emergency Declarations</option>
+                    <option value="popdensity">Population Density</option>
+                    <option value="CO2PerDwellingCurrent">Current Domestic CO2 Emissions per dwelling</option>
+                    <option value="CO2PerDwellingPotential">Potential Domestic CO2 Emissions per dwelling</option>
+                    <option value="CO2PerCapitaCurrent">Current Domestic CO2 Emissions per person</option>
+                    <option value="CO2PerCapitaPotential">Potential Domestic CO2 Emissions per person</option>
+                    <option value="CO2PerHectareCurrent">Current Domestic CO2 Emissions per hectare</option>
+                    <option value="CO2PerHectarePotential">Potential Domestic CO2 Emissions per hectare</option>
+                    <option value="CO2PerEPCCurrent">Current Domestic CO2 Emissions per EPC</option>
+                    <option value="CO2PerEPCPotential">Potential Domestic CO2 Emissions per EPC</option>
+                    <option value="roads_by_emissions">Roads By Transport Emissions</option>
+                    <option value="OA_road_emissions">Output Areas by Road Transport Emissions</option>
+                    <!-- <option value="LandUse">Land Use</option> -->
+                </select>
+            </td>
+            <!--
+                        <td>
+                            <button type="button" onclick="on_add();">Add</button>
+                        </td>
+            -->
+            <td>
+                <span class="tooltip">
+                    Zoom to:
+                    <span class="tooltiptext">
+                        This enabled you to select a parish, that the map is then centred on and sized to fit the parish boundary.
+                    </span>
+                </span>
+            </td>
+            <td>
+                <select id="findlayer" onchange="on_findlayerchange(this.value,'findlayer');"></select>
+            </td>
+            <td>
+                <span class="tooltip">
+                    <input type="checkbox" id="hover" onclick="onhover();" />Summary on hover
+                    <span class="tooltiptext">
+                        This checkbox controls what happens when the cursor hovers over a clickable feature on the map.
+                        If it is checked then a summary description of the current feature is displayed, otherwise the normal
+                        behaviour is to display a summary list of features at the cursor position when a click occurs on the map.
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span class="tooltip">
+                    <input type="checkbox" id="grey" onclick="ongrey();"/>Grey
+                    <span class="tooltiptext">
+                        This checkbox renders the background map in grey so that foreground detail is more prominent.
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span class="tooltip">
+                    <button type="button" id="help" onclick="on_help();">+Help</button>
+                    <span class="tooltiptext">
+                        Display help menu items
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span class="tooltip">
+                    <select id="background" onchange="on_changebackground(this.value);">
+                        <option value="OpenStreetMap">Open Street Map</option>
+                        <option value="OSRoad">OS Road</option>
+                        <option value="OSLight">OS Light</option>
+                        <option value="OSOutdoor" selected>OS Outdoor</option>
+                    </select>
+                </span>
+            </td>
+        </tr>
+    </table>
+    <div id="main">
+        <table class="noborder">
+            <tr>
+                <td>
+                    <div id="map" class="map" style="width:600px; height:550px;"></div>
+                    <span id="coords"></span>
+                </td>
+                <td style="width:500px;">
+                    <div style="width:500px; height:400px;overflow:auto;">
+                        <div id="control" style="width:500px;table-layout:fixed;"></div>
+                    </div>
+                    <div class="atts" id="selected" style="width:500px; height:150px;overflow:auto;">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('map');"></a>
+            <div id="popup-content"></div>
+        </div>
+        <div class="atts" id="detail"
+             style="position:fixed; top:0px;right:0px;width:600px;height:600px;background-color:antiquewhite;">
+            <!--<a href="#" id="detail-closer" class="ol-popup-closer" onclick="closedetail();"></a>-->
+            <h1 id="detail-title"></h1>
+            <div style="height:30px;">
+                <span class="tooltip">
+                    <button type="button" onclick="on_top('detail-content');" style="float:left;">Top</button>
+                    <span class="tooltiptext">
+                        Moves the first line of the attribute display to the top of the window.
+                    </span>
+                </span>
+                <span class="tooltip">
+                    <button type="button" onclick="on_print();" style="float:left;">Print</button>
+                    <span class="tooltiptext">
+                        Print the current map with all attributes for the current feature.
+                    </span>
+                </span>
+                <span class="tooltip">
+                    <button type="button" id="detail-closer" style="float:right;" onclick="closedetail();">Close</button>
+                    <span class="tooltiptext">
+                        Close the attribute detail display
+                    </span>
+                </span>
+            </div>
+            <div id="detail-content" style="overflow:auto;height:500px;"></div>
+        </div>
+        <div class="atts" id="column-metadata" style="position:fixed; top:50px;left:0px;width:550px;background-color:bisque;visibility:hidden;">
+            <div style="height:30px;">
+                <span class="tooltip">
+                    <button type="button" id="column-metadata-top" style="left:0px;top:0px;" onclick="on_top('column-metadata-body');">Top</button>
+                    <span class="tooltiptext">
+                        Move the first item in the metadata display to the top of the window
+                    </span>
+                </span>
+                <span class="tooltip">
+                    <button type="button" id="column-metadata-closer" style="float:right;top:0px;" onclick="closemetadata();">Close</button>
+                    <span class="tooltiptext">
+                        Close the attribute metadata display
+                    </span>
+                </span>
+            </div>
+            <div id="column-metadata-body" style="overflow:auto;height:500px;">
+            </div>
+        </div>
+        <div id="addform" style="position:fixed; top: 20px; right:10px; visibility:hidden;width: 540px; height:300px;background-color: white;">
+            <table style="border:1px solid black;" id="addtable">
+                <tr><td style="width:100px;">ID:</td><td id="postID" style="width:450px;"></td></tr>
+                <tr>
+                    <td>Upload File:</td>
+                    <td>
+                        <input type="file" id="file" multiple="false" required="false" onchange="on_filechange();" />
+                        <span class="tooltip">
+                            ?
+                            <span class="tooltiptext">Select a file to be uploaded, if you do not then you should specify a link to an existing url.</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Layer</td>
+                    <td>
+                        <select id="layer" onchange="on_layerChanged(this.value);"></select>
+                        <span class="tooltip">
+                            ?
+                            <span class="tooltiptext" style="right:10px;">Layers enable like features to be selected from the map.</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <span class="tooltip">
+                            <button type="button" onclick="on_cancel();" style="left:0px;">Cancel</button>
+                            <span class="tooltiptext">
+                                Cancel the add layer operation
+                            </span>
+                        </span>
+                        <span class="tooltip">
+                            <button type="button" onclick="on_submit();" id="submit" style="">Upload File</button>
+                            <span class="tooltiptext">
+                                Send a layer to the server and update the layers list.
+                            </span>
+                        </span>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+            <div id="newLayerForm" style="display:none;">
+                <table style="border:1px solid black;">
+                    <tr>
+                        <td>
+                            <span class="tooltip">
+                                Layer Name
+                                <span class="tooltiptext">
+                                    Name given to the new layer
+                                </span>
+                            </span>
+                        </td>
+                        <td><input type="text" id="layerName" style="width:400px;right:40px;" onchange="on_layerNameChanged();" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tooltip">
+                                Layer ID
+                                <span class="tooltiptext">
+                                    Identifier for the layer. This can be derived from the name,
+                                    it should only include alphanumeric characters, the first character must be alphabetic.
+                                </span>
+                            </span>
+                        </td>
+                        <td>
+                            <input type="text" id="layerID" style="width:400px;right:40px;" onchange="on_layerIDChanged();" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tooltip">
+                                Type
+                                <span class="tooltiptext">
+                                    Type of layer to be added. Currently only geoJSON is supported.
+                                </span>
+                            </span>
+                        </td>
+                        <td>
+                            <select id="layerType" onchange="on_layertypeChanged(this.value);">
+                                <option value="geoJSON">geoJSON</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td id="typeSpecifics"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <span class="tooltip">
+                                <button type="button" onclick="on_addLayer();">Add Layer</button>
+                                <span class="tooltiptext">
+                                    Add a new layer to the layers control
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="helpmenu" class="helpmenu">
+    </div>
+    <div id="helptext"></div>
+    <div style="display:none;" class="tooltips">
+        <ul id="legend_tooltips" style="top: 20px; bottom: unset; left: 30px; right: unset;">
+            <li field="on">Turning on checkboxes in this column causes the corresponding layer to display.</li>
+            <li field="clickable">Turning on checkboxes in this column causes features in corresponding layers to respond to mouse clicks by displaying a list of features under the point clicked.</li>
+            <li field="description">This column contains a description of the current layer or theme</li>
+            <li field="expandgroup">This button expands/collapses the corresponding layer group</li>
+            <li field="expandtheme">This button expands/collapses themeing of the current layer</li>
+            <li field="layerrep">Shows a sample of how the layer is displayed on the map when no theme condition applies.</li>
+            <li field="themerep">Shows a sample of how the theme is displayed on the map when the theme condition applies.</li>
+            <li field="themedesc">Description of the current theme.</li>
+            <li field="expandatts">Expands/collapses the attribute group.</li>
+        </ul>
+    </div>
+</body>
+</html>

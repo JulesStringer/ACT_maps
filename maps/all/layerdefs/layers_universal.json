@@ -1,0 +1,270 @@
+{
+  "Teignbridge": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "notnull": { "name": "declared" }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.08)"
+          },
+          "name": "Climate Emergency Declared"
+        }
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge District",
+    "summary": [ ".code", ".name" ],
+    "links": [
+      {
+        "url": [ "/mapping/TeignbridgeDUKES_GHG.html" ],
+        "text": "Teignbridge Energy and Emissions Statistics"
+      }
+    ],
+    "url":"/mapdata/boundaries/Teignbridge.json"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "themes": [
+      {
+        "condition": {
+          "notnull": { "name": "declared" }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.12)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  },
+  "TeignbridgeWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Wards",
+    "summary": [".WD19NM", " : ","+layername" ],
+    "url":"/mapdata/boundaries/TeignbridgeWards.json"
+  },
+  "teignbridgeroads":{
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Roads",
+    "summary": [ ".roadnumber", ".name1", " : ","+layername" ],
+    "url":"/mapdata/roads/teignbridgeroads.json"
+  },
+  "TrafficCounters":{
+    "type": "geoJSON",
+    "style": { 
+        "image": {
+           "type": "shape",
+           "points": 8,
+           "radius1": 10,
+           "radius2": 3,
+           "radius": 5,
+           "fill" : {"color": "rgba(255,0,0,0.2)"},
+           "stroke": {"color": "black","width":1} 
+        }
+    },
+    "layer": null,
+    "name": "Traffic Counters",
+    "summary": [ ".road_name"," : ","+layername" ],
+    "url":"/mapdata/roads/TrafficCounters.json"
+  },
+  "Devon": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 5
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "notnull": { "name": "declared" }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.05)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      }
+    ],
+    "layer": null,
+    "name": "Devon County",
+    "summary": [ ".code", ".name" ],
+    "url":"/mapdata/boundaries/Devon.json"
+  },
+  "DevonWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 3
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon County Wards",
+    "summary": [ ".name", " : ","+layername" ],
+    "url":"/mapdata/boundaries/DevonWards.json"
+  },
+  "DevonConstituencies": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 6
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon Constituencies",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/DevonConstituencies.json"
+  },
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", "+layername" ],
+    "minZoom": 12,
+    "url":"/mapdata/census/TeignbridgeOutputAreas.json"
+  },
+  "Teignbridge_LSOA": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Census Super Output Areas",
+    "summary": [ ".LSOA11CD", ".LSOA11NM", " : ", "+layername" ],
+    "url":"/mapdata/census/Teignbridge_LSOA.json"
+  },
+  "LR_POLYS": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greater": {
+            "name": "buildings",
+            "value": 0
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.12)"
+          }
+        },
+        "name": "Built"
+      }
+    ],
+    "layer": null,
+    "name": "Land Registry Polygons",
+    "summary": [ "+layername" ],
+    "minZoom": 15,
+    "url":"/mapdata/buildings/LR_POLYS.json"
+  },
+  "Buildings": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.75)"
+      }
+    },
+    "layer": null,
+    "name": "Buildings",
+    "summary": [ "+layername" ],
+    "minZoom": 15,
+    "url":"/mapdata/buildings/Buildings.json"
+  },
+  "WOODLAND": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.4)"
+      }
+    },
+    "layer": null,
+    "name": "Woodland",
+    "summary": [ "+layername" ],
+    "minZoom": 12,
+    "url":"/mapdata/WOODLAND.json"
+  }
+}

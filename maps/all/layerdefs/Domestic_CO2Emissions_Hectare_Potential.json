@@ -1,0 +1,124 @@
+{
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": null,
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "less": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL",
+            "value": 5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,0,0,0)"
+          }
+        },
+        "name": "Under 5 tonnes CO<sub>2</sub> per hectare year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL",
+            "min": 5,
+            "max": 10
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.5)"
+          }
+        },
+        "name": "5 to 10 tonnes CO<sub>2</sub> per hectare year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL",
+            "min": 10,
+            "max": 15
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,255,0,0.5)"
+          }
+        },
+        "name": "10 to 15 tonnes CO<sub>2</sub> per hectare year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL",
+            "min": 15,
+            "max": 20
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,192,0,0.5)"
+          }
+        },
+        "name": "15 to 20 tonnes CO<sub>2</sub> per hectare year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL",
+            "min": 20,
+            "max": 25
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,128,0,0.5)"
+          }
+        },
+        "name": "20 to 25 tonnes CO<sub>2</sub> per hectare year"
+      },
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL",
+            "value": 25
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.5)"
+          }
+        },
+        "name": "25 tonnes CO<sub>2</sub> and over per hectare year"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", ".EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL", " tonnes CO<sub>2</sub> hectare year ", "+layername" ],
+    "on": true,
+    "clickable": true,
+    "minZoom": 5,
+    "url":"/mapdata/census/TeignbridgeOutputAreas.json"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,0,0.5)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", ".EPC_DERIVED.DOMESTIC_EMISSIONS_PER_HECTARE_POTENTIAL", "+layername" ],
+    "on": true,
+    "clickable": false,
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  }
+}

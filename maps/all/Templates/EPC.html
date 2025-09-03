@@ -1,0 +1,138 @@
+﻿<div>
+    <h2>Energy Performance Certificates (EPC)</h2>
+    <table class="atts">
+        <tr>
+            <td class="atts" style="width:250px;">EPC Issued</td>
+            <td class="atts" id="NUMBER_CERTS"></td>
+            <td class="atts"></td>
+        </tr>
+        <tr>
+            <td class="atts">Total Floor Area</td>
+            <td class="atts" id="TOTAL_FLOOR_AREA"></td>
+            <td class="atts">M<sup>2</sup></td>
+        </tr>
+        <tr>
+            <td class="atts">Potential Improvement</td>
+            <td class="atts" id="DOMESTIC_EMISSIONS_IMPROVEMENT"></td>
+            <td class="atts">%</td>
+        </tr>
+    </table>
+    <br/>
+    <table class="atts">
+        <tr><th class="atts"></th><th class="atts">Current</th><th class="atts">Potential</th><th class="atts">Units</th></tr>
+        <tr>
+            <td class="atts">CO<sub>2</sub> Emissions</td>
+            <td class="atts" id="CO2_EMISSIONS_CURRENT"></td>
+            <td class="atts" id="CO2_EMISSIONS_POTENTIAL"></td>
+            <td class="atts">kt CO<sub>2</sub></td>
+        </tr>
+        <tr>
+            <td class="atts">Energy Consumption</td>
+            <td class="atts" id="ENERGY_CONSUMPTION_CURRENT"></td>
+            <td class="atts" id="ENERGY_CONSUMPTION_POTENTIAL"></td>
+            <td class="atts">GWh/year</td>
+        </tr>
+        <tr>
+            <th style="border:none;">Costs</th>
+            <th style="border:none;"></th>
+            <th style="border:none;"></th>
+            <th style="border:none;border-right: 1px solid black;"></th>
+        </tr>
+        <tr>
+            <td class="atts">Heating</td>
+            <td class="atts" id="HEATING_COST_CURRENT"></td>
+            <td class="atts" id="HEATING_COST_POTENTIAL"></td>
+            <td class="atts">GB Pounds</td>
+        </tr>
+        <tr>
+            <td class="atts">Lighting</td>
+            <td class="atts" id="LIGHTING_COST_CURRENT"></td>
+            <td class="atts" id="LIGHTING_COST_POTENTIAL"></td>
+            <td class="atts">GB Pounds</td>
+        </tr>
+        <tr>
+            <td class="atts">Hot Water</td>
+            <td class="atts" id="HOT_WATER_COST_CURRENT"></td>
+            <td class="atts" id="HOT_WATER_COST_POTENTIAL"></td>
+            <td class="atts">GB Pounds</td>
+        </tr>
+    </table>
+    <a href="#_metadata:EPC" >Dataset Description</a>
+    <table style="border:none;">
+        <!--
+            <tr>
+                <td style="border:none;">
+                    <h3>Main Fuel Group</h3>
+                    <table>
+                        <tr><th class="atts">Fuel Group</th><th class="atts">Certificates</th></tr>
+                        <tr><td class="atts">Gas</td><td class="atts" id="HEATED_GROUP_GAS"></td></tr>
+                        <tr><td class="atts">Electricity</td><td class="atts" id="HEATED_GROUP_ELECTRICITY"></td></tr>
+                        <tr><td class="atts">Other</td><td class="atts" id="HEATED_GROUP_OTHER"></td></tr>
+                    </table>
+                </td>
+            </tr>
+    -->
+        <tr>
+            <td style="border:none;">
+                <h3>Main Fuel Type</h3>
+                <table>
+                    <tr><th class="atts">Fuel</th><th class="atts">Certificates</th></tr>
+                    <tr><td class="atts">Gas</td><td class="atts" id="HEATED_GAS"></td></tr>
+                    <tr><td class="atts">Electricity</td><td class="atts" id="HEATED_ELECTRICITY"></td></tr>
+                    <tr><td class="atts">Petroleum</td><td class="atts" id="HEATED_PETROLEUM"></td></tr>
+                    <tr><td class="atts">Wood</td><td class="atts" id="HEATED_WOOD"></td></tr>
+                    <tr><td class="atts">Coal</td><td class="atts" id="HEATED_COAL"></td></tr>
+                    <tr><td class="atts">Manufactured Fuels</td><td class="atts" id="HEATED_MANUFACTURED"></td></tr>
+                    <tr><td class="atts">Community Scheme</td><td class="atts" id="HEATED_COMMUNITY"></td></tr>
+                    <tr><td class="atts">Other</td><td class="atts" id="HEATED_OTHER"></td></tr>
+                    <tr><td class="atts">Total not gas or Elec.</td><td class="atts" id="HEATED_GROUP_OTHER"></td></tr>
+                </table>
+            </td>
+            <td style="border:none;">
+                <h3>Energy Ratings</></h3>
+                <table class="atts">
+                    <tr>
+                        <th class="atts">Rating</th>
+                        <th class="atts">Current</th>
+                        <th class="atts">Potential</th>
+                    </tr>
+                    <tr>
+                        <td class="atts">A</td>
+                        <td class="atts" id="ENERGY_RATED_A"></td>
+                        <td class="atts" id="POTENTIAL_ENERGY_RATED_A"></td>
+                    </tr>
+                    <tr>
+                        <td class="atts">B</td>
+                        <td class="atts" id="ENERGY_RATED_B"></td>
+                        <td class="atts" id="POTENTIAL_ENERGY_RATED_B"></td>
+                    </tr>
+                    <tr>
+                        <td class="atts">C</td>
+                        <td class="atts" id="ENERGY_RATED_C"></td>
+                        <td class="atts" id="POTENTIAL_ENERGY_RATED_C"></td>
+                    </tr>
+                    <tr>
+                        <td class="atts">D</td>
+                        <td class="atts" id="ENERGY_RATED_D"></td>
+                        <td class="atts" id="POTENTIAL_ENERGY_RATED_D"></td>
+                    </tr>
+                    <tr>
+                        <td class="atts">E</td>
+                        <td class="atts" id="ENERGY_RATED_E"></td>
+                        <td class="atts" id="POTENTIAL_ENERGY_RATED_E"></td>
+                    </tr>
+                    <tr>
+                        <td class="atts">F</td>
+                        <td class="atts" id="ENERGY_RATED_F"></td>
+                        <td class="atts" id="POTENTIAL_ENERGY_RATED_F"></td>
+                    </tr>
+                    <tr>
+                        <td class="atts">G</td>
+                        <td class="atts" id="ENERGY_RATED_G"></td>
+                        <td class="atts" id="POTENTIAL_ENERGY_RATED_G"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

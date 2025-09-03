@@ -1,0 +1,124 @@
+{
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,0,0.5)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : " , ".DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT", "+layername" ],
+    "on": true,
+    "clickable": false,
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  },
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": null,
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "less": {
+            "name": "DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT",
+            "value": 1
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,0,0,0)"
+          }
+        },
+        "name": "Under 1 tonnes CO<sub>2</sub> per dwelling year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT",
+            "min": 1,
+            "max": 2
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.5)"
+          }
+        },
+        "name": "1 to 2 tonnes CO<sub>2</sub> per dwelling year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT",
+            "min": 2,
+            "max": 3
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,255,0,0.6)"
+          }
+        },
+        "name": "2 to 3 tonnes CO<sub>2</sub> per dwelling year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT",
+            "min": 3,
+            "max": 4
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,128,0,0.7)"
+          }
+        },
+        "name": "3 to 4 tonnes CO<sub>2</sub> per dwelling year"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT",
+            "min": 4,
+            "max": 5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,0,255,0.8)"
+          }
+        },
+        "name": "4 to 5 tonnes CO<sub>2</sub> per dwelling year"
+      },
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT",
+            "value": 5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,255,0.9)"
+          }
+        },
+        "name": "5 tonnes CO<sub>2</sub> and over per dwelling year"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", ".DOMESTIC_EMISSIONS_PER_DWELLING_CURRENT", " tonnes CO<sub>2</sub> dwelling year ", "+layername" ],
+    "on": true,
+    "clickable": true,
+    "minZoom": 5,
+    "url":"/mapdata/census/TeignbridgeOutputAreas.json"
+  }
+}

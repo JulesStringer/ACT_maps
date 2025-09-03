@@ -1,0 +1,20 @@
+{
+  "Postcodes": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "rgba(0,0,255,1)" },
+        "stroke": {
+          "color": "blue",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "name": "Postcode",
+    "summary": [ ".POSTCODE", "+layername"],
+    "url":"/mapdata/postcodes/Postcodes.json"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "Teignbridge": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "notnull": { "name": "climate_emergency_declaration.declaration_status" }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.02)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge District",
+    "summary": [ ".code", ".name",".climate_emergency_declaration.declaration_summary" ],
+    "links": [
+      {
+        "url": [ "/mapping/TeignbridgeDUKES_GHG.html" ],
+        "text": "Teignbridge Energy and Emissions Statistics"
+      }
+    ],
+    "on": true,
+    "clickable": false,
+    "url":"/mapdata/boundaries/Teignbridge.json"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "climate_emergency_declaration.declaration_status",
+            "value": "declared"
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.12)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "climate_emergency_declaration.declaration_status",
+            "value": "discussing"
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,255,0,0.12)"
+          }
+        },
+        "name": "Climate Emergency being discussed"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", ".climate_emergency_declaration.declaration_summary", "+layername" ],
+    "on": true,
+    "clickable": true,
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  },
+  "Devon": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 5
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "notnull": { "name": "climate_emergency_declaration.declaration_status" }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.01)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      }
+    ],
+    "layer": null,
+    "name": "Devon County",
+    "summary": [ ".code", ".name", ".climate_emergency_declaration.declaration_summary" ],
+    "on": true,
+    "clickable": false,
+    "url":"/mapdata/boundaries/Devon.json"
+  }
+}

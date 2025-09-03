@@ -1,0 +1,294 @@
+{
+  "WOODLAND": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,128,0.4)"
+      }
+    },
+    "url": "/mapdata/naturalenvironment/WOODLAND.json",
+    "layer": null,
+    "name": "Woodland",
+    "summary": [ "+layername" ],
+    "minZoom": 12,
+    "tooltip": "Woodland layer from Ordnance Survey Vector Map Local should have all woodland."
+  },
+  "AgriculturalLandClassification": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greater": {
+            "name": "alc_grade",
+            "value": "Grade 1"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,255,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,255,0,0.4)"
+          }
+        },
+        "name": "Grade 1"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "alc_grade",
+            "value": "Grade 2"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(192,192,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(192,192,0,0.4)"
+          }
+        },
+        "name": "Grade 2"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "alc_grade",
+            "value": "Grade 3"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(128,128,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(128,128,0,0.4)"
+          }
+        },
+        "name": "Grade 3"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "alc_grade",
+            "value": "Grade 4"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(64,64,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(64,64,0,0.1)"
+          }
+        },
+        "name": "Grade 4"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "alc_grade",
+            "value": "Grade 5"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(32,32,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(32,32,0,0.1)"
+          }
+        },
+        "name": "Grade 5"
+      }
+    ],
+    "layer":null,
+    "url":"/mapdata/naturalenvironment/Agricultural_Land_Classification.json",
+    "name":"Agricultural Land Classification",
+    "summary":[ "+layername" ],
+    "tooltip":"Agricultural land classification layer"
+  },
+  "Rivers": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 5
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/Rivers.json",
+    "name": "Rivers",
+    "summary": [ "River ", ".name" ],
+    "tooltip": "Ordnance Survey Open Rivers"
+  },
+  "sssi_impact_risk_zones_england": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.2)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/sssi_impact_risk_zones_england.json",
+    "name": "SSSI Impact risk zones",
+    "summary": [ "+layername" ],
+    "tooltip": "SSSI Impact risk zones - Natural England compiled tool, which indicates if there are any issues that need to be consulted on relating to planning applications."
+  },
+  "RAMSAR": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/RAMSAR.json",
+    "name": "Ramsar",
+    "summary": [ "+layername" ],
+    "tooltip": "Internationally recognised Wetland sites under the RAMSAR convention. Downloaded from Natural England."
+  },
+  "Local_Nature_Reserves": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/Local_Nature_Reserves.json",
+    "name": "Local Nature Reserve",
+    "summary": [ "+layername" ],
+    "tooltip": "Local Nature Reserves downloaded from Natural England"
+  },
+  "National_Nature_Reserves": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/National_Nature_Reserves.json",
+    "name": "National Nature Reserve",
+    "summary": [ "+layername" ],
+    "tooltip": "National Nature Reserves downloaded from Natural England"
+  },
+  "SPA": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/SPA.json",
+    "name": "Special Protection Area(SPA)",
+    "summary": [ "+layername" ],
+    "tooltip": "Special Protection Areas (SPA) - downloaded from Natural England"
+  },
+  "Ancient_Woodland": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/Ancient_Woodland.json",
+    "name": "Ancient Woodland",
+    "summary": [ "+layername" ],
+    "tooltip": "Ancient Woodland - downloaded from Natural England"
+  },
+  "SAC": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/SAC.json",
+    "name": "SAC",
+    "summary": [ "+layername" ],
+    "tooltip": "Special Areas of Conservation (SAC) - downloaded from Natural England"
+  },
+  "SSSI": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/SSSI.json",
+    "name": "Site of Special Scientific Interest",
+    "summary": [ "+layername" ],
+    "tooltip": "Sites of Special Scientific Interest - downloaded from Natural England"
+  },
+  "wind_solar_SSSI_Impact_Risk": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/wind_solar_SSSI_Impact_Risk.json",
+    "name": "Wind & Solar SSSI Impact",
+    "summary": [ "+layername" ],
+    "tooltip": "SSSI Impact risk zones where Wind or Solar development is a consultation issue from Natural England compiled tool."
+  }
+}

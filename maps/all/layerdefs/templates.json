@@ -1,0 +1,34 @@
+{
+  "EPC": {
+    "path": "EPC.html",
+    "html": null
+  },
+  "EPC_DERIVED": {
+    "path": "EPC_DERIVED.html",
+    "html": null
+  },
+  "population": {
+    "path": "population.html",
+    "html": null
+  },
+  "TrafficCounts": {
+    "path": "TrafficCounts.html",
+    "html": null
+  },
+  "meters": {
+    "path": "Meters.html",
+    "html": null
+  },
+  "EMISSIONS_BY_ROAD": {
+    "path": "Emissions_by_road.html",
+    "html": null
+  },
+  "councillors": {
+    "path": "councillors.html",
+    "html": null
+  },
+  "documents": {
+    "path": "documents.html",
+    "html": null
+  }
+}

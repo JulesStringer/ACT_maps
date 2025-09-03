@@ -1,0 +1,1312 @@
+{
+  "SAC": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/SAC.json",
+    "name": "SAC",
+    "summary": [ "+layername" ]
+  },
+  "SSSI": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/SSSI.json",
+    "name": "Site of Special Scientific Interest",
+    "summary": [ "+layername" ]
+  },
+  "Teignbridge": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge District",
+    "summary": [ ".code", ".name" ],
+    "links": [
+      {
+        "url": [ "/mapping/TeignbridgeDUKES_GHG.html" ],
+        "text": "Teignbridge Energy and Emissions Statistics"
+      }
+    ],
+    "url":"/mapdata/boundaries/Teignbridge.json"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  },
+  "TeignbridgeWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Wards",
+    "summary": [ ".WD19NM", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/TeignbridgeWards.json"
+  },
+  "AgriculturalLandClassification": {
+    "type": "WFS",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "https://environment.data.gov.uk/spatialdata/agricultural-land-classification-provisional-england/wfs",
+    "feature": "ms:Agricultural_Land_Classification_Provisional_England",
+    "version": "1.1.0",
+    "name": "Agricultural Land Classification",
+    "summary": [ "+layername" ]
+  },
+  "ahocevar": {
+    "type": "WFS",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "https://ahocevar.com/geoserver/wfs\"",
+    "feature": "osm:water_area",
+    "version": "1.1.0",
+    "name": "WFS official example",
+    "summary": [ "+layername" ]
+  },
+  "Devon": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 5
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon County",
+    "summary": [ ".code", ".name" ],
+    "url":"/mapdata/boundaries/Devon.json"
+  },
+  "DevonWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 3
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon County Wards",
+    "summary": [ ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/DevonWards.json"
+  },
+  "DevonConstituencies": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 6
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon Constituencies",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/DevonConstituencies.json"
+  },
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "COMPANIES",
+            "value": 30
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.6)"
+          }
+        },
+        "name": "Business Area"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", "+layername" ],
+    "minZoom": 8,
+    "url":"/mapdata/census/TeignbridgeOutputAreas.json"  },
+  "Teignbridge_LSOA": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Census Super Output Areas",
+    "summary": [ ".LSOA11CD", ".LSOA11NM", " : ", "+layername" ],
+    "url":"/mapdata/census/Teignbridge_LSOA.json"
+  },
+  "ZONES": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "COMPANY_RATIO",
+            "value": 0.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.6)"
+          }
+        },
+        "name": "> 0.5 or more companies/building"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "COMPANY_RATIO",
+            "min": 0.2,
+            "max": 0.5
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.6)"
+          }
+        },
+        "name": "0.2-0.5 companies/building"
+      }
+    ],
+    "layer": null,
+    "name": "Zones",
+    "summary": [ "buildings:", ".BUILDINGS", "companies:", ".COMPANIES", "+layername" ],
+    "url":"/mapdata/buildings/ZONES.json"
+  },
+  "teignbridgeroads": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "Motorway"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 6
+          }
+        },
+        "name": "Motorway"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "A Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 4
+          }
+        },
+        "name": "A Roads"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "B Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "orange",
+            "width": 3
+          }
+        },
+        "name": "B Roads"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "road_function",
+            "value": "Minor Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "RGBA(255,0,255,1)",
+            "width": 1
+          }
+        },
+        "name": "Minor Roads"
+      },
+      {
+        "condition": {
+          "isnull": {
+            "name": "count_point_id"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 6
+          }
+        },
+        "name": "No count_point_id"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Roads",
+    "summary": [ ".roadnumber", ".name1", " : ", "+layername" ],
+    "url":"/mapdata/roads/teignbridgeroads.json"
+  },
+  "teignbridgenodes": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "rgba(0,0,255,1)" },
+        "stroke": {
+          "color": "red",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Nodes",
+    "summary": [ ".ID", " : ", "+layername" ],
+    "url":"/mapdata/roads/teignbridgenodes.json"
+  },
+  "MajorRoads": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "Motorway"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 6
+          }
+        },
+        "name": "Motorway"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "A Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "green",
+            "width": 4
+          }
+        },
+        "name": "A Roads"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "class",
+            "value": "B Road"
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "orange",
+            "width": 3
+          }
+        },
+        "name": "B Roads"
+      }
+    ],
+    "layer": null,
+    "name": "Major Roads",
+    "summary": [ ".roadnumber", " : ", "+layername" ],
+    "url":"/mapdata/roads/MajorRoads.json"
+  },
+  "TrafficCounters": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 8,
+        "radius1": 10,
+        "radius2": 3,
+        "radius": 5,
+        "fill": { "color": "rgba(255,0,0,0.2)" },
+        "stroke": {
+          "color": "black",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "name": "Traffic Counters",
+    "summary": [ ".road_name", " : ", "+layername" ],
+    "url":"/mapdata/roads/TrafficCounters.json"
+  },
+  "MAJOR_ROAD_NETWORK": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 3
+      }
+    },
+    "layer": null,
+    "name": "Major Roads",
+    "summary": [ ".road_name", "+layername" ],
+    "url":"/mapdata/roads/MAJOR_ROAD_NETWORK.json"
+  },
+  "Buildings": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.75)"
+      }
+    },
+    "layer": null,
+    "name": "Buildings",
+    "summary": [ "+layername" ],
+    "minZoom": 15,
+    "url":"/mapdata/buildings/Buildings.json"
+  },
+  "importantBuilding": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,255,0.75)"
+      }
+    },
+    "layer": null,
+    "name": "Important Buildings",
+    "summary": [ ".BUILDING_NAME", "+layername" ],
+    "url":"/mapdata/buildings/importantBuilding.json"
+  },
+  "Postcodes": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "rgba(0,0,255,1)" },
+        "stroke": {
+          "color": "blue",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "name": "Postcode",
+    "summary": [ ".POSTCODE", "+layername" ],
+    "url":"/mapdata/postcodes/Postcodes.json"
+  },
+  "BUILDINGS_WITH_POLY": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "DWELLINGS",
+            "value": 1
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.6)"
+          }
+        },
+        "name": "Dwelling"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "DWELLINGS",
+            "value": 1
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,255,0.6)"
+          }
+        },
+        "name": "Multiple Dwellings"
+      },
+      {
+        "condition": {
+          "notnull": {
+            "name": "BUILDING_NAME"
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,0,0,0.6)"
+          }
+        },
+        "name": "Named Building"
+      }
+    ],
+    "layer": null,
+    "name": "Individual Buildings",
+    "summary": [ ".BUILDING_NAME", "+layername" ],
+    "url":"/mapdata/buildings/BUILDINGS_WITH_POLY.json"
+  },
+  "UPDATE_HEADER": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Update Header",
+    "summary": [ "Update Header:", ".VALUE", "+layername" ],
+    "url":"/mapdata/buildings/UPDATE_HEADER.json"
+  },
+  "COMPANIES": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 8,
+        "radius1": 10,
+        "radius2": 3,
+        "radius": 10,
+        "fill": { "color": "rgba(255,0,0.2)" },
+        "stroke": {
+          "color": "red",
+          "width": 1
+        }
+      },
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.4)"
+      }
+    },
+    "layer": null,
+    "name": "Companies",
+    "summary": [ ".CompanyName", "+layername" ],
+    "url":"/mapdata/COMPANIES.json"
+  },
+  "WOODLAND": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.4)"
+      }
+    },
+    "layer": null,
+    "name": "Woodland",
+    "summary": [ "+layername" ],
+    "minZoom": 12,
+    "url":"/mapdata/naturalenvironment/WOODLAND.json"
+  },
+  "hvnet_ohl": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 2
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Overhead lines",
+    "summary": [ "Overhead", ".voltage", ".desc" ],
+    "url":"/mapdata/electricity/hvnet_ohl.json"
+  },
+  "hvnet_ug": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 2
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Underground lines",
+    "summary": [ "Underground", ".voltage", ".desc" ],
+    "url":"/mapdata/electricity/hvnet_ug.json"
+  },
+  "hvnet_gm_subs": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 3
+        }
+      }
+    },
+    "layer": null,
+    "name": "Substation",
+    "summary": [ "Substation", ".voltage", ".desc" ],
+    "url":"/mapdata/electricity/hvnet_gm_subs.json"
+  },
+  "hvnet_pm_subs": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 3
+        }
+      }
+    },
+    "layer": null,
+    "name": "Pole Mounted Substation",
+    "summary": [ "Ground Substation", ".voltage", ".desc" ],
+    "url":"/mapdata/electricity/hvnet_pm_subs.json"
+  },
+  "hvnet_poles": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 3
+        }
+      }
+    },
+    "layer": null,
+    "name": "Electricity Pole",
+    "summary": [ "Electricity Pole", ".desc" ],
+    "url":"/mapdata/electricity/hvnet_poles.json"
+  },
+  "hvnet_towers": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "blue" },
+        "stroke": {
+          "color": "blue",
+          "width": 3
+        }
+      }
+    },
+    "layer": null,
+    "name": "Tower",
+    "summary": [ "Tower", ".desc" ],
+    "url":"/mapdata/electricity/hvnet_towers.json"
+  },
+  "LR_POLYS": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Land Registry Polygons",
+    "summary": [ "+layername" ],
+    "minZoom": 15,
+    "url":"/mapdata/buildings/LR_POLYS.json"
+  },
+  "OA_PARISH_ROAD": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "OA_PARISH_ROAD",
+    "summary": [ "+layername" ],
+    "url":"/mapdata/OA_PARISH_ROAD.json"
+  },
+  "OA_PARISH": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.1)"
+      }
+    },
+    "layer": null,
+    "name": "OA_PARISH",
+    "summary": [ "+layername" ],
+    "url":"/mapdata/OA_PARISH.json"
+  },
+  "OA_PARISH_DIFFERENCE": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.6)"
+      }
+    },
+    "layer": null,
+    "name": "OA_PARISH_DIFFERENCE",
+    "summary": [ "+layername" ],
+    "url":"/mapdata/OA_PARISH_DIFFERENCE.json"
+  },
+  "OA_PARISH_DIFFERENCE_ROAD": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 6
+      }
+    },
+    "layer": null,
+    "name": "OA_PARISH_DIFFERENCE_ROAD",
+    "summary": [ "+layername" ],
+    "url":"/mapdata/OA_PARISH_DIFFERENCE_ROAD.json"
+  },
+  "WW_Projects": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 6
+      }
+    },
+    "layer": null,
+    "url": "/mapping/WW/WW_projects.json",
+    "name": "Wildlife Warden Projects",
+    "summary": [ "+layername" ]
+  },
+  "Rivers": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 5
+      }
+    },
+    "layer": null,
+    "url": "/mapping/WW/Rivers.json",
+    "name": "Rivers",
+    "summary": [ "River ", ".name" ]
+  },
+  "LocalPlanSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.5)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/sites.json",
+    "name": "Local Plan Sites",
+    "summary": [ "+layername", ".Name" ]
+  },
+  "LocalPlanSite2013": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.5)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/sites2013.json",
+    "name": "Local Plan Sites 2013-2033",
+    "summary": [ "+layername", ".Name" ]
+  },
+  "PotentialSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,255,0,0.5)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/potentialsite.json",
+    "name": "Potential Site",
+    "summary": [ "+layername", ".Name" ]
+  },
+  "WindSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/WindSite.json",
+    "name": "Wind Site",
+    "summary": [ "+layername" ]
+  },
+  "turbine": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "rgba(255,255,0,0.8)" },
+        "stroke": {
+          "color": "red",
+          "width": 3
+        }
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/turbine.json",
+    "name": "Turbine",
+    "summary": [
+      "+layername",
+      ".turbine",
+      "height",
+      ".tip_height",
+      "annual output:",
+      ".output",
+      "MWh"
+    ]
+  },
+  "SmallSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,128,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,128,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/SmallSite.json",
+    "name": "Small Site",
+    "summary": [ "+layername" ]
+  },
+  "Teignbridge_Planning": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/boundaries/Teignbridge_Planning.json",
+    "name": "Teignbridge Planning Area",
+    "summary": [ "+layername", ".name" ]
+  },
+  "Dartmoor": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/boundaries/Dartmoor.json",
+    "name": "Dartmoor National Park",
+    "summary": [ "+layername" ]
+  },
+  "WindSquares": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/renewables/WindSquares.json",
+    "name": "Wind speed at 10m above ground",
+    "summary": [ "Wind speed at 10m ", ".speed10m", " m/s" ]
+  },
+  "WindSquares_Constrained": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/renewables/WindSquares_Constrained.json",
+    "name": "Wind speed at 10m above ground(constrained)",
+    "summary": [ "Wind speed at 10m ", ".speed10m", " m/s" ]
+  },
+  "sssi_impact_risk_zones_england": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.2)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/sssi_impact_risk_zones_england.json",
+    "name": "SSSI Impact risk zones",
+    "summary": [ "+layername" ]
+  },
+  "Ramsar_England": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/Ramsar_England.json",
+    "name": "Ramsar",
+    "summary": [ "+layername" ]
+  },
+  "wind_solar_SSSI_Impact_Risk": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/wind_solar_SSSI_Impact_Risk.json",
+    "name": "Wind & Solar SSSI Impact",
+    "summary": [ "+layername" ]
+  },
+  "SettlementBoundary": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(192,64,0,1)",
+        "width": 3
+      },
+      "fill": {
+        "color": "rgba(192,64,0,0.2)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/boundaries/SettlementBoundary.json",
+    "name": "Settlement Boundary",
+    "summary": [ "+layername" ]
+  },
+  "WindExclusion": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,255,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,255,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapping/Teignbridge/WindExclusion.json",
+    "name": "Wind Exclusion",
+    "summary": [ "+layername" ]
+  },
+  "WindConstraint_QR6_7kW": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/WindConstraint_QR6_7kW.json",
+    "name": "QR6 7kW Wind speed at 10m above ground",
+    "summary": [ "QR6 7kW", ".speed10m", " m/s" ]
+  },
+  "WindConstraint_Norvento_nED_100kW": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/WindConstraint_Norvento_nED_100kW.json",
+    "name": "Norvento nED 100kW Wind speed at 10m above ground",
+    "summary": [ "Norvento nED 100kW", ".speed10m", " m/s" ]
+  },
+  "WindConstraint_Enercon_E53_500kW": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/WindConstraint_Enercon_E53_500kW.json",
+    "name": "Enercon E53 500kW Wind speed at 10m above ground",
+    "summary": [ "Enercon E53 500kW", ".speed10m", " m/s" ]
+  },
+  "WindConstraint_Enercon_E44_900kW": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/WindConstraint_Enercon_E44_900kW.json",
+    "name": "Enercon E44 900kW Wind speed at 10m above ground",
+    "summary": [ "Enercon E44 900kW", ".speed10m", " m/s" ]
+  },
+  "WindConstraint_Enercon_E82_E2_2.3MW": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/WindConstraint_Enercon_E82_E2_2.3MW.json",
+    "name": "Enercon E82 E2 2.3MW Wind speed at 10m above ground",
+    "summary": [ "Enercon E82 E2 2.3MW", ".speed10m", " m/s" ]
+  },
+  "WindConstraint_Enercon_E70_E4_2.3MW": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/WindConstraint_Enercon_E70_E4_2.3MW.json",
+    "name": "Enercon E70 E4 2.3MW Wind speed at 10m above ground",
+    "summary": [ "Enercon E70 E4 2.3MW", ".speed10m", " m/s" ]
+  },
+  "Turbines": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/Turbines.json",
+    "name": " Wind Turbine",
+    "summary": [ "+layername", ".turbine", ".annual_GWH", "GWh" ]
+  },
+  "TurbineBuffer": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "url": "/mapping/wind/TurbineBuffer.json",
+    "name": " Wind Turbine",
+    "summary": [ "+layername", ".turbine", ".annual_GWH", "GWh" ]
+  },
+  "Teignbridge_Row": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1",
+        "width": 2
+      }
+    },
+    "layer": null,
+    "url": "/mapping/Teignbridge/Teignbridge_Row.json",
+    "name": "Teignbridge Rights of Way",
+    "summary": [ "+layername" ]
+  },
+  "event_building": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapping/events/buildings.json",
+    "name": "Building",
+    "summary": [ "+layername", ".name" ]
+  },
+  "event_marshall": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "rgba(0,0,255,1)" },
+        "stroke": {
+          "color": "red",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "url": "/mapping/events/marshalls.json",
+    "name": "Marshall",
+    "summary": [ "+layername" ]
+  },
+  "event_stand": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.2)"
+      }
+    },
+    "url": "/mapping/events/stand.json",
+    "name": "Stand",
+    "summary": [ "+layername", ".Name" ]
+  },
+  "event_cars": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,0,255,0.2)"
+      }
+    },
+    "url": "/mapping/events/cars.json",
+    "name": "Cars",
+    "summary": [ "+layername", ".Name" ]
+  },
+  "event_seating": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(128,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapping/events/seating.json",
+    "name": "Seating",
+    "summary": [ "+layername", ".name" ]
+  },
+  "event_feature": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapping/events/feature.json",
+    "name": "Feature",
+    "summary": [ "+layername", ".name" ]
+  }
+}

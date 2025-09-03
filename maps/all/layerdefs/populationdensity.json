@@ -1,0 +1,122 @@
+{
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,0,0.5)",
+        "width": 1
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "on": true,
+    "clickable": false
+  },
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": null,
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "less": {
+            "name": "population.Population_Density",
+            "value": 10
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,0,0,0)"
+          }
+        },
+        "name": "Under 10 people per hectare"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "population.Population_Density",
+            "min": 10,
+            "max": 50
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.5)"
+          }
+        },
+        "name": "10 to 50 people per hectare"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "population.Population_Density",
+            "min": 50,
+            "max": 100
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,255,0,0.6)"
+          }
+        },
+        "name": "50 to 100 people per hectare"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "population.Population_Density",
+            "min": 100,
+            "max": 150
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,128,0,0.7)"
+          }
+        },
+        "name": "100 to 150 people per hectare"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "population.Population_Density",
+            "min": 150,
+            "max": 200
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,0,255,0.8)"
+          }
+        },
+        "name": "150 to 200 people per hectare"
+      },
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "population.Population_Density",
+            "value": 200
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,255,0.9)"
+          }
+        },
+        "name": "200 and over people per hectare"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", ".population.Population_Density", " pers./ha. ","+layername" ],
+    "on": true,
+    "clickable": true,
+    "minZoom": 5
+  }
+}

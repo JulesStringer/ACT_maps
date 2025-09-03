@@ -1,0 +1,141 @@
+{
+  "Teignbridge": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge District",
+    "summary": [ ".code", ".name" ],
+    "links": [
+      {
+        "url": [ "/mapping/TeignbridgeDUKES_GHG.html" ],
+        "text": "Teignbridge Energy and Emissions Statistics"
+      }
+    ],
+    "tooltip": "The area administered by Teignbridge district council",
+    "url":"/mapdata/boundaries/Teignbridge.json"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "tooltip": "The area covered by each Town or Parish council in Teignbridge",
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  },
+  "TeignbridgeWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Wards",
+    "summary": [ ".WD19NM", " : ", "+layername" ],
+    "tooltip": "The area covered by each Ward represented on Teignbridge District Council",
+    "url":"/mapdata/boundaries/TeignbridgeWards.json"
+  },
+  "Devon": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 5
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon County",
+    "summary": [ ".code", ".name" ],
+    "tooltip": "The area administered by Devon county council",
+    "url":"/mapdata/boundaries/Devon.json"
+  },
+  "DevonWards": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 3
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon County Wards",
+    "summary": [ ".name", " : ", "+layername" ],
+    "tooltip": "The area covered by each county electoral ward in Teignbridge",
+    "url":"/mapdata/boundaries/DevonWards.json"
+  },
+  "DevonConstituencies": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 6
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Devon Constituencies",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "tooltip": "The area covered by each Westminster parliamentary constituency in Devon"
+    ,
+    "url":"/mapdata/boundaries/DevonConstituencies.json"
+  },
+  "Teignbridge_Planning": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Planning Area",
+    "summary": [ "+layername", ".name" ],
+    "tooltip": "The area for which TDC is the planning authority, essentially Teignbridge minus Dartmoor",
+    "url":"/mapdata/boundaries/Teignbridge_Planning.json"
+  },
+  "Dartmoor": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Dartmoor National Park",
+    "summary": [ "+layername" ],
+    "tooltip": "The area administered for planning by Dartmoor National Park Authority.",
+    "url":"/mapdata/boundaries/Dartmoor.json"
+  }
+}

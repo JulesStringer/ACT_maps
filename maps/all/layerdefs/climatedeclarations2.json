@@ -1,0 +1,48 @@
+{
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "climate_emergency_declaration.declaration_status",
+            "value": "declared"
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.12)"
+          }
+        },
+        "name": "Climate Emergency Declared"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "climate_emergency_declaration.declaration_status",
+            "value": "discussing"
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(255,255,0,0.12)"
+          }
+        },
+        "name": "Climate Emergency being discussed"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", ".climate_emergency_declaration.declaration_summary", "+layername" ],
+    "on": true,
+    "clickable": true,
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  }
+}

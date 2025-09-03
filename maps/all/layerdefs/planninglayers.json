@@ -1,0 +1,628 @@
+{
+  "PlanningApplication": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 5,
+        "fill": { "color": "rgba(0,0,255,1)" },
+        "stroke": {
+          "color": "red",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/planning_Applications.json",
+    "name": "Current Planning Applications",
+    "summary": [ "+layername", ".Reference" ],
+    "tooltip": "Planning application downloaded from TDC website."
+  },
+  "LocalPlanSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.2)"
+      }
+    },
+    "url": "/mapdata/planning/sites.json",
+    "name": "Local Plan Sites",
+    "summary": [ "+layername", ".Name" ],
+    "tooltip": "Site from local plan 2020-2040 consultation part 2"
+  },
+  "LocalPlanSite2013": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "magenta",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,0,255,0.2)"
+      }
+    },
+    "url": "/mapdata/planning/sites2013.json",
+    "name": "Local Plan Sites 2013-2033",
+    "summary": [ "+layername", ".Name" ],
+    "tooltip": "Site from local plan 2013-2033 carried over to 2020-2040 plan"
+  },
+  "PotentialSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(255,255,0,0.5)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/potentialsite.json",
+    "name": "Potential Site",
+    "summary": [ "+layername", ".Name" ],
+    "tooltip": "Suggestion for a site"
+  },
+  "SettlementBoundary": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(192,64,0,1)",
+        "width": 3
+      },
+      "fill": {
+        "color": "rgba(192,64,0,0.2)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/SettlementBoundary.json",
+    "name": "Settlement Boundary",
+    "summary": [ "+layername" ],
+    "tooltip": "Settlement boundary"
+  },
+  "WindExclusion": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,255,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,255,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/WindExclusion.json",
+    "name": "Wind Exclusion",
+    "summary": [ "+layername" ],
+    "tooltip": "Areas such as RSPB reserves that are excluded from Wind Development, and aren't SSSIs"
+  },
+  "WindSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(128,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/scenarios/upto2MW/WindSite.json",
+    "name": "Wind Site",
+    "summary": [ "+layername", ".siteid"],
+    "tooltip": "Local plan 2020-2040 proposed wind site from part 3 renewables consultation"
+  },
+  "SmallSite": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,128,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,128,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/SmallSite.json",
+    "name": "Small Site",
+    "summary": [ "+layername" ]
+  },
+  "turbine": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "circle",
+        "radius": 3,
+        "fill": { "color": "rgba(255,255,0,0.8)" },
+        "stroke": {
+          "color": "red",
+          "width": 1
+        }
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/planning/scenarios/upto2MW/turbine.json",
+    "name": "Turbine",
+    "summary": [
+      "+layername",
+      ".turbine",
+      "height",
+      ".tip_height",
+      "rating:",
+      ".rated_output",
+      "MW"
+    ],
+    "tooltip": "Turbine placed by ACT to determine maximum possible output from site."
+  },
+  "turbinespacingbuffer": {
+    "type": "buffer",
+    "datasource": "turbine",
+    "radius": "spacing",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,255,0,0.1)"
+      }
+    },
+    "layer": null,
+    "name": "Minimum turbine buffer",
+    "summary": [ "+layername" ],
+    "tooltip": "Buffer around turbine at 7 X rotor diameter, to check that turbines are not placed close enough to each other to interfere aerodynamically with each other.",
+    "url":"/mapdata/planning/turbinespacingbuffer.json"
+  },
+  "rootprotectionbuffer": {
+    "type": "buffer",
+    "datasource": "turbine",
+    "radius": "rootprotection",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,255,0.1)"
+      }
+    },
+    "layer": null,
+    "name": "Root protection buffer",
+    "summary": [ "+layername" ],
+    "tooltip": "Buffer around turbine at 25m to allow for foundations 25m in diameter (12.5m radius) plus 12.5m for root protection near woods (allows for a tree whose diameter at breast height is just over 1m.)",
+    "url":"/mapdata/planning/rootprotectionbuffer.json"
+  },
+  "turbineroadbuffer": {
+    "type": "buffer",
+    "datasource": "turbine",
+    "radius": "roaddistance",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,0,0,0.1)"
+      }
+    },
+    "layer": null,
+    "name": "Minimum road buffer",
+    "summary": [ "+layername" ],
+    "tooltip": "Buffer placed at height of turbine to tip + 10%, this is to ensure turbine cannot fall on a road or building.",
+    "url":"/mapdata/planning/turbineroadbuffer.json"
+  },
+  "turbine45dBbuffer": {
+    "type": "buffer",
+    "datasource": "turbine",
+    "radius": "sound45dB",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,255,0.1)"
+      }
+    },
+    "layer": null,
+    "name": "45 dBA sound power buffer @10m/s",
+    "summary": [ "+layername" ],
+    "tooltip": "Buffer placed at a distance from turbine at which the sound power has dropped to 45dB at a wind speed of 10m/s",
+    "url":"/mapdata/planning/turbine45dBbuffer.json"
+  },
+  "turbine40dBbuffer": {
+    "type": "buffer",
+    "datasource": "turbine",
+    "radius": "sound40dB",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,255,0.1)"
+      }
+    },
+    "layer": null,
+    "name": "40 dBA sound power buffer @10m/s",
+    "summary": [ "+layername" ],
+    "tooltip": "Buffer placed at a distance from turbine at which the sound power has dropped to 40dB at a wind speed of 10m/s, at this distance turbine should only be heard if the background noise is very quiet.",
+    "url":"/mapdata/planning/turbine40dBbuffer.json"
+  },
+  "turbine35dBbuffer": {
+    "type": "buffer",
+    "datasource": "turbine",
+    "radius": "sound35dB",
+    "style": {
+      "stroke": {
+        "color": "blue",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,255,0.1)"
+      }
+    },
+    "layer": null,
+    "name": "35 dBA sound power buffer @10m/s",
+    "summary": [ "+layername" ],
+    "tooltip": "Buffer placed at a distance from turbine at which the sound power has dropped to 35dB at a wind speed of 10m/s, at this distance turbine is unlikely to be heard against even quiet background noise.",
+    "url":"/mapdata/planning/turbine35dBbuffer.json"
+  },
+  "speed45m": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(255,255,0,0.1)"
+      },
+      "text": {
+        "text": ".speed45m",
+        "textAlign": "center",
+        "textBaseline": "middle"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/renewables/WindSquares.json",
+    "name": "Wind Square",
+    "summary": [ "Wind Speed @ 45m", ".speed45m", "m/s" ],
+    "tooltip": "1km square labelled with the wind speed in metres/second at 45m above ground."
+  },
+  "WindSquares": {
+    "type": "geoJSON",
+    "datasource": "speed45m",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greater": {
+            "name": "speed45m",
+            "value": 5.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,255,0,.2)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,255,0,0.2)"
+          }
+        },
+        "name": "5.5 to 6 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed45m",
+            "value": 6
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,192,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,192,0,0.3)"
+          }
+        },
+        "name": "6 to 6.5 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed45m",
+            "value": 6.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,128,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,128,0,0.4)"
+          }
+        },
+        "name": "6.5 to 7m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed45m",
+            "value": 7
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,64,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,64,0,0.4)"
+          }
+        },
+        "name": "7 to 7.5 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed45m",
+            "value": 7.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,0,0,0.4)"
+          }
+        },
+        "name": "7.5 to 8 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed45m",
+            "value": 8
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,255,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,0,255,0.4)"
+          }
+        },
+        "name": "Over 8 m/s"
+      }
+    ],
+    "layer": null,
+    "url": "/mapdata/renewables/WindSquares.json",
+    "name": "Wind speed at 45m above ground",
+    "summary": [ "Wind speed at 45m ", ".speed45m", " m/s" ],
+    "tooltip": "1km square shaded according to wind speed in metres/second at 45m above ground. Colour coding is shown in the legend."
+  },
+  "NATS_PrimaryRadar": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(192,192,192,0.1)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 200
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(192,192,192,.1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(192,192,192,0.1)"
+          }
+        },
+        "name": "NATS 200m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 180
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(160,160,160,.15)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(160,160,160,0.15)"
+          }
+        },
+        "name": "NATS 180m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 160
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(140,140,140,.2)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(140,140,140,0.2)"
+          }
+        },
+        "name": "NATS 160m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 140
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(120,120,120,.25)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(120,120,120,0.25)"
+          }
+        },
+        "name": "NATS 140m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 120
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(110,110,110,.3)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(110,110,110,0.3)"
+          }
+        },
+        "name": "NATS 120m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 100
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(100,100,100,.35)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(100,100,100,0.35)"
+          }
+        },
+        "name": "NATS 100m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 80
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(90,90,90,.4)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(90,90,90,0.4)"
+          }
+        },
+        "name": "NATS 80m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 60
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(80,80,80,.45)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(80,80,80,0.45)"
+          }
+        },
+        "name": "NATS 60m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 40
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(70,70,70,.5)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(70,70,70,0.5)"
+          }
+        },
+        "name": "NATS 40m exclusion"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "height",
+            "value": 20
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(60,60,60,0.6)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(60,60,60,0.6)"
+          }
+        },
+        "name": "NATS 20m exclusion"
+      }
+    ],
+    "layer": null,
+    "url": "/mapdata/planning/NATS_PrimaryRadar.json",
+    "name": "NATS Primary Radar",
+    "summary": [ "Primary Radar ", ".height", " m" ],
+    "tooltip": "Primary radar protection areas for Wind Turbine development from National Air Traffic Control (NATS). Contours in 20m of height to 200m."
+  }
+}
+

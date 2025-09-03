@@ -1,0 +1,50 @@
+{
+  "hvnet_33kV_ohl": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,255,1)",
+        "width": 3
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_33kV_ohl.json",
+    "layer": null,
+    "name": "33kV Overhead lines",
+    "summary": [ "33kV Overhead", ".desc" ],
+    "tooltip": "33kV Overhead electricity line managed by WPD"
+  },
+  "hvnet_33kV_ug": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(64,0,255,0.8)",
+        "width": 3
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_33kV_ug.json",
+    "layer": null,
+    "name": "33kV Underground lines",
+    "summary": [ "33kV Underground", ".desc" ],
+    "tooltip": "33kV Underground electricity line managed by WPD"
+  },
+  "hvnet_33kV_gm_subs": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 7,
+        "fill": { "color": "rgba(0,0,255,1)" },
+        "stroke": {
+          "color": "rgba(0,0,0,1)",
+          "width": 1
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_33kV_gm_subs.json",
+    "layer": null,
+    "name": "33kV Substation",
+    "summary": [ "33kV Substation", ".desc" ],
+    "tooltip": "33kV Substation managed by WPD"
+  }
+}

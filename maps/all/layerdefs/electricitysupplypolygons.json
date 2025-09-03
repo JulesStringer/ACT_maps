@@ -1,0 +1,53 @@
+{
+  "south_west_gsp": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,255,1)",
+        "width": 5
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "url": "/mapdata/electricity/south_west_gsp.json",
+    "layer": null,
+    "name": "Grid Supply Areas",
+    "summary": [ "Grid Supply Area", ".name" ],
+    "tooltip": "WPD grid supply area"
+  },
+  "south_west_bsp": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,255,1)",
+        "width": 3
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "url": "/mapdata/electricity/south_west_bsp.json",
+    "layer": null,
+    "name": "Bulk Supply Areas",
+    "summary": [ "Bulk Supply Area", ".name" ],
+    "tooltip": "WPD bulk supply area"
+  },
+  "south_west_primary": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(255,0,255,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "url": "/mapdata/electricity/south_west_primary.json",
+    "layer": null,
+    "name": "Primary Substation Supply Areas",
+    "summary": [ "Primary Substation Supply Area", ".name" ],
+    "tooltip": "WPD primary substation supply area"
+  }
+}

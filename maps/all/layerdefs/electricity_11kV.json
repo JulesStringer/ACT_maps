@@ -1,0 +1,72 @@
+{
+  "hvnet_11kV_ohl": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,255,1)",
+        "width": 1
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_11kV_ohl.json",
+    "layer": null,
+    "name": "11kV Overhead lines",
+    "summary": [ "11kV Overhead", ".desc" ],
+    "tooltip": "11kV Overhead electricity line managed by WPD"
+  },
+  "hvnet_11kV_ug": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(64,32,255,0.8)",
+        "width": 1
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_11kV_ug.json",
+    "layer": null,
+    "name": "11kV Underground lines",
+    "summary": [ "11kV Underground", ".desc" ],
+    "tooltip": "11kV Underground electricity line managed by WPD"
+  },
+  "hvnet_11kV_gm_subs": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 3,
+        "fill": { "color": "rgba(0,32,255,1)" },
+        "stroke": {
+          "color": "rgba(0,0,0,1)",
+          "width": 1
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_11kV_gm_subs.json",
+    "minZoom": 12,
+    "layer": null,
+    "name": "11kV Substation",
+    "summary": [ "11kV Substation", ".desc" ],
+    "tooltip": "11kV ground substation managed by WPD"
+  },
+  "hvnet_11kV_pm_subs": {
+    "type": "geoJSON",
+    "style": {
+      "image": {
+        "type": "shape",
+        "points": 4,
+        "radius1": 2,
+        "fill": { "color": "rgba(0,32,255,1)" },
+        "stroke": {
+          "color": "rgba(0,32,255,1)",
+          "width": 1
+        }
+      }
+    },
+    "url": "/mapdata/electricity/hvnet_11kV_pm_subs.json",
+    "minZoom": 12,
+    "layer": null,
+    "name": "11kV Pole Mounted Substation",
+    "summary": [ "11kV Pole Substation", ".desc" ],
+    "tooltip": "11kV pole mounted substation managed by WPD"
+  }
+}

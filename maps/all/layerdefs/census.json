@@ -1,0 +1,51 @@
+{
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "COMPANIES",
+            "value": 30
+          }
+        },
+        "style": {
+          "fill": {
+            "color": "rgba(0,255,0,0.6)"
+          }
+        },
+        "name": "Business Area"
+      }
+    ],
+    "layer": null,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", "+layername" ],
+    "minZoom": 8,
+    "url":"/mapdata/census/TeignbridgeOutputAreas.json"
+  },
+  "Teignbridge_LSOA": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge Census Super Output Areas",
+    "summary": [ ".LSOA11CD", ".LSOA11NM", " : ", "+layername" ],
+    "url":"/mapdata/census/Teignbridge_LSOA.json"
+  }
+}

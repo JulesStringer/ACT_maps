@@ -1,0 +1,88 @@
+{
+  "groups": [
+      {
+        "name": "Political Boundaries",
+        "layers": "layerdefs/boundaries.json",
+        "loadimmediate": true
+      },
+      {
+        "name": "Census Areas",
+        "layers": "layerdefs/census.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Postcodes",
+        "layers": "layerdefs/postcodelayers.json"
+      },
+      {
+        "name": "Roads",
+        "layers": "layerdefs/roadlayers.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Buildings",
+        "layers": "layerdefs/building_layers.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Wildlife Wardens",
+        "layers": "WW/groups.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Natural Environment",
+        "layers": "layerdefs/naturalenvironment.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Contours",
+        "layers": "layerdefs/contourlayers.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Planning",
+        "layers": "layerdefs/planninglayers.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Viewsheds",
+        "layers": "layerdefs/viewshedlayers.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Renewable Energy",
+        "layers": "layerdefs/renewables.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Turbine Constraints",
+        "layers": "layerdefs/windlayers.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Electricity",
+        "layers": "layerdefs/electricity.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Electricity 132kV",
+        "layers": "layerdefs/electricity_132kV.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Electricity 33kV",
+        "layers": "layerdefs/electricity_33kV.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Electricity 11kV",
+        "layers": "layerdefs/electricity_11kV.json",
+        "loadimmediate": false
+      },
+      {
+        "name": "Electricity Transmission",
+        "layers": "layerdefs/transmission.json",
+        "loadimmediate": false
+      }
+  ]
+}

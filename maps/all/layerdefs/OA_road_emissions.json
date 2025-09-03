@@ -1,0 +1,790 @@
+{
+  "Teignbridge": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 4
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "layer": null,
+    "name": "Teignbridge District",
+    "summary": [ ".code", ".name" ],
+    "links": [
+      {
+        "url": [ "/mapping/TeignbridgeDUKES_GHG.html" ],
+        "text": "Teignbridge Energy and Emissions Statistics"
+      }
+    ],
+    "url":"/mapdata/boundaries/Teignbridge.json"
+  },
+  "TeignbridgeParishes": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "red",
+        "width": 2
+      },
+      "fill": { "color": "rgba(0,0,0,0)" }
+    },
+    "layer": null,
+    "name": "Teignbridge Parishes",
+    "summary": [ ".code", ".name", " : ", "+layername" ],
+    "url":"/mapdata/boundaries/TeignbridgeParishes.json"
+  },
+  "TeignbridgeOutputAreas": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "black",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "lessequal": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "value": 0.001
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(0,0,0,0)"
+          }
+        },
+        "name": "Under 0.001 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.001,
+            "max": 0.005
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(0,255,0,0.4)"
+          }
+        },
+        "name": "0.001 - 0.005 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.005,
+            "max": 0.01
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(64,255,0,0.5)"
+          }
+        },
+        "name": "0.005 - 0.01 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.01,
+            "max": 0.015
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(128,255,0,0.5)"
+          }
+        },
+        "name": "0.01 - 0.015 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.015,
+            "max": 0.02
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(192,255,0,0.5)"
+          }
+        },
+        "name": "0.0150 - 0.0200 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.02,
+            "max": 0.025
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,255,0,0.5)"
+          }
+        },
+        "name": "0.0200 - 0.0250 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.025,
+            "max": 0.03
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,192,0,0.5)"
+          }
+        },
+        "name": "0.0250 - 0.030 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.03,
+            "max": 0.035
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,128,0,0.5)"
+          }
+        },
+        "name": "0.0300 - 0.0350 kt/ha"
+      },
+      {
+        "condition": {
+          "between": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "min": 0.035,
+            "max": 0.04
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,64,0,0.5)"
+          }
+        },
+        "name": "0.0350 - 0.040 kt/ha"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "ROAD_EMISSIONS_HECTARE",
+            "value": 0.0400
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "black",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,0,0,0.5)"
+          }
+        },
+        "name": "Over 0.04 kt/ha"
+      }
+    ],
+    "layer": null,
+    "on": true,
+    "clickable": true,
+    "name": "Teignbridge Census Output Areas",
+    "summary": [ ".oa11cd", " : ", "+layername" ],
+    "minZoom": 8,
+    "url":"/mapdata/census/TeignbridgeOutputAreas.json"
+  },
+  "teignbridgeroads": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "LINE_THICKNESS",
+            "value": 17
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 17
+          }
+        },
+        "name": "Over 7.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 16
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 16
+          }
+        },
+        "name": "7.25 - 7.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 15
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 15
+          }
+        },
+        "name": "6.75 - 7.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 14
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 14
+          }
+        },
+        "name": "6.25 - 6.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 13
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 13
+          }
+        },
+        "name": "5.75 - 6.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 12
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 12
+          }
+        },
+        "name": "5.25 - 5.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 11
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "purple",
+            "width": 11
+          }
+        },
+        "name": "4.75 - 5.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 10
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "purple",
+            "width": 10
+          }
+        },
+        "name": "4.25 - 4.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 9
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "purple",
+            "width": 9
+          }
+        },
+        "name": "3.75 - 4.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 8
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 8
+          }
+        },
+        "name": "3.25 - 3.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 7
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 7
+          }
+        },
+        "name": "2.75 - 3.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 6
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 6
+          }
+        },
+        "name": "2.25 - 2.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 5
+          }
+        },
+        "name": "1.75 - 2.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 4
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 4
+          }
+        },
+        "name": "1.25 - 1.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 3
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 3
+          }
+        },
+        "name": "0.75 - 1.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 2
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 2
+          }
+        },
+        "name": "0.25 - 0.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 1
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "green",
+            "width": 1
+          }
+        },
+        "name": "under 0.25 kt/km"
+      }
+    ],
+    "layer": null,
+    "minZoom": 13,
+    "name": "Teignbridge Roads",
+    "summary": [ ".roadnumber", ".name1", " : ", "+layername" ],
+    "url":"/mapdata/roads/teignbridgeroaads.json"
+  },
+  "MajorRoads": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "green",
+        "width": 1
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greaterequal": {
+            "name": "LINE_THICKNESS",
+            "value": 17
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 17
+          }
+        },
+        "name": "Over 7.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 16
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 16
+          }
+        },
+        "name": "7.25 - 7.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 15
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 15
+          }
+        },
+        "name": "6.75 - 7.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 14
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 14
+          }
+        },
+        "name": "6.25 - 6.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 13
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 13
+          }
+        },
+        "name": "5.75 - 6.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 12
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "blue",
+            "width": 12
+          }
+        },
+        "name": "5.25 - 5.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 11
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "purple",
+            "width": 11
+          }
+        },
+        "name": "4.75 - 5.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 10
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "purple",
+            "width": 10
+          }
+        },
+        "name": "4.25 - 4.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 9
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "purple",
+            "width": 9
+          }
+        },
+        "name": "3.75 - 4.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 8
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 8
+          }
+        },
+        "name": "3.25 - 3.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 7
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 7
+          }
+        },
+        "name": "2.75 - 3.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 6
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 6
+          }
+        },
+        "name": "2.25 - 2.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 5
+          }
+        },
+        "name": "1.75 - 2.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 4
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 4
+          }
+        },
+        "name": "1.25 - 1.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 3
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 3
+          }
+        },
+        "name": "0.75 - 1.25 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 2
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "red",
+            "width": 2
+          }
+        },
+        "name": "0.25 - 0.75 kt/km"
+      },
+      {
+        "condition": {
+          "equal": {
+            "name": "LINE_THICKNESS",
+            "value": 1
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "green",
+            "width": 1
+          }
+        },
+        "name": "under 0.25 kt/km"
+      }
+    ],
+    "layer": null,
+    "maxZoom": 13,
+    "name": "Major Roads",
+    "summary": [ ".roadnumber", " : ", "+layername" ],
+    "url":"/mapdata/roads/MajorRoads.json"
+
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "contours": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(128,128,0,1)",
+        "width": 1
+      },
+      "text": {
+        "text": ".prop_value"
+      }
+    },
+    "layer": null,
+    "name": "Contours",
+    "url": "/mapdata/contours/contours.json",
+    "summary": [ "+layername", ".prop_value" ],
+    "minZoom": 12,
+    "tooltip": "Contours at 10m altitude spacing"
+  },
+  "meanlowwater": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,128,1)",
+        "width": 1
+      }
+    },
+    "layer": null,
+    "name": "Mean Low Water",
+    "url": "/mapdata/contours/meanlowwater.json",
+    "summary": [ "+layername", ".prop_value" ],
+    "tooltip": "Mean low water mark"
+  },
+  "meanhighwater": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,192,1)",
+        "width": 1
+      }
+    },
+    "layer": null,
+    "name": "Mean High Water",
+    "url": "/mapdata/contours/meanhighwater.json",
+    "summary": [ "+layername", ".prop_value" ],
+    "tooltip": "Mean high water mark"
+  }
+}

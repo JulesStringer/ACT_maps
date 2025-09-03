@@ -1,0 +1,370 @@
+{
+  "WindSquares": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,255,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,255,0,0.2)"
+          }
+        },
+        "name": "5 to 5.5 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 5.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,192,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,192,0,0.3)"
+          }
+        },
+        "name": "5.5 to 6 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 6
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,128,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,128,0,0.4)"
+          }
+        },
+        "name": "6 to 6.5m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 6.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,64,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,64,0,0.5)"
+          }
+        },
+        "name": "6.5 to 7 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 7
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,0,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,0,0,0.6)"
+          }
+        },
+        "name": "7 to 7.5 m/s"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 7.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,255,1)",
+            "width": 1
+          },
+          "fill": {
+            "color": "rgba(255,0,255,0.8)"
+          }
+        },
+        "name": "Over 7.5 m/s"
+      }
+    ],
+    "layer": null,
+    "url": "/mapdata/renewables/WindSquares.json",
+    "name": "Wind speed at 10m above ground",
+    "summary": [ "Wind speed at 10m ", ".speed10m", " m/s" ]
+  },
+  "WindSquares_Constrained": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,0,0,0)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "themes": [
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 4
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,255,0,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,255,0,0.2)" }
+        },
+        "name": "4 to 4.5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 4.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,192,0,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,192,0,0.3)" }
+        },
+        "name": "4.5 to 5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,128,0,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,128,0,0.4)" }
+        },
+        "name": "5 to 5.5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 5.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,64,0,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,64,0,0.5)" }
+        },
+        "name": "5.5 to 6 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 6
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,0,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,0,0,0.6)" }
+        },
+        "name": "6 to 6.5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 6.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,64,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,0,64,0.7)" }
+        },
+        "name": "6.5 to 7 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 7
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,128,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,0,128,0.7)" }
+        },
+        "name": "7 to 7.5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 7.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,192,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,0,192,0.7)" }
+        },
+        "name": "7.5 to 8 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 8
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(255,0,255,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(255,0,255,0.7)" }
+        },
+        "name": "8 to 8.5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 9
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(192,0,255,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(192,0,255,0.7)" }
+        },
+        "name": "9 to 9.5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 9.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(128,0,255,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(128,0,255,0.7)" }
+        },
+        "name": "9.5 to 10 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 10
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(64,0,255,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(64,0,255,0.7)" }
+        },
+        "name": "10 to 10.5 m/s @ 10 m above ground"
+      },
+      {
+        "condition": {
+          "greater": {
+            "name": "speed10m",
+            "value": 10.5
+          }
+        },
+        "style": {
+          "stroke": {
+            "color": "rgba(0,0,255,1)",
+            "width": 1
+          },
+          "fill": { "color": "rgba(0,0,255,0.7)" }
+        },
+        "name": "10.5 to 11 m/s @ 10 m above ground"
+      }
+    ],
+    "layer": null,
+    "url": "/mapdata/renewables/WindSquares_Constrained.json",
+    "name": "Wind speed at 10m above ground (constrained)",
+    "summary": [ "Wind speed at 10m (constrained)", ".speed10m", " m/s" ]
+  },
+  "wind_solar_SSSI_Impact_Risk": {
+    "type": "geoJSON",
+    "style": {
+      "stroke": {
+        "color": "rgba(0,255,0,1)",
+        "width": 1
+      },
+      "fill": {
+        "color": "rgba(0,255,0,0.3)"
+      }
+    },
+    "layer": null,
+    "url": "/mapdata/naturalenvironment/wind_solar_SSSI_Impact_Risk.json",
+    "name": "Wind Solar SSSI Impact",
+    "summary": [ "+layername" ]
+  }
+}
