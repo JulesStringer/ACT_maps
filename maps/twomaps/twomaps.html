@@ -88,40 +88,129 @@
             .ol-popup-closer:after {
                 content: "✖";
             }
+        /* General Layout & Iframe Sizing */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Main vertical container for the whole page */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* Horizontal container for the map panels */
+.top-section {
+    display: flex;
+    flex: 1; /* This makes the top section grow to fill all remaining vertical space */
+    width: 100%;
+    overflow: hidden; /* Prevents overflow */
+}
+
+/* Bottom section with a fixed height */
+.bottom-section {
+    display: flex;
+    height: 110px; /* The fixed height for the bottom panel */
+    width: 100%;
+    align-items: center; /* Vertically centers content */
+    padding: 0 10px;
+    box-sizing: border-box; /* Includes padding in the total height */
+}
+
+/* Individual Panels (within top-section) */
+.map-panel {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: solid 1px lightgray;
+    box-sizing: border-box;
+}
+
+/* Maps fill their panels */
+.map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Control Panel Specifics */
+.control-panel {
+    min-width: 350px;
+}
+
+.control-scroll {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.control-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Bottom Panel Styling */
+.atts-panel {
+    flex: 1; /* This will make the atts panel take up all available horizontal space */
+    height: 100%;
+    border: solid 1px lightgray;
+    box-sizing: border-box;
+    overflow: auto; /* Enables scrolling for the attributes */
+}
+
+.atts {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.hover-panel {
+    margin-left: 15px; /* Adds space between the atts panel and the checkbox */
+    white-space: nowrap;
+}
     </style>
     <title id="title">Title needs filling from config.title</title>
 </head>
 <body onload="onload(true);">
-    <table class="noborder" style="table-layout:fixed;">
-        <tr>
-            <td>
-                <div id="mapCurrent" class="map" style="width:450px; height:450px;"></div>
-                <span id="title1" style="position:absolute; left:300px;top:0px;">Current CO<sub>2</sub> Emissions</span>
-                <span id="coordsCurrent" style="position:absolute; left:20px; top: 440px; bottom: 450px;"></span>
-            </td>
-            <td>
-                <div id="mapPotential" class="map" style="width:450px; height:450px;"></div>
-                <span id="title2" style="position:absolute; left:750px;top:0px;">Potential CO<sub>2</sub> Emissions</span>
-                <span id="coordsPotential" style="position:absolute; left:470px; top: 440px; bottom: 450px;"></span>
-            </td>
-            <td style="width:350px;border:solid">
-                <div style="width:350px; height:450px;overflow:auto;">
-                    <table id="control" style="width:350px;table-layout:fixed;"></table>
+    <div class="main-container">
+
+        <div class="top-section">
+            <div class="map-panel">
+                <div id="mapCurrent" class="map"></div>
+                <span id="title1" class="map-title">Current CO₂ Emissions</span>
+                <span id="coordsCurrent" class="map-coords"></span>
+            </div>
+
+            <div class="map-panel">
+                <div id="mapPotential" class="map"></div>
+                <span id="title2" class="map-title">Potential CO₂ Emissions</span>
+                <span id="coordsPotential" class="map-coords"></span>
+            </div>
+
+            <div class="map-panel control-panel">
+                <div class="control-scroll">
+                    <table id="control" class="control-table"></table>
                 </div>
-            </td>
-        </tr>
-    </table>
-    <table class="noborder" style="table-layout:fixed;">
-        <tr>
-            <td style="width:450px;border:solid; padding:0; margin:0;border-collapse:collapse; ">
-                <div class="atts" id="selected" style="width:450px; height:110px;overflow:auto;">
-                </div>
-            </td>
-            <td style="height:20px;">
+            </div>
+        </div>
+
+        <div class="bottom-section">
+            <div class="atts-panel">
+                <div class="atts" id="selected"></div>
+            </div>
+            <div class="hover-panel">
                 <input type="checkbox" id="hover" onclick="onhover();" />Hover to show summary
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+
+    </div>
     <div id="popupCurrent" class="ol-popup">
         <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('mapCurrent');"></a>
         <div id="popup-content"></div>
