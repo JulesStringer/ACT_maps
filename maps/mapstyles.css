@@ -1,0 +1,159 @@
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+    min-width: 280px;
+}
+
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+
+.ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+
+.ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+}
+
+.ol-popup-closer:after {
+    content: "✖";
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    top: 20px;
+    background-color: bisque;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    overflow: visible;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.keyhelp {
+    display: none;
+    background-color: #C0C0C0;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+}
+
+.helpmenu {
+    position: fixed;
+    top: 30px;
+    left: 70%;
+    right: 20px;
+    background-color: #C0C0C0;
+    display: none;
+}
+
+.helptext {
+    position: fixed;
+    top: 70px;
+    left: 70%;
+    right: 10px;
+    display: none;
+    background-color: #C0C0C0;
+    height: 85%;
+    overflow: auto;
+}
+
+.maphelp {
+    display: none;
+    position: relative;
+    left: 10px;
+    padding-right: 20px;
+}
+        /* Ensure the parent container fills the iframe window */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Main container using Flexbox for a vertical layout */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent internal scrollbars on the container */
+}
+
+/* The map panel expands to fill the remaining vertical space */
+.top-panel {
+    display: flex; /* Flexbox for horizontal alignment of map and text */
+    flex-direction: column;
+    flex: 1; /* Key property: this panel will grow to fill available space */
+    width: 100%;
+    overflow: hidden; /* Prevents map overflow */
+}
+
+/* The map element itself fills its parent top-panel */
+.map {
+    width: 100%;
+    flex: 1; /* Makes the map fill the remaining vertical space within the top panel */
+}
+
+/* The bottom panel has a fixed height */
+.bottom-panel {
+    height: 220px; /* Fixed height as requested */
+    width: 100%;
+    overflow-y: auto; /* Allows for vertical scrolling if content exceeds height */
+    box-sizing: border-box; /* Ensures padding/border is included in height */
+    padding: 10px;
+}
+
+/* Optional: Additional styling for text elements */
+.map-text {
+    position: relative;
+    top: -20px;
+}
+
+#parish_text {
+    width: 100%;
+}

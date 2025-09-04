@@ -92,22 +92,30 @@ function act_maps_shortcode( $atts ) {
         }
     }
     // Generate the iframe HTML.
-    $iframe_html = sprintf(
-        '<p><iframe src="%s" title="%s Map" width="%s" height="%s" style="overflow:hidden;width:%spx;"></iframe></p>',
-        esc_url( $map_url ),
-        esc_attr( $title ), // Use a title based on the ID.
-        esc_attr( $width ),
-        esc_attr( $height ),
-        esc_attr( $width ) // The style width is also needed for the old code.
-    );
-    $output = $iframe_html;
+    $container_id = 'act_maps_'.uniqid();
+    if ( $width !== '100%'){ 
+        $width .= 'px';
+    }
+    $style = 'width:' . esc_attr($width) . '; ';
+    if ( $width !== '100%'){
+        $style .= 'margin: 0 auto; overflow:hidden; ';
+    }
+    $output = '<div id="' . esc_attr($container_id) . '" style="'. $style. '">';
+    if ( $atts['height'] !== 'full'){
+        $output .= sprintf(
+            '<iframe src="%s" title="%s Map" style="overflow:hidden;height:%spx;width:%s;"></iframe>',
+            $map_url,
+            esc_attr( $title ), // Use a title based on the ID.
+            esc_attr( $height ),
+            esc_attr( $width ) // The style width is also needed for the old code.
+        );
+    }
+    $output .='</div>';
     if ( $atts['height'] == 'full'){
         error_log('$map_url '.$map_url);
         error_log('$map_url escaped '. esc_url($map_url));
         error_log('$title '.$title);
         error_log('$width '.$width);
-        $container_id = 'act_maps_'.uniqid();
-        $output = '<div id="' . esc_attr($container_id) . '" style="width:' . esc_attr($width) . '"></div>';
         $output .= sprintf(
             '<script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -137,6 +145,7 @@ function act_maps_shortcode( $atts ) {
         );
         error_log('This is the code using sprintf version');
     }
+    error_log('generated html: '.$output);
     return $output;
 }
 add_shortcode( 'act_maps', 'act_maps_shortcode' );

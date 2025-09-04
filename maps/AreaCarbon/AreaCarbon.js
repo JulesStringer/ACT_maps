@@ -86,11 +86,13 @@ var categories = {
         }
     }
 };
+let subcat_name = 'all';
 function onsubcategory(val) {
     // Theme map according to value of subcat
     var ar = val.split('.');
     var category = ar[0];
     var subcategory = ar[1];
+    subcat_name = subcategory;
     // Get range of values from map
     var features = mapdisplay.getFeatures('area');
     var max = 0;
@@ -133,8 +135,11 @@ function onsubcategory(val) {
         mapdisplay.map.renderSync();
     }
 }
+let category_name = 'all';
 function oncategory(cat) {
-    var category = categories[cat];
+    console.log('oncategory: ' + cat);
+    category_name = cat;
+    let category = categories[cat];
     if (category) {
         // Populate sub categories
         var body = '';
@@ -183,17 +188,47 @@ function onfeatureselected(list) {
         $('areatooltip').css({
             display: 'block'
         });
-        var properties = feature.getProperties();
-        $('#areacode').text(properties['code']);
-        $('#areaname').text(properties['name']);
+        let properties = feature.getProperties();
+        console.log('Category: ' + category);
+        let tip = '';
+        for(const key in properties){
+            if ( key !== 'geometry'){
+                let val = properties[key];
+                if ( key === 'code'){
+                    tip += val;
+                    $('#areacode').text(val);
+                }
+                if ( key === 'name'){
+                    if ( val.indexOf('(') > 0){
+                        val = val.split('(')[0];
+                    }
+                    $('#areaname').text(val);
+                    tip += ' ' + val;
+                }
+                if ( key === category_name){
+                    let v = val[subcat_name];
+                    if ( v ){
+                        let fv = ': ' + (Math.round(v*10)/10) + ' tCO<sub>2</sub>e';
+                        if ( category_name != 'all'){
+                            fv = category_name + ' '+ subcat_name + fv;
+                        }
+                        $('#areavalue').html(fv);
+                        tip += ' ' +  fv;
+                    }
+                }
+            }
+        }
+        $('#areatooltip').html(tip);
     } else {
         $('areatooltip').css({
             display: 'none'
         });
-        $('#areacode').text('');
+        $('#areatooltip').text('');
+//        $('#areacode').text('');
         var idletext = $('#idletext').text();
 //        $('#areaname').text(idletext);
-        $('#areaname').text('');
+//        $('#areaname').text('');
+//        $('#areavalue').text('');
     }
 }
 function summarisePoint(coord,e) {
