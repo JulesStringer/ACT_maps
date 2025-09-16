@@ -30,7 +30,10 @@ function act_maps_shortcode( $atts ) {
     $atts = shortcode_atts(
         array(
             'id' => '', // Default ID is an empty string.
-            'width' => '600', // Default width.
+            'width' => '593', // Default width.
+            // Here 593 is used rather than 600 to avoid increasing window width to 600 or more
+            // as 600 is the cut over point where the hamburger menu stops displaying.
+            // 593 should result in a 599px wide screen by experiment.
             'height' => '830', // Default height.
             'forceshift' => 'true', // Default forceshift to true
             'title' => '',
@@ -195,7 +198,7 @@ function act_maps_enqueue_scripts( $hook_suffix ) {
         '5.4.1',
         true
     );
-    wp_enqueue_script('act-maps-layer-utils', plugins_url('js/layer-utils.js', __FILE__), array(),'1.2', true);
+    wp_enqueue_script( 'act-maps-layer-utils', plugins_url('js/layer-utils.js', __FILE__), array(),'1.2', true);
     wp_enqueue_script( 'act-maps-tooltips',    plugins_url( 'table_editor/tooltips.js', __FILE__),     array('jquery'), 1.0, true);
     wp_enqueue_script( 'act-maps-tableeditor', plugins_url( 'table_editor/tableeditor.js', __FILE__ ), array('jquery','act-maps-tooltips'), '1.0', true );
     wp_enqueue_script( 'act-maps-namevalueeditor', plugins_url( 'table_editor/namevalue.js', __FILE__), array('jquery', 'act-maps-tooltips'), '1.0', true);
