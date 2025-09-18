@@ -12,6 +12,7 @@ The full set of short code parameters are given in the following table:
 || AreaCarbon - Impact data |
 || twomaps - Two map panels for comparative data|
 || twomapsvertical - Tow map panels for comparative data stacked vertically|
+|| ALL - All Layers full screen legacy map served from stringerhj.co.uk|
 |width|width of the map panel|
 |height|height of the map panel|
 |title|title for the map|
