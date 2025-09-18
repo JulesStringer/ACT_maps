@@ -2096,12 +2096,16 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             }
             extent = ol.extent.buffer(extent, buffer);
         }
+        mapDisplay.map.updateSize();
+        console.log('Updated size');
         var opts = {
             size: mapDisplay.map.getSize()
         };
         if (maxZoom) {
             opts.maxZoom = maxZoom
         };
+        console.log('zoomLayer extent: ', extent);
+        console.log('  opts: ', opts);
         view.fit(extent, opts);
     }
     mapDisplay.clearSelection = function () {
@@ -3073,7 +3077,15 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
                     if (defid == code) {
                         body += 'selected ';
                     }
-                    body += '>' + f.get(nameatt) + '</option>';
+                    let v = f.get(nameatt);
+                    let p = v.indexOf('(');
+                    if ( p > 0 ){
+                        v = v.substring(0,p);
+                    }
+                    if ( v.length > 25 ){
+                        v = v.substring(0,25);
+                    }
+                    body += '>' + v + '</option>';
                 });
                 $('#' + comboid).html(body);
                 if (defid) {
