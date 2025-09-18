@@ -158,6 +158,7 @@ function oncategory(cat) {
 }
 function populatecategories() {
     var keys = Object.keys(categories);
+    console.log('Category keys: ' + keys);
     var body = '';
     keys.forEach(function (key, i) {
         body += '<option value="' + key + '" >' + categories[key].name + '</option>';
@@ -258,6 +259,7 @@ function onclick(mapdisp, pt) {
                 geography = 'parish';
             }
             $('#findlayer').val(code);
+            console.log('Properties: ' , properties);
 //            mapdisplay.zoomFeature(feature, 0.1, 25);
             // TODO show window with carbon footprint
             var urlbase = 'https://impact-tool.org.uk/footprint/footprint?geography=:geography&regionId=:regionId&footprintType=consumption&scale=per-household&showSubCategories=true';
@@ -270,16 +272,18 @@ function onclick(mapdisp, pt) {
 }
 function onoutline() {
     $('#findlayer').val('outline');
-    mapdisplay.zoomoutline();
+    //mapdisplay.zoomoutline();
+    mapdisplay.zoomLayer('area', 0.1, 25);
 }
 function sizemap() {
     var w = window.innerWidth;
     var bw = $('body').width();
     if (w < bw) {
-        $('body').width(w);
-        $('#map').width(w-20);
-        $('#map').height(w-20);
-        $('#main').height(w + 230);
+        //$('body').width(w);
+        //$('#map').width(w-20);
+        //$('#map').height(w-20);
+        //$('#main').height(w + 230);
+        //$('#main').height(w-20);
         if (w < 600) {
             $('#outlinecol').css({ display: 'none' });
         }
@@ -314,10 +318,13 @@ function onload(dataurlbasein, templatebasein, findcomboid) {
     ontopic('base', null, function () {
         mapdisplay.populateCombo('area', 'findlayer', '', 'code', 'name', function (layerName) {
             //alert('in callback : ' + layerName);
-            mapdisplay.setlayerClickable(layerName);
-            mapdisplay.setSelectHover(true, false);
             // set up categories
             populatecategories();
+            setTimeout(function(){
+                mapdisplay.zoomLayer('area', 0.1, 25);
+                mapdisplay.setlayerClickable(layerName);
+                mapdisplay.setSelectHover(true, false);
+            }, 10);
         });
     });
     // If there is a help menu populate it

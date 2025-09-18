@@ -31,15 +31,19 @@
         .noborder {
             border: none;
         }
+        .map {
+            width: 100%;
+            aspect-ratio: 1/1;
+        }
     </style>
     <link rel="stylesheet" href="../mapstyles.css" type="text/css">
     <title>Teignbridge Area Carbon Footprints</title>
 </head>
 <body style="overflow:hidden;width:100%;" 
       onload="onload('../../maps/AreaCarbon/','../../maps/AreaCarbon/', 'findlayer');">
-    <table style="width:100%;">
+    <table style="width:100%;max-width:600px;">
         <tr>
-            <td style="width:50px;"
+            <td>
                 <span class="tooltip">
                     Zoom:
                     <span class="tooltiptext">
@@ -47,8 +51,6 @@
                         If you select Outline, the map will zoom to show all of Teignbridge.
                     </span>
                 </span>
-            </td>
-            <td style="width:150px;">
                 <select id="findlayer" onchange="on_findlayerchange(this.value,'findlayer');"></select>
             </td>
             <td id="outlinecol" style="width:60px;">
