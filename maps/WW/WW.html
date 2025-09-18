@@ -41,9 +41,9 @@
     <title>ACT Wildlife Warden Mapping</title>
 </head>
 <body style="overflow:hidden;width:100%;" onload="onload('','', 'findlayer');">
-    <table style="width:600px;">
+    <table style="width:100%;max-width:600px;">
         <tr>
-            <td style="width:70px;">
+            <td>
                 <span class="tooltip">
                     Zoom to:
                     <span class="tooltiptext">
@@ -51,11 +51,9 @@
                         If you select Outline, the map will zoom to show all of Teignbridge.
                     </span>
                 </span>
-            </td>
-            <td style="width:150px;">
                 <select id="findlayer" onchange="on_findlayerchange(this.value,'findlayer');"></select>
             </td>
-            <td style="width:70px;">
+            <td>
                 <span class="tooltip">
                     <button type="button" onclick="onoutline();">Outline</button>
                     <span class="tooltiptext">
@@ -63,8 +61,7 @@
                     </span>
                 </span>
             </td>
-            <td style="width:210px;"></td>
-            <td style="width:100px;">
+            <td>
                 <span class="tooltip">
                     <button type="button" style="right:0px;" onclick="onlegend();">Legend</button>
                     <span class="tooltiptext" style="right:30px;top:20px;">
