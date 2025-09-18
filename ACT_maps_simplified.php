@@ -19,13 +19,69 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path( __FILE__ ) . 'layer-utils.php';
 require_once plugin_dir_path( __FILE__ ) . 'map-editor-lists.php';
 
+function act_maps_shortcode( $atts ){
+    // Sanitize and validate the shortcode attributes.
+    $atts = shortcode_atts(
+        array(
+            'id' => '', // Default ID is an empty string.
+            'forceshift' => 'true', // Default forceshift to true
+            'title' => '',
+            'config' => ''
+        ),
+        $atts,
+        'act_maps'
+    );
+    // Get the map ID from the attributes.
+    $map_id = sanitize_text_field( $atts['id'] );
+    // Validate that an ID has been provided.
+    if ( empty( $map_id ) ) {
+        return '<p>Error: Please provide a map ID for the shortcode. Example: [act_maps id="WW"]</p>';
+    }
+    error_log('map_id: '.$map_id);
+    $title = sanitize_text_field( $atts['title']);
+    if ( empty( $title )){
+        $title = strtoupper($map_id);
+    }
+    error_log('title: '.$title);
+    // Check if the HTML file actually exists on the server.
+    // This adds a layer of robustness to prevent broken links.
+    $map_file_path = plugin_dir_path( __FILE__ ) . "maps/{$map_id}/{$map_id}.html";
+    if ( ! file_exists( $map_file_path ) ) {
+        return "<p>Error: The map file for ID '{$map_id}' does not exist at '{$map_file_path}'.</p>";
+    }
+    // Determine the URL parameter for forceshift.
+    // The attribute is a string, so we need to check its value.
+    $map_params = '';
+    $params_array = array();
+    if ( 'true' === strtolower( $atts['forceshift'] ) ) {
+        $params_array[] = 'forceshift=true';
+    }
+    if ( strlen($atts['config']) > 0 ){
+        $params_array[] = 'config='.$atts['config'];
+    }
+    $params_array[] = 'v=2025-09-18T14:40'; // Should this really depend on filetime of $map_file_path
+    $map_params = (count($params_array) > 0) ? ('?' . implode('&', $params_array)) : '';
+    // Build the URL to the map's HTML file.
+    // We use plugins_url() to get the correct, full URL to our plugin directory.
+    // This is much safer and more reliable than hardcoding paths.
+    $map_url = plugins_url( "maps/{$map_id}/{$map_id}.html", __FILE__ ) . $map_params;
+    //
+    switch(map_id){
+
+    }
+    // Generate the iframe HTML.
+    $container_id = 'act_maps_'.uniqid();
+    // Insert iframe and script to set iframe height
+    error_log('generated html: '.$output);
+    return $output;
+}
 /**
  * Shortcode to display a map based on a provided ID.
  *
  * @param array $atts Shortcode attributes.
  * @return string The HTML for the map iframe.
  */
-function act_maps_shortcode( $atts ) {
+function act_maps_shortcode_complex( $atts ) {
     // Sanitize and validate the shortcode attributes.
     $atts = shortcode_atts(
         array(
@@ -92,32 +148,24 @@ function act_maps_shortcode( $atts ) {
     if ( strlen($atts['config']) > 0 ){
         $params_array[] = 'config='.$atts['config'];
     }
-    if ( $map_id === 'ALL'){
-        $map_url = 'https://act.stringerhj.co.uk/mapping/mapping_full.html';
-        $height = 'full';
-        $styles['width'] = '100%';
-        $forceshift = false;
-    } else {
-        // Check if the HTML file actually exists on the server.
-        // This adds a layer of robustness to prevent broken links.
-        $map_file_path = plugin_dir_path( __FILE__ ) . "maps/{$map_id}/{$map_id}.html";
-        if ( ! file_exists( $map_file_path ) ) {
-            return "<p>Error: The map file for ID '{$map_id}' does not exist at '{$map_file_path}'.</p>";
-        }
-        $map_version = file_exists($map_file_path) ? filemtime($map_file_path) : false;
-        $params_array[] = 'v=' . $map_version;
-        $map_params = (count($params_array) > 0) ? ('?' . implode('&', $params_array)) : '';
-        // Build the URL to the map's HTML file.
-        // We use plugins_url() to get the correct, full URL to our plugin directory.
-        // This is much safer and more reliable than hardcoding paths.
-        $map_url = plugins_url( "maps/{$map_id}/{$map_id}.html", __FILE__ ) . $map_params;
-        if ( $map_id === 'twomaps' ) {
-            $config_file_path = plugin_dir_path(__FILE__)."maps/{$map_id}/{$atts['config']}.json";
-            if ( strlen($atts['config']) == 0 ){
-                return "<p>Error: If ID is twomaps then config needs to be specified.</p>";
-            } else if ( !file_exists( $config_file_path)){
-                return "<p>Error: The map file for ID '{$atts['config']}' does not exist at '{$config_file_path}'.</p>";
-            }
+    $params_array[] = 'v=2025-09-03T14:40';
+    $map_params = (count($params_array) > 0) ? ('?' . implode('&', $params_array)) : '';
+    // Build the URL to the map's HTML file.
+    // We use plugins_url() to get the correct, full URL to our plugin directory.
+    // This is much safer and more reliable than hardcoding paths.
+    $map_url = plugins_url( "maps/{$map_id}/{$map_id}.html", __FILE__ ) . $map_params;
+    // Check if the HTML file actually exists on the server.
+    // This adds a layer of robustness to prevent broken links.
+    $map_file_path = plugin_dir_path( __FILE__ ) . "maps/{$map_id}/{$map_id}.html";
+    if ( ! file_exists( $map_file_path ) ) {
+        return "<p>Error: The map file for ID '{$map_id}' does not exist at '{$map_file_path}'.</p>";
+    }
+    if ( $map_id === 'twomaps' ) {
+        $config_file_path = plugin_dir_path(__FILE__)."maps/{$map_id}/{$atts['config']}.json";
+        if ( strlen($atts['config']) == 0 ){
+            return "<p>Error: If ID is twomaps then config needs to be specified.</p>";
+        } else if ( !file_exists( $config_file_path)){
+            return "<p>Error: The map file for ID '{$atts['config']}' does not exist at '{$config_file_path}'.</p>";
         }
     }
     // Generate the iframe HTML.
@@ -184,8 +232,7 @@ function act_maps_shortcode( $atts ) {
                 const iframe = document.createElement("iframe");
                 iframe.src = "%s";
                 iframe.title = "%s Map";
-//                iframe.style.width = "%s";
-                iframe.style.width = window.innerWidth + "px";
+                iframe.style.width = "%s";
                 iframe.style.height = available_height + "px";
                 iframe.style.border = "none";
                 iframe.style.overflow = "hidden";
@@ -265,15 +312,13 @@ function act_maps_load_impact_page() { // Callback for the single JSON page
     include plugin_dir_path(__FILE__) . 'html/load-impact-page.html'; 
 }
 add_action('admin_enqueue_scripts', 'act_maps_enqueue_scripts');
-
 function act_maps_enqueue_script($name, $relative_path, $dependencies){
     $path = plugins_url($relative_path, __FILE__);
     $version = file_exists($path) ? filemtime($path) : false;
     wp_enqueue_script($name, $path, $dependencies, $version, true);
 }
-
 function act_maps_enqueue_scripts( $hook_suffix ) {
-    wp_enqueue_script('act-maps-script', plugins_url('js/load-impact-page.js', __FILE__), array('jquery'), '1.0', true);
+    act_maps_enqueue_script('act-maps-script', 'js/load-impact-page.js', array('jquery'));
     wp_localize_script('act-maps-script', 'act_maps_params', array(
         'ajaxurl'   => admin_url('admin-ajax.php'),
         'proxy_url' => plugins_url('proxy.php', __FILE__), // 👈 full URL to proxy.php

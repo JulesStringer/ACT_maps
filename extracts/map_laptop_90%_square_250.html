@@ -1,0 +1,92 @@
+<main 
+    class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-a4d54b62 wp-block-group-is-layout-constrained" 
+    style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-right:100px;padding-left:100px" 
+    id="wp--skip-link--target">
+    <div 
+    style="padding-right:0;padding-left:0; min-height:0px;" 
+    class="entry-content alignfull wp-block-post-content has-global-padding is-layout-constrained wp-container-core-post-content-is-layout-78868122 wp-block-post-content-is-layout-constrained">
+    <p>The map below shows Carbon Cutter areas. 
+        These are Teignbridge Parishes with the exception of Newton Abbot, which is divided into its 4 wards.</p>
+    <div 
+        id="act_maps_68c9b5b33cf60" 
+        style="width:90%; margin: 0 auto; overflow:hidden; ">
+        <iframe 
+            src="https://test.act.stringerhj.co.uk/wp-content/plugins/ACT_maps/maps/CC/CC.html?forceshift=true&amp;v=2025-09-03T14:40" title="CC Map" 
+            style="width: 100%; height: 1000px; border: none; overflow: hidden;">
+        </iframe>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mapContainer = document.getElementById("act_maps_68c9b5b33cf60");
+            if (!mapContainer) {
+                console.error("Map container not found.");
+                return;
+            }
+            const containerWidth = mapContainer.clientWidth;
+            const iframe = document.createElement("iframe");
+            iframe.src = "https://test.act.stringerhj.co.uk/wp-content/plugins/ACT_maps/maps/CC/CC.html?forceshift=true&v=2025-09-03T14:40";
+            iframe.title = "CC Map";
+            iframe.style.width = "100%";
+            iframe.style.height = containerWidth + 250 + "px";
+            iframe.style.border = "none";
+            iframe.style.overflow = "hidden";
+            mapContainer.appendChild(iframe);
+        });
+    </script>
+
+
+
+<h3 class="wp-block-heading">How to navigate the map</h3>
+
+
+
+<ul class="wp-block-list">
+<li>As you move the pointer over the parishes in the map above the parish is selected and:
+<ul class="wp-block-list">
+<li>its name and number of CCs are shown below the map.</li>
+
+
+
+<li>A link to contact the CC for the parish.</li>
+
+
+
+<li>A link to a list of current planning applications for the parish.</li>
+
+
+
+<li>A short description of work being undertaken in the parish.</li>
+
+
+
+<li>The grid reference of the pointer and area code for the parish are shown over the bottom left corner of the map.</li>
+</ul>
+</li>
+
+
+
+<li>If you click or tap on one of the parishes the map will zoom to show the parish.</li>
+
+
+
+<li>The outline button shows the map of Teignbridge.</li>
+
+
+
+<li>The drop down list by Zoom to allows you to select a parish and when you select one will zoom the map to the parish.</li>
+
+
+
+<li>The legend button reveals the legend, which show how features are styled according to their attributes.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">What else should be on the map?</h3>
+
+
+
+<p>This map is still under development and could show other layers, particularly when zoomed in to a parish. It could also provide facilities for notifying CCs of issues.</p>
+</div>
+
+</main>
