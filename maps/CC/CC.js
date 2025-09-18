@@ -113,7 +113,8 @@ function onclick(mapdisp, pt) {
 }
 function onoutline() {
     $('#findlayer').val('outline');
-    mapdisplay.zoomoutline();
+    //mapdisplay.zoomoutline();
+    mapdisplay.zoomLayer('CCAreas', 0.1, 25);
     mapdisplay.setSelectHover(true, false);
     var str = $('#locktext').text();
     $('#actiontext').text(str);
@@ -147,8 +148,9 @@ function onload(dataurlbasein, templatebasein, findcomboid) {
     var defid = null;
     layers = ['CCAreas'];
     ontopic('base', layers, function () {
-        mapdisplay.populateCombo('CCAreas', 'findlayer', '', 'code', 'area', function (layerName) {
+        mapdisplay.populateCombo('CCAreas', 'findlayer', '', 'code', 'name', function (layerName) {
             //alert('in callback : ' + layerName);
+            mapdisplay.zoomLayer('CCAreas', 0.1, 25);
             mapdisplay.setlayerClickable(layerName);
             mapdisplay.setSelectHover(true, false);
         });

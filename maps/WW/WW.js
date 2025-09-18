@@ -113,7 +113,8 @@ function onclick(mapdisp, pt) {
 }
 function onoutline() {
     $('#findlayer').val('outline');
-    mapdisplay.zoomoutline();
+    //mapdisplay.zoomoutline();
+    mapdisplay.zoomLayer('WWAreas', 0.1, 25);
     mapdisplay.setSelectHover(true, false);
     var str = $('#locktext').text();
     $('#actiontext').text(str);
@@ -149,6 +150,7 @@ function onload(dataurlbasein, templatebasein, findcomboid) {
     ontopic('base', layers, function () {
         mapdisplay.populateCombo('WWAreas', 'findlayer', '', 'code', 'parish', function (layerName) {
             //alert('in callback : ' + layerName);
+            mapdisplay.zoomLayer('WWAreas', 0.1, 25);
             mapdisplay.setlayerClickable(layerName);
             mapdisplay.setSelectHover(true, false);
         });

@@ -30,11 +30,11 @@ function act_maps_shortcode( $atts ) {
     $atts = shortcode_atts(
         array(
             'id' => '', // Default ID is an empty string.
-            'width' => '593', // Default width.
-            // Here 593 is used rather than 600 to avoid increasing window width to 600 or more
-            // as 600 is the cut over point where the hamburger menu stops displaying.
-            // 593 should result in a 599px wide screen by experiment.
-            'height' => '830', // Default height.
+            'width' => '',
+            'max-width' => '',
+            'min-width' => '',
+            'height' => '',
+            'below' => '',
             'forceshift' => 'true', // Default forceshift to true
             'title' => '',
             'config' => ''
@@ -42,23 +42,41 @@ function act_maps_shortcode( $atts ) {
         $atts,
         'act_maps'
     );
-
     // Get the map ID from the attributes.
     $map_id = sanitize_text_field( $atts['id'] );
-    
     // Validate that an ID has been provided.
     if ( empty( $map_id ) ) {
         return '<p>Error: Please provide a map ID for the shortcode. Example: [act_maps id="WW"]</p>';
     }
-
-    if ( $atts['width'] == 'full'){
-        $width = '100%';
-    } else {
-        $width = esc_attr($atts['width']);
+    error_log('map_id: '.$map_id);
+    // set defaults for map_id
+    $styles = []; 
+    $styles['width'] = '90%';
+    $height = 'square';
+    $below = 0;
+    if ( $map_id == 'twomaps'){
+        $styles['width'] = '100%';
+        $height = 'full';
+    } else if ( $map_id == 'WW' || $map_id == 'CC'){
+        $below = 250;
     }
-    if ( $atts['height'] == 'full'){
-    } else {
-        $height = esc_attr($atts['height']);        
+    // Pick up overrides from shortcode
+    if ( $atts['width'] !== ''){
+        $styles['width'] = esc_attr($atts['width']);
+    }
+    if ( $atts['max-width'] != ''){
+        $styles['max-width'] = esc_attr($atts['max-width']);
+    }
+    if ( $atts['min-width'] != ''){
+        $styles['min-width'] = esc_attr($atts['min-width']);
+    }
+    if ( $atts['below'] !== ''){
+        $below = intval($atts['below']);
+    }
+    if ( $atts['height'] !== '' ){
+        if ( $atts['height'] == 'full' || $atts['height'] == 'square'){
+            $height = esc_attr($atts['height']);
+        }
     }
     $title = sanitize_text_field( $atts['title']);
     if ( empty( $title )){
@@ -96,57 +114,112 @@ function act_maps_shortcode( $atts ) {
     }
     // Generate the iframe HTML.
     $container_id = 'act_maps_'.uniqid();
-    if ( $width !== '100%'){ 
-        $width .= 'px';
+    //
+    // The iframe width is set from styles so far
+    //
+    $iframe_width = '';
+    foreach($styles as $key => $value){
+        $iframe_width .= $key .': '.$value . ';';
     }
-    $style = 'width:' . esc_attr($width) . '; ';
-    if ( $width !== '100%'){
-        $style .= 'margin: 0 auto; overflow:hidden; ';
+    //
+    // If the iframe isn't full width it needs centering in the container
+    //
+    if ( $styles['width'] !== '100%'){
+        $styles['margin'] = '0 auto';
+        $styles['overflow'] = 'hidden';
     }
+    $style = '';
+    foreach($styles as $key => $value){
+        $style .= $key .': '.$value . ';';
+    }
+    error_log('Style: '. $style);
     $output = '<div id="' . esc_attr($container_id) . '" style="'. $style. '">';
-    if ( $atts['height'] !== 'full'){
+    if ( $height !== 'full' && $height !== 'square'){
         $output .= sprintf(
-            '<iframe src="%s" title="%s Map" style="overflow:hidden;height:%spx;width:%s;"></iframe>',
+            '<iframe src="%s" title="%s Map" style="overflow:hidden;height:%s;width:%s;"></iframe>',
             $map_url,
             esc_attr( $title ), // Use a title based on the ID.
             esc_attr( $height ),
-            esc_attr( $width ) // The style width is also needed for the old code.
+            esc_attr( $iframe_width ) // The style width is also needed for the old code.
         );
     }
     $output .='</div>';
-    if ( $atts['height'] == 'full'){
+    error_log('map width: '.$iframe_width);
+    error_log('map height: '.$height);
+    error_log('map below: '.$below);
+    if ( $height == 'full'){
         error_log('$map_url '.$map_url);
         error_log('$map_url escaped '. esc_url($map_url));
         error_log('$title '.$title);
-        error_log('$width '.$width);
+        error_log('$iframe_width '.$iframe_width);
         $output .= sprintf(
             '<script>
             document.addEventListener("DOMContentLoaded", function() {
-                const mapContainer = document.getElementById("%s");
-                const footer = document.querySelector("footer");
-                if (!mapContainer || !footer) {
-                    console.error("Map container or footer not found.");
+                const main = document.querySelector("main");
+                if (!main) {
+                    console.error("main not found.");
                     return;
                 }
-                const containerTop = mapContainer.getBoundingClientRect().top;
-                const footerHeight = footer.offsetHeight;
-                const availableHeight = window.innerHeight - containerTop - footerHeight - 50;
+                const footer = document.querySelector("footer");
+                if (!footer) {
+                    console.error("footer not found.");
+                    return;
+                }
+                const map_container = document.getElementById("%s");
+                if (!map_container) {
+                    console.error("map container not found.");
+                    return;
+                }
+                const main_top = main.getBoundingClientRect().top;
+                const footer_height = footer.offsetHeight;
+                const available_height = window.innerHeight - main_top - footer_height - 50;
                 const iframe = document.createElement("iframe");
                 iframe.src = "%s";
                 iframe.title = "%s Map";
                 iframe.style.width = "%s";
-                iframe.style.height = availableHeight + "px";
+                iframe.style.height = available_height + "px";
                 iframe.style.border = "none";
                 iframe.style.overflow = "hidden";
-                mapContainer.appendChild(iframe);
+                console.log("iframe.style: ", iframe.style);
+                map_container.appendChild(iframe);
             });
             </script>',
             esc_attr($container_id),
             $map_url,
             esc_attr($title),
-            esc_attr($width)
+            esc_attr($iframe_width),
         );
         error_log('This is the code using sprintf version');
+    } else if ( $height == 'square'){
+        $output .= sprintf(
+            '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const main = document.querySelector("main");
+                if (!main) {
+                    console.error("main container not found.");
+                    return;
+                }
+                const map_container = document.getElementById("%s");
+                if (!map_container) {
+                    console.error("map container not found.");
+                    return;
+                }
+                const map_width = map_container.clientWidth;
+                const iframe = document.createElement("iframe");
+                iframe.src = "%s";
+                iframe.title = "%s Map";
+                iframe.style.width = "100%%";
+                iframe.style.height = map_width + %d + "px";
+                iframe.style.border = "none";
+                iframe.style.overflow = "hidden";
+                map_container.appendChild(iframe);
+            });
+            </script>',
+            esc_attr($container_id),
+            $map_url,
+            esc_attr($title),
+            $below
+        );
     }
     error_log('generated html: '.$output);
     return $output;
