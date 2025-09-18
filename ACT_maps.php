@@ -118,6 +118,7 @@ function act_maps_shortcode( $atts ) {
             } else if ( !file_exists( $config_file_path)){
                 return "<p>Error: The map file for ID '{$atts['config']}' does not exist at '{$config_file_path}'.</p>";
             }
+            $forceshift = false;
         }
     }
     // Generate the iframe HTML.
