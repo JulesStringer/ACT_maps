@@ -158,20 +158,26 @@ This should be short descriptive text, typically provided by wardens for an area
 Wildlife Warden Areas have been assigned based on a combination of parish boundaries and Newton Abbot ward boundaries.
 A boundary map has been derived from data in 
 [OS Boundary Line](https://www.ordnancesurvey.co.uk/products/boundary-line)
-The codes that you will see are standard ONS codes, which are used to join the boundaries with other datasets.
+The codes that you will see are standard ONS codes, which are used to join the boundariures with other datasets.
 
 ## Carbon Cutters map
 This is modelled on the Wildlife Wardens Map.
 
 # Outstanding Issues
-+ Load impact data needs an indicator that its finished successfully.
-+ Impact map height=620 default
 + Impact map should shows tooltips with area and emissions total.
 + Impact data should include persons/household so can produce parish / ward graphic for exhibitions.
 
 + Need load forms for CC spreadsheet, Parish progress spreadsheet.
 
 # New in this release
+## 19/9/2025
++ ALL map type added which displays legacy all layers interactive map from stringerhj.co.uk
++ Twomaps side-by-side comparative map configurable for EPC layers
++ Load impact areas reports success  / failure on admin form.
++ When saving geojson coordinate precision is reduced to 5 decimal places and pretty print is turned off - huge saving in file size
++ On showing map the primary layer is shown centred with a 10% buffer added
++ Full height option for map (twomaps and ALL default) show map full screen
++ Other map types default to width of content or 90% of width of screen if narrower and square proportions with panel below if necessary.
 ## 2/9/2025
 + table_editor is now a copy of the table_editor repository in github, and should be cloned from there periodically.
 + WW and CC map data editing moved from ACT_admin to better integrate with merge back end functionality, edit_area_map.js provides the editing front end, with customisation provided by edit_props objects in editors directory.
