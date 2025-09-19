@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
     echo json_encode(['error' => 'WordPress environment could not be loaded.']);
     exit;
 }
-// Set CORS header to allow the client (the iframe) to receive the response.
+// DO NOT Set CORS header to allow the client (the iframe) to receive the response.
 //header("Access-Control-Allow-Origin: *");
 // The above makes it more susceptible to DDOS attacks.
 header('Content-Type: application/json');

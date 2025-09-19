@@ -30,7 +30,35 @@ function handle_make_merged_layer() {
     }  
 }
 add_action('wp_ajax_make_merged_layer', 'handle_make_merged_layer');
-
+function round_coordinated_recursively($coordinates, $decimals){
+    if (is_array($coordinates) && count($coordinates) > 0) {
+        // Check if the first element is a number
+        if (is_numeric($coordinates[0])) {
+            // It's a single coordinate pair (e.g., [x, y])
+            return array_map(function($coord) use ($decimals) {
+                return round($coord, $decimals);
+            }, $coordinates);
+        } else {
+            // It's a nested array, recurse
+            return array_map(function($sub_coords) use ($decimals) {
+                return round_coordinates_recursively($sub_coords, $decimals);
+            }, $coordinates);
+        }
+    }
+    return $coordinates;
+}
+function round_geo_dp($geometry, $decimals){
+    if (isset($geometry['coordinates'])) {
+        $geometry['coordinates'] = round_coordinates_recursively($geometry['coordinates'], $decimals);
+    } elseif (isset($geometry['geometries'])) {
+        foreach ($geometry['geometries'] as &$sub_geometry) {
+            if (isset($sub_geometry['coordinates'])) {
+                $sub_geometry['coordinates'] = round_coordinates_recursively($sub_geometry['coordinates'], $decimals);
+            }
+        }
+    }
+    return $geometry;
+}
 function make_merged_layer($sourcelayer, $sourcekey, $destinationlayer, $attributes, $layer_options, $reserves, $version) {
     $proxy_url = plugin_dir_url(__FILE__) . 'proxy.php?layer=' . urlencode($sourcelayer);
     $source_json = file_get_contents($proxy_url);
@@ -61,6 +89,7 @@ error_log('$reserves: ' .var_export($reserves, true));
         error_log('Code: ' . $code);
         if ($code && isset($attributes[$code])) {
             $feature['properties'] = $attributes[$code];
+            $feature['geometry'] = round_geo_dp($feature['geometry'], 5);
             $target_geojson["features"][] = $feature;
         } else if ( $reserves[$code] ){
             error_log('Trying reserve for ' . $code);
@@ -69,6 +98,7 @@ error_log('$reserves: ' .var_export($reserves, true));
                 if ( $attributes[$key]){
                     error_log('Found attributes for '.$key);
                     $feature['properties'] = $attributes[$key];
+                    $feature['geometry'] = round_geo_dp($feature['geometry'], 5);
                     $target_geojson["features"][] = $feature;
                     break;
                 }
@@ -110,6 +140,10 @@ error_log('path passed to act_save_geojson_layer '.$path);
             $layers = [];
         }
     } 
+
+    $json_encode_options = 
+                            JSON_PRETTY_PRINT |     // print human readable increases size of file
+                            JSON_UNESCAPED_SLASHES; // Stop / being encoded as \/
     if (isset($layers[$layerid]) && !empty($layers[$layerid]['path'])) {
         $path = $layers[$layerid]['path'];
     } else {
@@ -117,12 +151,13 @@ error_log('path passed to act_save_geojson_layer '.$path);
             "location" => "local",
             "path"     => $path
         ];
-        file_put_contents($layers_file, json_encode($layers, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        file_put_contents($layers_file, json_encode($layers, $json_encode_options));
     }
 
     // Ensure $geojson is JSON string
+    //$json_encode_options = JSON_UNESCAPED_SLASHES;
     if (is_array($geojson)) {
-        $geojson = json_encode($geojson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $geojson = json_encode($geojson, $json_encode_options);
     }
     // Check path ends with .json
     if (!str_ends_with($path, '.json')) {
