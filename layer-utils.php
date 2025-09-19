@@ -89,7 +89,6 @@ error_log('$reserves: ' .var_export($reserves, true));
         error_log('Code: ' . $code);
         if ($code && isset($attributes[$code])) {
             $feature['properties'] = $attributes[$code];
-            $feature['geometry'] = round_geo_dp($feature['geometry'], 5);
             $target_geojson["features"][] = $feature;
         } else if ( $reserves[$code] ){
             error_log('Trying reserve for ' . $code);
@@ -98,7 +97,6 @@ error_log('$reserves: ' .var_export($reserves, true));
                 if ( $attributes[$key]){
                     error_log('Found attributes for '.$key);
                     $feature['properties'] = $attributes[$key];
-                    $feature['geometry'] = round_geo_dp($feature['geometry'], 5);
                     $target_geojson["features"][] = $feature;
                     break;
                 }
@@ -157,6 +155,11 @@ error_log('path passed to act_save_geojson_layer '.$path);
     // Ensure $geojson is JSON string
     //$json_encode_options = JSON_UNESCAPED_SLASHES;
     if (is_array($geojson)) {
+        if ( $geojson['features']){
+            foreach ($geojson['features'] as &$feature) {
+                $feature['geometry'] = round_geo_dp($feature['geometry'], 5);
+            }
+        }
         $geojson = json_encode($geojson, $json_encode_options);
     }
     // Check path ends with .json
