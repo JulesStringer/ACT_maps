@@ -30,7 +30,7 @@ function handle_make_merged_layer() {
     }  
 }
 add_action('wp_ajax_make_merged_layer', 'handle_make_merged_layer');
-function round_coordinated_recursively($coordinates, $decimals){
+function round_coordinates_recursively($coordinates, $decimals){
     if (is_array($coordinates) && count($coordinates) > 0) {
         // Check if the first element is a number
         if (is_numeric($coordinates[0])) {
@@ -153,8 +153,8 @@ error_log('path passed to act_save_geojson_layer '.$path);
         file_put_contents($layers_file, json_encode($layers, $json_encode_options));
     }
 
-    // Ensure $geojson is JSON string
-    //$json_encode_options = JSON_UNESCAPED_SLASHES;
+    // Ensure $geojson is JSON string - enable this in live version to reduce file size
+    $json_encode_options = JSON_UNESCAPED_SLASHES;
     if (is_array($geojson)) {
         if ( $geojson['features']){
             foreach ($geojson['features'] as &$feature) {
@@ -204,10 +204,10 @@ error_log('path passed to act_save_geojson_layer '.$path);
         return false;
     }
     // Write properties if supplied
-    if ($properties){
+    if ($properties != null){
         // form base name
         $props_base = basename($path, ".json") . "_properties";
-        $props_fullpath = $mapdata_root . '/' . $props_base . '.json';
+        $props_fullpath = $dir . '/' . $props_base . '.json';
         if ( file_exists($props_fullpath)){
             $backup_props = $dir. '/' . $props_base . "_" . $version_safe . ".json";
             if ( !rename($props_fullpath, $backup_props)){
@@ -218,6 +218,7 @@ error_log('path passed to act_save_geojson_layer '.$path);
         if ( is_array($properties)){
             $properties = json_encode($properties, $json_encode_options);
         }
+        error_log('Writing geojson properties: '.$props_fullpath);
         if (file_put_contents($props_fullpath, $properties) === false) {
             error_log("Failed to write GeoJSON to: $props_fullpath");
             return false;

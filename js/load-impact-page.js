@@ -6,13 +6,18 @@ jQuery(document).ready(function($) {
         console.log('Clicked load_files');
 
         const files = Array.from(event.target.files);
-        if (files.length === 0) return;
+        if (files.length === 0) {
+            $('#act-maps-load-impact-results').html('<p>No files selected</p>');
+            return;
+        }
 console.log('Files: ' + JSON.stringify(files));
         let parishFile = files.find(f => f.name.includes('parish'));
         let wardFile   = files.find(f => f.name.includes('ward'));
 
         if (!parishFile || !wardFile) {
-            console.error("Both parish and ward files are required");
+            let m = "Both parish and ward files are required";
+            console.error("Select Both parish and ward files");
+            $('#act-maps-load-impact-results').html('<p>' + m + '</p>');
             return;
         }
         // read source area feature - get a set of codes
@@ -49,6 +54,17 @@ console.log('Files: ' + JSON.stringify(files));
         };
         let resp = await make_merged_layer('TeignbridgeArea', 'CODE', 'AreaCarbon', areadata, layer_options ,reserves);
         console.log('Resp: ' + JSON.stringify(resp));
+        let msg = '';
+        if ( resp.success == true ){
+            msg += '<p>Success!</p>';
+            if ( resp.data.message ){
+                msg += '<p>' + resp.data.message + '</p>';
+            }
+        } else {
+            msg += '<p>Failed</p>';
+            msg += '<p>' + JSON.stringify(resp) + '</p>';
+        }
+        $('#act-maps-load-impact-results').html(msg);
     });
     // helper to wrap Papa.parse in a Promise
     function parseCSVFile(file, codes, areadata, assignments) {
