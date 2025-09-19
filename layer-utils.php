@@ -105,7 +105,7 @@ error_log('$reserves: ' .var_export($reserves, true));
     }
 error_log('destination layer: ' . $destinationlayer);
 error_log('path: '.$path );
-    act_save_geojson_layer($destinationlayer, $target_geojson, $path, $version);
+    act_save_geojson_layer($destinationlayer, $target_geojson, $path, $version, $attributes);
 
     return ['message' => 'merged layer saved'];
 }
@@ -116,10 +116,11 @@ error_log('path: '.$path );
  * @param array|string $geojson The GeoJSON content (array or JSON string).
  * @param string|null $path    Default path under MAPDATA (e.g. "boundaries/parishes.json").
  * @param string|null $version Optional. Version string to use. If null, an ISO timestamp is generated.
+ * @param array|string|null Attributes/properties in json format
  *
  * @return bool True on success, false on failure.
  */
-function act_save_geojson_layer($layerid, $geojson, $path = null, $version = null) {
+function act_save_geojson_layer($layerid, $geojson, $path = null, $version = null, $properties = null) {
 error_log('layerid '.$layerid);
 error_log('path passed to act_save_geojson_layer '.$path);
     // Load MAPDATA location from wp-config
@@ -201,6 +202,26 @@ error_log('path passed to act_save_geojson_layer '.$path);
     if (file_put_contents($fullpath, $geojson) === false) {
         error_log("Failed to write GeoJSON to: $fullpath");
         return false;
+    }
+    // Write properties if supplied
+    if ($properties){
+        // form base name
+        $props_base = basename($path, ".json") . "_properties";
+        $props_fullpath = $mapdata_root . '/' . $props_base . '.json';
+        if ( file_exists($props_fullpath)){
+            $backup_props = $dir. '/' . $props_base . "_" . $version_safe . ".json";
+            if ( !rename($props_fullpath, $backup_props)){
+                error_log("Failed to backup existing file: $props_fullpath");
+                return false;
+            }
+        }
+        if ( is_array($properties)){
+            $properties = json_encode($properties, $json_encode_options);
+        }
+        if (file_put_contents($props_fullpath, $properties) === false) {
+            error_log("Failed to write GeoJSON to: $props_fullpath");
+            return false;
+        }
     }
 
     // Update versions.json
