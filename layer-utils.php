@@ -30,35 +30,6 @@ function handle_make_merged_layer() {
     }  
 }
 add_action('wp_ajax_make_merged_layer', 'handle_make_merged_layer');
-function round_coordinates_recursively($coordinates, $decimals){
-    if (is_array($coordinates) && count($coordinates) > 0) {
-        // Check if the first element is a number
-        if (is_numeric($coordinates[0])) {
-            // It's a single coordinate pair (e.g., [x, y])
-            return array_map(function($coord) use ($decimals) {
-                return round($coord, $decimals);
-            }, $coordinates);
-        } else {
-            // It's a nested array, recurse
-            return array_map(function($sub_coords) use ($decimals) {
-                return round_coordinates_recursively($sub_coords, $decimals);
-            }, $coordinates);
-        }
-    }
-    return $coordinates;
-}
-function round_geo_dp($geometry, $decimals){
-    if (isset($geometry['coordinates'])) {
-        $geometry['coordinates'] = round_coordinates_recursively($geometry['coordinates'], $decimals);
-    } elseif (isset($geometry['geometries'])) {
-        foreach ($geometry['geometries'] as &$sub_geometry) {
-            if (isset($sub_geometry['coordinates'])) {
-                $sub_geometry['coordinates'] = round_coordinates_recursively($sub_geometry['coordinates'], $decimals);
-            }
-        }
-    }
-    return $geometry;
-}
 function make_merged_layer($sourcelayer, $sourcekey, $destinationlayer, $attributes, $layer_options, $reserves, $version) {
     $proxy_url = plugin_dir_url(__FILE__) . 'proxy.php?layer=' . urlencode($sourcelayer);
     $source_json = file_get_contents($proxy_url);
@@ -109,6 +80,30 @@ error_log('path: '.$path );
 
     return ['message' => 'merged layer saved'];
 }
+function make_safe_version( $version ){
+    if ( isset ($version)){
+        $version_iso = $version;
+    } else {
+        $version_iso = gmdate("c");  // ISO8601 UTC (e.g. 2025-08-19T19:10:25+00:00)
+        $version_iso = preg_replace('/\+00:00$/', 'Z', $version_iso); // Cleaner UTC Z suffix
+    }
+    // Sanitized version string for filenames (no colons, safe everywhere)
+    return preg_replace('/[^0-9A-Za-z]/', '', $version_iso); // e.g. 20250819T191025Z
+}
+function delete_identical_backup($new_file_path, $backup_file_path){
+    // Calculate the MD5 hash for each file
+    $new_file_hash = md5_file($new_file_path);
+    $backup_file_hash = md5_file($backup_file_path);
+
+    // Compare the hashes
+    if ($new_file_hash === $backup_file_hash) {
+        // Files are identical, so delete the backup
+        unlink($backup_file_path);
+        error_log("Backup file deleted as it was identical to the new file.");
+    } else {
+        error_log("Backup file retained as it was different from the new file.");
+    }
+}
 /**
  * Save or update a GeoJSON layer in MAPDATA.
  *
@@ -126,6 +121,11 @@ error_log('path passed to act_save_geojson_layer '.$path);
     // Load MAPDATA location from wp-config
     if (!defined('MAPDATA')) {
         error_log("MAPDATA not defined in wp-config.php");
+        return false;
+    }
+    // Write new GeoJSON
+    if ( !is_array($geojson)){
+        error_log('geojson is not an array');
         return false;
     }
     $mapdata_root = rtrim(MAPDATA, '/');
@@ -155,14 +155,6 @@ error_log('path passed to act_save_geojson_layer '.$path);
 
     // Ensure $geojson is JSON string - enable this in live version to reduce file size
     $json_encode_options = JSON_UNESCAPED_SLASHES;
-    if (is_array($geojson)) {
-        if ( $geojson['features']){
-            foreach ($geojson['features'] as &$feature) {
-                $feature['geometry'] = round_geo_dp($feature['geometry'], 5);
-            }
-        }
-        $geojson = json_encode($geojson, $json_encode_options);
-    }
     // Check path ends with .json
     if (!str_ends_with($path, '.json')) {
         $path .= '.json';
@@ -178,15 +170,7 @@ error_log('path passed to act_save_geojson_layer '.$path);
     }
 
     // Determine version
-    if ($version === null) {
-        $version_iso = gmdate("c");  // ISO8601 UTC (e.g. 2025-08-19T19:10:25+00:00)
-        $version_iso = preg_replace('/\+00:00$/', 'Z', $version_iso); // Cleaner UTC Z suffix
-    } else {
-        $version_iso = $version;
-    }
-
-    // Sanitized version string for filenames (no colons, safe everywhere)
-    $version_safe = preg_replace('/[^0-9A-Za-z]/', '', $version_iso); // e.g. 20250819T191025Z
+    $version_safe = make_safe_version( $version );
 
     // Handle existing file (rename with version)
     if (file_exists($fullpath)) {
@@ -197,10 +181,19 @@ error_log('path passed to act_save_geojson_layer '.$path);
             return false;
         }
     }
-
-    // Write new GeoJSON
-    if (file_put_contents($fullpath, $geojson) === false) {
+    if ( write_geojson_stream($geojson, $fullpath, 2) === false){
         error_log("Failed to write GeoJSON to: $fullpath");
+        if ( file_exists($fullpath)){
+            $err_save = $dir . "/" . $base . "_error_" . $version_safe. ".json";
+            error_log("Rolling back: renaming $fullpath to $err_save");
+            if ( !rename($fullpath, $err_save)){
+                error_log("Rollback failed");
+            }
+        }
+        error_log("Rolling back: renaming $backup to $fullpath");
+        if ( !rename($backup, $fullpath)){
+            error_log('Rollback failed');
+        }
         return false;
     }
     // Write properties if supplied
@@ -240,8 +233,140 @@ error_log('path passed to act_save_geojson_layer '.$path);
     ];
     file_put_contents($versions_file, json_encode($versions, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
+    delete_identical_backup($fullpath, $backup);
+    if ( $properties ){
+        delete_identical_backup($props_fullpath, $backup_props);    
+    }
     return true;
 }
+/**
+ * Recursively writes coordinates to a file handle, rounding as it goes.
+ *
+ * This function iterates through a GeoJSON coordinate array and writes the
+ * numbers to a file handle. It handles different levels of nesting
+ * to support all GeoJSON geometry types.
+ *
+ * @param resource $handle The file handle to write to.
+ * @param array $coordinates The coordinates array.
+ * @param int $decimals The number of decimal places to round to.
+ * @param bool $is_first_element A flag to control comma placement.
+ */
+function write_coordinates_stream($handle, $coordinates, $decimals, &$is_first_element) {
+    if (!is_array($coordinates) || empty($coordinates)) {
+        return;
+    }
+
+    $is_simple_pair = is_numeric($coordinates[0]);
+
+    if ($is_simple_pair) {
+        // It's a simple coordinate pair, e.g., [x, y]
+        if (!$is_first_element) {
+            fwrite($handle, ",");
+        }
+        fwrite($handle, "[");
+        fwrite($handle, sprintf("%.{$decimals}f", $coordinates[0]));
+        fwrite($handle, ",");
+        fwrite($handle, sprintf("%.{$decimals}f", $coordinates[1]));
+        fwrite($handle, "]");
+        $is_first_element = false;
+    } else {
+        // It's a nested array, e.g., for LineString or Polygon
+        if (!$is_first_element) {
+            fwrite($handle, ",");
+        }
+        fwrite($handle, "[");
+        $is_inner_first = true;
+        foreach ($coordinates as $sub_coordinates) {
+            write_coordinates_stream($handle, $sub_coordinates, $decimals, $is_inner_first);
+        }
+        fwrite($handle, "]");
+        $is_first_element = false;
+    }
+}
+
+/**
+ * Writes a GeoJSON object to a file as a stream to avoid memory issues.
+ *
+ * This is the main function that should be called. It iterates through
+ * the features and writes each one to the file as a JSON fragment,
+ * handling the coordinate rounding and formatting on the fly.
+ *
+ * @param array $geojson The GeoJSON object as a PHP associative array.
+ * @param string $output_filepath The path to the output file.
+ * @param int $decimals The number of decimal places to round to.
+ * @return bool True on success, false on failure.
+ */
+function write_geojson_stream($geojson, $output_filepath, $decimals) {
+    try {
+        $handle = @fopen($output_filepath, 'w');
+        if ($handle === false) {
+            error_log("Error: Could not open output file at " . $output_filepath);
+            return false;
+        }
+
+        fwrite($handle, "{\n");
+
+        $is_first_property = true;
+        foreach ($geojson as $key => $value) {
+            if ($key === 'features') {
+                continue;
+            }
+            if (!$is_first_property) {
+                fwrite($handle, ",\n");
+            }
+            fwrite($handle, '    ' . json_encode($key) . ':' . json_encode($value));
+            $is_first_property = false;
+        }
+
+        if (!$is_first_property) {
+            fwrite($handle, ",\n");
+        }
+        fwrite($handle, '    "features":[');
+
+        $features_count = count($geojson['features']);
+        foreach ($geojson['features'] as $index => $feature) {
+            fwrite($handle, "\n    ");
+            // Write the feature object header, starting with properties
+            fwrite($handle, '{"type":"Feature",');
+            fwrite($handle, "\n    ");
+            fwrite($handle, '"properties":');
+
+            // Write the properties (will be handled by json_encode since they're usually small)
+            fwrite($handle, json_encode($feature['properties'],JSON_PRETTY_PRINT |JSON_UNESCAPED_SLASHES));
+
+            // Write the geometry
+            fwrite($handle, "\n   ");
+            fwrite($handle, ',"geometry":{');
+            fwrite($handle, "\n     ");
+            fwrite($handle, '"type":"' . $feature['geometry']['type'] . '",');
+            fwrite($handle, "\n     ");
+            fwrite($handle, '"coordinates":');
+
+            // Use a recursive helper function to handle coordinates
+            $is_first_element = true;
+            write_coordinates_stream($handle, $feature['geometry']['coordinates'], $decimals, $is_first_element);
+
+            // Close the feature object
+            fwrite($handle, "}\n }");
+
+            // Add a comma if it's not the last feature
+            if ($index < $features_count - 1) {
+                fwrite($handle, ",\n");
+            }
+        }
+
+        // Write the GeoJSON boilerplate footer
+        fwrite($handle, "\n]}");
+
+        // Close the file handle
+        fclose($handle);
+        return true;
+    } catch(Throwable $err){
+        error_log("write_geojson_stream failed: " . $err->getMessage());
+        return false;
+    }
+}
+
 add_action('wp_ajax_act_save_geojson', 'act_save_geojson_handler');
 
 function act_save_geojson_handler() {
