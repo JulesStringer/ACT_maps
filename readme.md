@@ -170,14 +170,18 @@ This is modelled on the Wildlife Wardens Map.
 + Need load forms for CC spreadsheet, Parish progress spreadsheet.
 
 # New in this release
+## 20/9/2025
++ geojson files now written by write_geojson_stream rather than using jsonencode, this limits the number of decimal places in coordinates to a specified number (2), writes properties and small bits of the file using JSON_PRETTY_PRINT but writes coordinates compactly. This has reduced some file sizes from 29Mb to 2.9Mb. 
++ If there is an error saving a geojson file which might leave the file unreadable, the backup is restored and the partially written error file is save as {base_filename}_error_{version}.json for diagnosis purposes.
++ If a geojson file is not changed when it is saved the backup is deleted.
 ## 19/9/2025
 + ALL map type added which displays legacy all layers interactive map from stringerhj.co.uk
 + Twomaps side-by-side comparative map configurable for EPC layers
 + Load impact areas reports success  / failure on admin form.
-+ When saving geojson coordinate precision is reduced to 5 decimal places and pretty print is turned off - huge saving in file size
 + On showing map the primary layer is shown centred with a 10% buffer added
 + Full height option for map (twomaps and ALL default) show map full screen
 + Other map types default to width of content or 90% of width of screen if narrower and square proportions with panel below if necessary.
++ When editing layers with properties added such as CC and WW properties are written to a separate file as well as combined geometry and coordinates.
 ## 2/9/2025
 + table_editor is now a copy of the table_editor repository in github, and should be cloned from there periodically.
 + WW and CC map data editing moved from ACT_admin to better integrate with merge back end functionality, edit_area_map.js provides the editing front end, with customisation provided by edit_props objects in editors directory.

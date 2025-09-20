@@ -81,6 +81,9 @@ async function edit_area_load() {
                 showarea(codes[0].code);
             } catch (error) {
                 console.error("Error fetching list data:", error);
+                let msg = '<p>Error fetching list data:</p>';
+                msg += '<p>' + JSON.stringify(error) + '</p>';
+                $('#act-maps-load-impact-results').html(msg);
                 alert("An error occurred while fetching the list data.");
             }
         });
@@ -139,8 +142,13 @@ async function on_submit(){
         let result = await make_merged_layer(sourcelayer, sourcekey, listid, props, layer_options);
         console.log('make_merged_layer returned ' + JSON.stringify(result));
         warning(null);
+        msg = '<p>Success!</p>';
+        jQuery('#act-maps-load-impact-results').html(msg);
     } catch(error){
         console.error("Error saving list data:", error);
+        let msg = '<p>Error fetching list data:</p>';
+        msg += '<p>' + JSON.stringify(error) + '</p>';
+        jQuery('#act-maps-load-impact-results').html(msg);
         alert("An error occurred while saving the list data.");  
     }
 }
