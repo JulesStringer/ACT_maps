@@ -93,7 +93,7 @@ function act_maps_shortcode( $atts ) {
         $params_array[] = 'config='.$atts['config'];
     }
     if ( $map_id === 'ALL'){
-        $map_url = 'https://act.stringerhj.co.uk/mapping/mapping_full.html';
+        $map_url = 'https://act.stringerhj.co.uk/mapping/mapping_full.html?v=time()';
         $height = 'full';
         $styles['width'] = '100%';
         $forceshift = false;
