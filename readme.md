@@ -170,6 +170,12 @@ This is modelled on the Wildlife Wardens Map.
 + Need load forms for CC spreadsheet, Parish progress spreadsheet.
 
 # New in this release
+## 24/9/2024
++ Numerous improvements to the positioning of popup when the map is clicked on including ensuring that map doesn't pan when popup is displayed for a feature near the screen edge.
++ twomaps zooms so the first layer just fits the screen reqardless of screen size
++ full height map now more effective at occupying the screen 
++ ACTLogo_transparent added to full height maps
++ twomapsvertical now removed as html/css of twomaps is responsive
 ## 20/9/2025
 + geojson files now written by write_geojson_stream rather than using jsonencode, this limits the number of decimal places in coordinates to a specified number (2), writes properties and small bits of the file using JSON_PRETTY_PRINT but writes coordinates compactly. This has reduced some file sizes from 29Mb to 2.9Mb. 
 + If there is an error saving a geojson file which might leave the file unreadable, the backup is restored and the partially written error file is save as {base_filename}_error_{version}.json for diagnosis purposes.

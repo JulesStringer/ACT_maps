@@ -3,6 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../ol/v6.5.0-dist/ol.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../../ol/v6.5.0-dist/ol.js"></script>
@@ -43,14 +44,14 @@
 
         .ol-popup {
             position: absolute;
-            background-color: white;
+            background-color: rgba(255,255,255,0.4);
             -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
             filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
             padding: 15px;
             border-radius: 10px;
             border: 1px solid #cccccc;
             bottom: 12px;
-            left: -50px;
+            left: -140px;
             min-width: 280px;
         }
 
@@ -81,14 +82,23 @@
         .ol-popup-closer {
             text-decoration: none;
             position: absolute;
-            top: 2px;
-            right: 8px;
+            bottom: 2px;
+            left: 50%;
         }
 
             .ol-popup-closer:after {
                 content: "✖";
             }
-        /* General Layout & Iframe Sizing */
+/*
+@media (max-width: 600px){
+    .ol-popup {
+        display: none;
+    }
+}
+*/
+    </style>
+    <style>
+/* General Layout & Iframe Sizing */
 html, body {
     margin: 0;
     padding: 0;
@@ -99,41 +109,57 @@ html, body {
 
 /* Main vertical container for the whole page */
 .main-container {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
 }
-
-/* Horizontal container for the map panels */
-.top-section {
-    display: flex;
-    flex: 1; /* This makes the top section grow to fill all remaining vertical space */
+/* Default styles for desktop/landscape */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 250px; /* Two equal columns for maps, one fixed for control */
+    grid-template-rows: 100%;
     width: 100%;
-    overflow: hidden; /* Prevents overflow */
+    height: 100%;
 }
-
-/* Bottom section with a fixed height */
-.bottom-section {
-    display: flex;
-    height: 110px; /* The fixed height for the bottom panel */
-    width: 100%;
-    align-items: center; /* Vertically centers content */
-    padding: 0 10px;
-    box-sizing: border-box; /* Includes padding in the total height */
-}
-
 /* Individual Panels (within top-section) */
 .map-panel {
     flex: 1;
-    position: relative;
     display: flex;
     flex-direction: column;
+    position: relative;
     overflow: hidden;
     border: solid 1px lightgray;
     box-sizing: border-box;
 }
+.map-title {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+  /*  z-index: 100;*/ /* Ensures it appears on top of the map */
+    color: black;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
 
+.map-coords {
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    /*z-index: 100;*/ /* Ensures it appears on top of the map */
+    color: black;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+}
+@media (max-width: 600px){
+    .map-coords{
+        max-width: 8ch;
+    }
+    .map-title{
+        max-width: 10ch;
+    }
+}
 /* Maps fill their panels */
 .map {
     width: 100%;
@@ -141,13 +167,31 @@ html, body {
 }
 
 /* Control Panel Specifics */
+/* Control Panel Specifics - Default for Landscape */
 .control-panel {
-    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-control {
+    flex: 1; /* Allows it to grow and take space */
+    display: flex;
+    flex-direction: column; /* Stack control-scroll and hover-panel vertically */
+}
+
+.bottom-control {
+    flex: 1; /* Allows it to grow and take space */
+    display: flex;
+    flex-direction: column; /* Stacks its children vertically */
+}
+#control-button {
+    display: none;
 }
 
 .control-scroll {
     width: 100%;
     height: 100%;
+    max-height: 350px;
     overflow-y: auto;
 }
 
@@ -158,30 +202,121 @@ html, body {
 
 /* Bottom Panel Styling */
 .atts-panel {
-    flex: 1; /* This will make the atts panel take up all available horizontal space */
     height: 100%;
     border: solid 1px lightgray;
     box-sizing: border-box;
-    overflow: auto; /* Enables scrolling for the attributes */
+    overflow: auto;
 }
-
+#logo{
+    display:block;
+    width:50px;
+    height:50px;
+}
 .atts {
     width: 100%;
     height: 100%;
     overflow: auto;
 }
-
 .hover-panel {
-    margin-left: 15px; /* Adds space between the atts panel and the checkbox */
+    margin-left: 15px;
     white-space: nowrap;
 }
-    </style>
+.layout-landscape{
+    display:none;
+}
+.layout-portrait{
+    display:none;
+}
+@media (orientation: portrait), (max-width:600px) {
+    /* Main container stacks everything vertically and fills the viewport */
+    .main-container {
+        display: flex; /* Make it a flex container */
+        flex-direction: column; /* Stack top and bottom sections vertically */
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Grid container is now a Flexbox container for vertical stacking */
+    .grid-container {
+        display: flex; /* Use Flexbox for vertical stacking */
+        flex-direction: column;
+        flex: 1; /* This is the key. It makes the container fill all available vertical space */
+        width: 100%;
+        height: auto; /* Let the height be determined by its content */
+        overflow-y: auto; /* Allow scrolling if content overflows */
+    }
+
+    /* The top-level panels will now share the available vertical space */
+    .map-panel {
+        flex: 1; /* Each map panel takes an equal share of the vertical space */
+        height: auto;
+        min-height: 250px; /* Ensures a minimum height */
+    }
+    .control-panel {
+        flex: 0.5; /* The control panel will take half the space of a map panel */
+        display: flex;
+        flex-direction: row; /* For side-by-side internal layout */
+        height: auto;
+        min-height: 200px; /* A minimum height to ensure usability */
+        padding: 5px;
+    }
+
+/* Make the top-control and bottom-control sections flexible */
+    .top-control {
+        flex: 0; /* Prevents it from growing */
+        flex-basis: 250px; /* A base width for the column */
+        max-width: 250px; /* Sets the maximum width */
+        min-width: 200px;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+    }
+    .bottom-control {
+        flex: 1; /* This will make the bottom control grow to fill the remaining space */
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+    }
+    /* Adjust internal element heights */
+/*
+    #control-button {
+        display: block;
+        max-width: 100px;
+    }
+*/
+    .control-scroll {
+        flex: 1; /* Takes up available vertical space within top-control */
+        max-height: 350px;
+        min-height: unset;
+        width: 100%;
+        height: auto;
+/*        display:none; */
+    }
+
+    .atts-panel {
+        flex: 1; /* Takes up available vertical space within bottom-control */
+        height: auto;
+        padding: 10px;
+    }
+
+    .hover-panel {
+        margin-left: 0;
+        margin-top: 10px;
+        white-space: nowrap;
+    }
+    .layout-landscape{
+        display:none;
+    }
+    .layout-portrait{
+        display:none;
+    }
+}    </style>
     <title id="title">Title needs filling from config.title</title>
 </head>
 <body onload="onload(true);">
     <div class="main-container">
 
-        <div class="top-section">
+        <div class="grid-container">
             <div class="map-panel">
                 <div id="mapCurrent" class="map"></div>
                 <span id="title1" class="map-title">Current CO₂ Emissions</span>
@@ -195,29 +330,33 @@ html, body {
             </div>
 
             <div class="map-panel control-panel">
-                <div class="control-scroll">
-                    <table id="control" class="control-table"></table>
+                <div class="top-control">
+                    <button id="control-button" onclick="on_show_control();" >Show Legend</button>
+                    <div class="control-scroll">
+                        <table id="control" class="control-table"></table>
+                    </div>
+                    <div class="hover-panel">
+                        <input type="checkbox" id="hover" onclick="onhover();" />Hover to show summary
+                    </div>
+                </div>
+                <div class="bottom-control">
+                    <div class="atts-panel">
+                        <p class="layout-landscape">Landscape</p>
+                        <p class="layout-portrait">Portrait</p>
+                        <img id="logo" src="../ACTLogo_transparent.png"/>
+                        <div class="atts" id="selected"></div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="bottom-section">
-            <div class="atts-panel">
-                <div class="atts" id="selected"></div>
-            </div>
-            <div class="hover-panel">
-                <input type="checkbox" id="hover" onclick="onhover();" />Hover to show summary
-            </div>
-        </div>
-
     </div>
     <div id="popupCurrent" class="ol-popup">
-        <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('mapCurrent');"></a>
         <div id="popup-content"></div>
+        <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('mapCurrent');"></a>
     </div>
     <div id="popupPotential" class="ol-popup">
-        <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('mapPotential');"></a>
         <div id="popup-content"></div>
+        <a href="#" id="popup-closer" class="ol-popup-closer" onclick="popupcloser('mapPotential');"></a>
     </div>
     <div class="atts" id="detail"
          style="position:fixed; top:0px;right:0px;width:600px;height:600px;background-color: white;">

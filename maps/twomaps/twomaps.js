@@ -37,10 +37,14 @@ async function load_map_panel(dataurl, mapdisplay, file, layers) {
                 console.log('load_map_panel error ' + err.toString());
                 reject(err);                    
             } else {
+                let keys = Object.keys(mapdisplay.layerDefs);
+
+                mapdisplay.zoomLayer(keys[0], 0.1, 25);
                 resolve();
             }
         }, layers);
         mapdisplay.setFadeGreyBackmap(true, 0.8);
+        console.log('mapdisplay.onclick ', mapdisplay.onclick);
     })
 }
 function createSlavedMaps(leftOptions, rightOptions, params) {
@@ -51,10 +55,30 @@ function createSlavedMaps(leftOptions, rightOptions, params) {
     }
     $('#detail').hide();
     mapCurrent = createMapDisplay('mapCurrent', leftOptions.control, 'selected', leftOptions);
-    mapCurrent.setSelectHover(false);
+    mapCurrent.setSelectHover(false, null, epc_table);
     mapPotential = createMapDisplay('mapPotential', rightOptions.control, 'selected', rightOptions);
-    mapPotential.setSelectHover(false);
+    mapPotential.setSelectHover(false, null, epc_table);
     mapCurrent.addSlave(mapPotential);
+}
+function epc_table(list, mapdiv, listdiv){
+    let body = '<table>';
+    body += '<tr><th colspan="3">tCO<sub>2</sub>e per EPC/yr</th></tr>';
+    body += '<tr><td>Area</td><td>Current</td><td>Potential</td></tr>';
+    // have to use foreach because list isn't a conventional array!
+    list.forEach(function(f,i){
+        let p = f.getProperties();
+        console.log('p was ',p);
+        let id = listdiv + "_" + i;
+        let args = `'${mapdiv}','${id}','${p.layerName}',`;
+        let fid = f.getId();
+        fid = isNaN(fid) ? `'${fid}'` : fid;
+        args += fid;
+        body += `<tr><td><a href="#!" onclick="onlink(${args});" >${p.name}</a></td>`;
+        body += `<td>${p['co2-emissions-current'].mean.toFixed(2)}</td>`;
+        body += `<td>${p['co2-emissions-potential'].mean.toFixed(2)}</td></tr>`;
+    });
+    body += '</table>';
+    return body;
 }
 async function onload() {
     var url = window.location.search;
@@ -90,6 +114,7 @@ async function onload() {
         dataurlbase: dataurlbasein,
         templatebase: templatebasein,
         popupdiv: 'popupCurrent',
+        //popupdiv: '',
         coorddiv: 'coordsCurrent',
         forceshift: forceshift,
         control: 'control'
@@ -99,9 +124,14 @@ async function onload() {
         dataurlbase: dataurlbasein,
         templatebase: templatebasein,
         popupdiv: 'popupPotential',
+        //popupdiv: '',
         coorddiv: 'coordsPotential',
         forceshift: forceshift
     };
+    //if ( window.innerWidth < 1000 ){
+    //    leftOptions.haspopup = false;
+    //    rightOptions.haspopup = false;
+    //}
     if (config.horizontal) {
         rightOptions.detailLeft = true;
     }
@@ -128,19 +158,30 @@ function getScrollBarWidth() {
 };
 function onhover() {
     if ($('#hover').get(0).checked) {
-        mapCurrent.setSelectHover(true);
-        mapPotential.setSelectHover(true);
+        // epc_table removed from the following to debug why list isn't an array of features
+        mapCurrent.setSelectHover(true, null, epc_table);
+        mapPotential.setSelectHover(true, null, epc_table);
     } else {
-        mapCurrent.setSelectHover(false);
-        mapPotential.setSelectHover(false);
+        mapCurrent.setSelectHover(false, null, epc_table);
+        mapPotential.setSelectHover(false, null, epc_table);
     }
 }
 function setCheckSelectHover(enable) {
     $('#hover').get(0).checked = enable;
-    mapCurrent.setSelectHover(enable);
-    mapPotential.setSelectHover(enable);
+    mapCurrent.setSelectHover(enable, null, epc_table);
+    mapPotential.setSelectHover(enable, null, epc_table);
 }
 async function ontopiccomparison(topic) {
     await load_map_panel(dataurlbase, mapCurrent, topic);
     await load_map_panel(dataurlbase2, mapPotential, topic);
+}
+function on_show_control(){
+    let control = $('.control-scroll');
+    if ( control.css('display') === 'none'){
+        control.css({display:'block'});
+        $('#control-button').text('Hide Legend');
+    } else {
+        control.css({display:'none'});
+        $('#control-button').text('Show Legend');
+    }
 }

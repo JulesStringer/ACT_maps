@@ -1038,7 +1038,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         header: true, description: 'Description', symbolWidth: 16, themeIndent: 10
     };
     mapDisplay.findLayerName = null;
-    mapDisplay.autopan = true;
+    mapDisplay.autopan = false;
     mapDisplay.multiSelect = true;
     mapDisplay.onFeatureSelected = null;
     mapDisplay.noInteraction = null;
@@ -1063,13 +1063,16 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         }
         if (options.popupdiv) {
             mapDisplay.popupdiv = options.popupdiv;
+            //if ( mapDisplay.popupdiv === ''){
+            //    mapDisplay.haspopup = false;
+            //}
         }
         if (options.detailLeft) {
             mapDisplay.detailLeft = options.detailLeft;
         }
-        //        if (options.haspopup) {
-        //            mapDisplay.haspopup = options.haspopup;
-        //        }
+        if (options.haspopup === false) {  
+             mapDisplay.haspopup = options.haspopup;
+        }
         if (options.forceshift) {
             mapDisplay.forceshift = options.forceshift;
         }
@@ -1270,13 +1273,68 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         mapDisplay.overlay = new ol.Overlay({
             element: $('#' + mapDisplay.popupdiv).get(0),
             autoPan: mapDisplay.autopan,
+            positioning: 'bottom-center',
+            offset: [0, 0],
             autoPanAnimation: {
                 duration: 250
             }
-        });
+        });// Function to check and adjust the popup position
+
         mapoptions.overlays = [mapDisplay.overlay];
     }
     mapDisplay.map = new ol.Map(mapoptions);
+    if (mapDisplay.haspopup) {
+        mapDisplay.keepPopupInView = function() {
+            try {
+                // Get the popup element and map object
+                const popupElement = mapDisplay.overlay.getElement();
+                const map = mapDisplay.map; // Assuming you have a reference to your map object
+
+                // Get dimensions and coordinates
+                const popupSize = [popupElement.offsetWidth, popupElement.offsetHeight];
+                const mapSize = map.getSize();
+                const popupPixel = map.getPixelFromCoordinate(mapDisplay.overlay.getPosition());
+
+                //let offsetX = mapDisplay.overlay.getOffset()[0];
+                //let offsetY = mapDisplay.overlay.getOffset()[1];
+                let offsetX = 0;
+                let offsetY = 0;
+
+                // Check for horizontal overflow (left side)
+                if (popupPixel[0] - (popupSize[0] / 2) + offsetX < 0) {
+                    // The popup is off the left side, shift it right
+                    offsetX = popupSize[0] / 2;
+                }
+                // Check for horizontal overflow (right side)
+                if (popupPixel[0] + (popupSize[0] / 2) + offsetX > mapSize[0]) {
+                    // The popup is off the right side, shift it left
+                    offsetX = -popupSize[0] / 2;
+                }
+
+                // Check for vertical overflow (top side)
+                if (popupPixel[1] - popupSize[1] + offsetY < 0) {
+                    // The popup is off the top, shift it down
+                    offsetY = popupSize[1];
+                }
+                // Check for vertical overflow (bottom side)
+                if (popupPixel[1] + offsetY > mapSize[1]) {
+                    // The popup is off the bottom, shift it up
+                //    offsetY = -popupSize[1];
+                }
+
+                // Apply the new offset
+                mapDisplay.overlay.setOffset([offsetX, offsetY]);
+            } catch(err){
+                console.log(err.toString());
+            }
+        }
+        // Attach the logic to a map event
+        mapDisplay.map.on('moveend', mapDisplay.keepPopupInView);
+
+        // You may also need to call this when the popup is first positioned
+        mapDisplay.overlay.on('change:position', mapDisplay.keepPopupInView);
+
+    }
     mapDisplay.osmLayer.on('postrender', function (event) {
         if (mapDisplay.greymap) {
             greyscale(event.context, mapDisplay.fade);
@@ -1477,6 +1535,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         mapDisplay.map.on('click', function (event) {
             var coord = event.coordinate;
             var pt = new ol.geom.Point(coord, 'XY');
+            console.log('About to call mapDisplay.onclick: ', mapDisplay.onclick);
             mapDisplay.onclick(mapDisplay, pt);
         });
     }
@@ -1510,8 +1569,10 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
     }
     mapDisplay.popupcloser = function () {
         mapDisplay.overlay.setPosition(undefined);
-        $('#' + mapDisplay.popupdiv).find('#popup-closer').get(0).blur();
-        //mapDisplay.setSelectHover(false);
+        let pc = $('#' + mapDisplay.popupdiv).find('#popup-closer').get(0);
+        if ( pc ){
+            pc.blur();
+        }
         return false;
     }
     mapDisplay.oncontrolgroup = function (layerName) {
@@ -1939,6 +2000,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
     mapDisplay.isLayerIncluded = function (layerName) {
         return $('#' + controldiv).find('#' + layerName).find('#on').get(0).checked;
     }
+    /* Clickability */
     mapDisplay.clickableLayers = [];
     mapDisplay.clickableobject = {};
     mapDisplay.layerclickChanged = function (layerName) {
@@ -2011,6 +2073,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             mapDisplay.popupcloser();
         }
     }
+    /* Zoom handler */
     mapDisplay.getExtentFC = function (coll) {
         var extent = ol.extent.createEmpty();
         coll.forEach(function (f, i) {
@@ -2127,6 +2190,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             selectlist.push(l);
         });
     }
+    /* Modify features */
     mapDisplay.modify = null;
     mapDisplay.modifyFeatures = null;
     mapDisplay.modFeature = null;
@@ -2277,17 +2341,33 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         }
         mapDisplay.select = null;
     }
+    /* Sets up select interaction 
+     * Parameters:
+     * enable       true select on hover
+     *              false select on click
+     * screenlink   defaults to the opposite of enable
+     *              set this to false to stop a popup appearing when not enabled
+     * formLinks    An optional callback function which forms an alternative list
+     *              to the default one formed by mapdisplay.FeaturesTable
+     */
     mapDisplay.setSelectHover = function (enable, screenlink, formLinks) {
+        // If mapDisplay.select is set remove it from the map
         if (mapDisplay.select ) {
             mapDisplay.map.removeInteraction(mapDisplay.select);
         }
+        // set the condition for reporting to click
         var condition = ol.events.condition.click;
+        // if the screenlink parameter is not positively set, set it to enable
         if (screenlink !== false && screenlink !== true) {
             screenlink = enable ? false : true;
         }
+        // If selecthover is enabled then monitor the pointerMove interaction
         if (enable) {
             condition = ol.events.condition.pointerMove;
         }
+        // Set the select interaction to allow
+        // list of clickable layers
+        // multiple selections
         var options = {
             condition: condition,
             layers: function (layer) {
@@ -2295,24 +2375,33 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             },
             multi: mapDisplay.multiSelect
         };
+        // If a select style is set set this as an option as well
         if (mapDisplay.selectStyle) {
             options.style = mapDisplay.selectStyle;
         }
+        // set the selecction option an define a handler
         mapDisplay.select = new ol.interaction.Select(options);
-        mapDisplay.select.on('select', function (e) {
+        mapDisplay.select.on('select', async function (e) {
             var coord = null;
             if (e.mapBrowserEvent) {
                 coord = e.mapBrowserEvent.coordinate;
             }
-            var list = mapDisplay.select.getFeatures();
+            // get the list of selected features
+            let list = await mapDisplay.select.getFeatures();
             if (mapDisplay.haspopup && screenlink) {
-                var text = '';
+                let text = '';
                 if (formLinks) {
-                    text = formLinks(list);
+                    //console.log('Calling formLinks list:',list);
+                    text = formLinks(list, mapdiv, mapDisplay.popupdiv);
+                    //if ( mapDisplay.popupdiv) {
+                    //    console.log(`popupdiv ${mapDisplay.popupdiv} text: ${text}`);
+                    //    $('#' + mapDisplay.popupdiv).html(text);
+                    //}
                 } else {
                     text = mapDisplay.featuresTable(list, null, true, mapDisplay.popupdiv);
                 }
                 if (text.length > 0 && list.getLength() > 0) {
+                    // should be a single selector with class
                     $('#' + mapDisplay.popupdiv).find('#popup-content').html(text);
                     if (list && list.getLength() == 1) {
                         var f = list.item(0);
@@ -2332,13 +2421,23 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
                 mapDisplay.onFeatureSelected(list);
             }
             if (mapDisplay.master) {
+//                console.log('mapDisplist.master coord ',coord);
                 mapDisplay.master.onSelect(coord);
             }
             mapDisplay.slaveDisplays.forEach(function (slave, i) {
+//                console.log('calling slave.onSelect');
                 slave.onSelect(coord, list);
             });
             if (selecteddiv) {
-                $('#' + selecteddiv).html(mapDisplay.featuresTable(list, null, true));
+//                console.log('list to selecteddiv was: ',list);
+                let text = '';
+                if ( formLinks ){
+                    text = formLinks(list, mapdiv, selecteddiv);
+                    console.log(`selecteddiv ${selecteddiv} text ${text}`);
+                } else {
+                    text = mapDisplay.featuresTable(list, null, true);
+                }
+                $('#' + selecteddiv).html(text);
             }
             var toremove = [];
             list.forEach(function (feature, i) {
@@ -2353,6 +2452,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         });
         mapDisplay.map.addInteraction(mapDisplay.select);
     }
+/* Add data */
     mapDisplay.saveJSONLayer = function (layerDef) {
         var url = layerDef.url;
        // var url = layerDefSource.url;
@@ -2406,6 +2506,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             mapDisplay.saveJSONLayer(layerDef);
         }
     }
+    /* removes layers from map */
     mapDisplay.clearLayers = function () {
         mapDisplay.layerDefs = null;
         mapDisplay.templates = {};
@@ -2420,6 +2521,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             len = layerArray.length;
         }
     }
+/* Data fetching progress reporting */
     mapDisplay.showFetching = function (layerName) {
         var tbl = '<table>';
         tbl += '<td><td="activity">Fetching</td><td>' + layerName + '</td></tr>';
@@ -2435,6 +2537,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         clearInterval(mapDisplay.secondTimer);
         mapDisplay.secondTimer = null;
     }
+    /* Sets next layer marked in the control as clickable to clickable */
     mapDisplay.fetchNextLayer = async function (layerName, layerDef) {
  //       mapDisplay.clearProgress(layerDef);
         $('#' + controldiv).find('#' + layerName).find('#on').prop('checked', true);
@@ -2463,6 +2566,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         }
         */
     }
+    /* Prepares vector layer for rendering */
     mapDisplay.createVectorLayer = function (layerName, layerDef) {
         $('#activity').text('Defining ' + mapdiv + ':' + layerName);
         vectorLayer = new ol.layer.Vector({
@@ -2546,6 +2650,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         }
         return vectorLayer;
     }
+    /*CRS transformation */
     mapDisplay.readFeatures = function (format, data, layerName, layerDef) {
         var features = format.readFeatures(data);
         var srs = data.crs.properties.name;
@@ -2581,6 +2686,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         });
         return features;
     }
+/* Data manager */
     mapDisplay.createFormat = function (layerDef) {
         var format = null;
         if (layerDef.format) {
@@ -2639,6 +2745,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         }
         return format;
     }
+/* Data manager */
     mapDisplay.fetchData = async function (layerName, layerDef, url) {
         mapDisplay.showFetching(layerName);
         var prom = new Promise((resolve, reject) => {
@@ -2793,7 +2900,6 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         mapDisplay.map.addLayer(vectorLayer);
         layerDef.layer = vectorLayer;
     }
-
     mapDisplay.addLayer = async function (layerName, layerDef) {
         if (layerDef.strategy) {
             await mapDisplay.addbboxVectorLayer(layerName, layerDef);
@@ -2811,6 +2917,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             layerDef.layer.setSource(layerDef.vectorSource);
         }
     }
+/* Feature instance manager */
     mapDisplay.addFeature = function (layerName, feature) {
         var layerDef = mapDisplay.layerDefs[layerName];
         if (layerDef) {
@@ -2832,6 +2939,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         }
         return false;
     }
+/* Layerdef manager */
     mapDisplay.addLayerDef = function (layerDef, layerName, data) {
         if (!mapDisplay.layerDefs) {
             mapDisplay.layerDefs = {};
@@ -2847,6 +2955,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         mapDisplay.map.addLayer(vectorLayer);
         layerDef.layer = vectorLayer;
     }
+/* Layer manager */
     mapDisplay.getCheckedLayers = function () {
         var layers = [];
         var keys = Object.keys(mapDisplay.layerDefs);
@@ -2857,6 +2966,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
         });
         return layers;
     }
+/* Layer manager */
     mapDisplay.loadLayers = function (url, urlTemplates, urlDictionary, callback, layers) {
         var prom = new Promise(async (resolve, reject) => {
             var prom2 = new Promise((res, rej) => {
@@ -3023,6 +3133,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             callback(err);
         });
     }
+/* Layer manager */
     mapDisplay.refreshLayer = function (layerName, callback) {
         var layerDef = mapDisplay.layerDefs[layerName];
         layerDef.layer = null;
@@ -3035,6 +3146,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             callback(err);
         });
     }
+/* Find Feature manager */
     mapDisplay.combos = {};
     mapDisplay.populateCombo = function (layerName, comboid, defid, codeatt, nameatt, callback, titl) {
         mapDisplay.findLayerName = layerName;
@@ -3121,6 +3233,7 @@ function createMapDisplay(mapdiv, controldiv, selecteddiv, options) {
             }
         }
     }
+/* Layer manager */
     mapDisplay.refreshDependentLayers = async function(layerName) {
         // refresh depends
         //var layers = mapdisplay.getCheckedLayers();

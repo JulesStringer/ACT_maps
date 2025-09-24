@@ -87,7 +87,7 @@ function act_maps_shortcode( $atts ) {
     $map_params = '';
     $params_array = array();
     if ( 'true' === strtolower( $atts['forceshift'] ) ) {
-        $params_array[] = 'forceshift=true';
+        $forceshift = true;
     }
     if ( strlen($atts['config']) > 0 ){
         $params_array[] = 'config='.$atts['config'];
@@ -104,7 +104,7 @@ function act_maps_shortcode( $atts ) {
         if ( ! file_exists( $map_file_path ) ) {
             return "<p>Error: The map file for ID '{$map_id}' does not exist at '{$map_file_path}'.</p>";
         }
-        $map_version = file_exists($map_file_path) ? filemtime($map_file_path) : false;
+        $map_version = file_exists($map_file_path) ? filemtime($map_file_path) : time();
         $params_array[] = 'v=' . $map_version;
         $map_params = (count($params_array) > 0) ? ('?' . implode('&', $params_array)) : '';
         // Build the URL to the map's HTML file.
@@ -121,6 +121,7 @@ function act_maps_shortcode( $atts ) {
             $forceshift = false;
         }
     }
+    $params_array[] = $forceshift ? 'forceshift=true' : 'forceshift=false';
     // Generate the iframe HTML.
     $container_id = 'act_maps_'.uniqid();
     //
@@ -169,23 +170,19 @@ function act_maps_shortcode( $atts ) {
                     console.error("main not found.");
                     return;
                 }
-                const footer = document.querySelector("footer");
-                if (!footer) {
-                    console.error("footer not found.");
-                    return;
-                }
                 const map_container = document.getElementById("%s");
                 if (!map_container) {
                     console.error("map container not found.");
                     return;
                 }
                 const main_top = main.getBoundingClientRect().top;
-                const footer_height = footer.offsetHeight;
-                const available_height = window.innerHeight - main_top - footer_height - 50;
+                let available_height = window.innerHeight - main_top - 50;
+                if ( available_height < 400 ){
+                    available_height = 400;
+                }
                 const iframe = document.createElement("iframe");
                 iframe.src = "%s";
                 iframe.title = "%s Map";
-//                iframe.style.width = "%s";
                 iframe.style.width = window.innerWidth + "px";
                 iframe.style.height = available_height + "px";
                 iframe.style.border = "none";
