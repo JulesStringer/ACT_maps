@@ -236,14 +236,19 @@ add_shortcode( 'act_maps', 'act_maps_shortcode' );
 add_action( 'admin_menu', 'act_maps_menu' );
 function act_maps_menu() {
     add_menu_page( 'ACT maps', 'ACT maps', 'read', 'act-maps', 'act_maps_admin_page', 'dashicons-list-view' ); // Top-level menu
-    add_submenu_page('act-maps', 'Load impact data', 'Load impact date', 'administrator', 'act-maps-load-impact','act_maps_load_impact_page');
+    $user = wp_get_current_user();
+    if ( user_can($user,'manage_options')){
+        add_submenu_page('act-maps', 'ACT Map Permissions','ACT Map Permissions', 'administrator','act-maps-permissions','act_maps_permissions_page');
+        add_submenu_page('act-maps', 'Load impact data', 'Load impact data', 'administrator', 'act-maps-load-impact','act_maps_load_impact_page');
+    }
     $lists = get_act_map_lists(); // Get the filtered list based on user roles
+//error_log('act_maps_menu $list was '. var_export($lists, true));
     foreach ($lists as $list_id => $list_data) {
         add_submenu_page( 
             'act-maps', 
             $list_data['title'], 
             $list_data['title'], 
-            $list_data['role'], 
+            'read', 
             'act-maps-edit-' . $list_id, 
             'act_maps_edit_page' ); // Use the role for capability check on submenu    }
     }
@@ -252,12 +257,87 @@ function act_maps_admin_page() {
     // Top-level page content (can be empty or a welcome message)
     echo '<h2>ACT Maps Admin</h2>';
     echo '<ul>';
-    echo '<li><a href="' . admin_url( 'admin.php?page=act-maps-load-impact') .'">Load impact data</a></li>';
+    $user = wp_get_current_user();
+    if ( user_can($user,'manage_options')){
+        echo '<li><a href="' . admin_url( 'admin.php?page=act-maps-permissions') .'">ACT maps permissions</a></li>';
+        echo '<li><a href="' . admin_url( 'admin.php?page=act-maps-load-impact') .'">Load impact data</a></li>';
+    }
     $lists = get_act_map_lists(); // Get the filtered list based on user roles
     foreach ($lists as $list_id => $list_data) {
         echo '<li><a href="' . admin_url( 'admin.php?page=act-maps-edit-' . $list_id ) . '">' . $list_data['title'] . '</a></li>';
     }
     echo '</ul>';
+}
+function act_maps_permissions_page() {
+    //error_log('In act_maps_permissions_page');
+    // 1. Handle Saving if form was submitted
+    if (isset($_POST['act_maps_save_permissions']) && check_admin_referer('act_maps_perm_action', 'act_maps_perm_nonce')) {
+        $type = sanitize_text_field($_POST['map_type_hidden']);
+        $users = sanitize_text_field($_POST['user_list']);
+        
+        // Save to option keys like 'act_maps_edit_WW' or 'act_maps_edit_CC'
+        update_option($type, $users);
+        echo '<div class="updated"><p>Permissions updated for ' . esc_html($type) . '</p></div>';
+    }
+
+    // 2. Get existing data to pass to the HTML
+    $permissions_data = array(
+        'act-maps-edit-WW' => get_option('act-maps-edit-WW', ''),
+        'act-maps-edit-CC' => get_option('act-maps-edit-CC', '')
+    );
+    // 3. Render Interface
+    ?>
+    <div class="wrap">
+        <h1>ACT maps - Edit editor users</h1>
+        <p>Select a map type to manage users who can edit that list (separate usernames with commas).</p>
+
+        <select id="map-type">
+            <option value="">Select map type to edit users</option>
+            <option value="act-maps-edit-WW">Wildlife Wardens</option>
+            <option value="act-maps-edit-CC">Carbon Cutters</option>
+        </select>
+
+        <div id="edit-form-container" style="display:none; margin-top: 20px; border: 1px solid #ccc; padding: 20px; background: #fff; max-width: 600px;">
+            <form method="post" action="">
+                <?php wp_nonce_field('act_maps_perm_action', 'act_maps_perm_nonce'); ?>
+                <input type="hidden" name="map_type_hidden" id="map-type-hidden">
+                
+                <table class="form-table">
+                    <tr>
+                        <th scope="row"><label for="user-list">Authorized Usernames</label></th>
+                        <td>
+                            <input type="text" name="user_list" id="user-list" value="" class="regular-text" />
+                            <p class="description">Enter WordPress logins (e.g. vicky, john_doe)</p>
+                        </td>
+                    </tr>
+                </table>
+                <?php submit_button('Save Permissions', 'primary', 'act_maps_save_permissions'); ?>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Using snake_case for JS variables as requested
+        const map_permissions_lookup = <?php echo json_encode($permissions_data); ?>;
+        const map_selector = document.getElementById('map-type');
+        const form_container = document.getElementById('edit-form-container');
+        const user_input = document.getElementById('user-list');
+        const hidden_type_field = document.getElementById('map-type-hidden');
+
+        map_selector.addEventListener('change', function() {
+            const selected_type_val = this.value;
+
+            if (selected_type_val) {
+                form_container.style.display = 'block';
+                hidden_type_field.value = selected_type_val;
+                // Populate input from the lookup object
+                user_input.value = map_permissions_lookup[selected_type_val] || '';
+            } else {
+                form_container.style.display = 'none';
+            }
+        });
+    </script>
+    <?php
 }
 function act_maps_load_impact_page() { // Callback for the single JSON page
     include plugin_dir_path(__FILE__) . 'html/load-impact-page.html'; 
@@ -284,6 +364,7 @@ function act_maps_enqueue_scripts( $hook_suffix ) {
         '5.4.1',
         true
     );
+    act_maps_enqueue_script( 'act-maps-permissions',    'js/edit_permissions.js',      array('jquery'));
     act_maps_enqueue_script( 'act-maps-layer-utils',    'js/layer-utils.js',           array());
     act_maps_enqueue_script( 'act-maps-tooltips',       'table_editor/tooltips.js',    array('jquery'));
     act_maps_enqueue_script( 'act-maps-tableeditor',    'table_editor/tableeditor.js', array('jquery','act-maps-tooltips'));
@@ -293,6 +374,7 @@ function act_maps_enqueue_scripts( $hook_suffix ) {
     act_maps_enqueue_script( 'act_maps-edit-WW',        'editors/WW.js',               array('jquery', 'act-maps-namevalueeditor'));
 }
 function act_maps_edit_page() {
+error_log('In act_maps_edit_page');
     $current_screen = get_current_screen();
     $screen_id = $current_screen->id;   
     //echo '<p>'.$screen_id,'</p>';
@@ -307,7 +389,7 @@ function act_maps_edit_page() {
         return;
     }
 
-    if (!current_user_can($list_data['role'])) {
+    if (! act_map_check_list_access($list_id)){
         echo '<h2>You do not have permission to access this page.</h2>';
         return;
     }

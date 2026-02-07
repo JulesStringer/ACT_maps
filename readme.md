@@ -170,7 +170,10 @@ This is modelled on the Wildlife Wardens Map.
 + Need load forms for CC spreadsheet, Parish progress spreadsheet.
 
 # New in this release
-## 24/9/2024
+## 07/2/2026
++ ACT Maps permissions option added to admin dashboard for administrator, which enables a comma separated list of
+  additional editors to be specified for the WW and CC lists. If a user is added to the list for a map type, they can edit the associated list.
+## 24/9/2025
 + Numerous improvements to the positioning of popup when the map is clicked on including ensuring that map doesn't pan when popup is displayed for a feature near the screen edge.
 + twomaps zooms so the first layer just fits the screen reqardless of screen size
 + full height map now more effective at occupying the screen 
